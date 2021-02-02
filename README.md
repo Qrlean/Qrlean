@@ -20,4 +20,4 @@ Plataforma fácil e intuitiva para la gestión de la asistencia a las clases que
 Inexistencia de plataforma enfocadas a la gestión de la asistencia que proporcionen una orientación e interfaz intuitiva para el usuario.
 
 # Pagina web
-[Click aquí](http://qrlean.netlify.app "Page")
+[Click aquí](https://sites.google.com/misena.edu.co/qrlean/inicio "Page")
