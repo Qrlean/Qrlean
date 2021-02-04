@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2021-12-08" view-index="1" gantt-divider-location="539" resource-divider-location="660" version="2.8.11" locale="es">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="203" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="153" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="164" order="2"/>
+        <option id="color.recent"><![CDATA[#33ffff #ffff00 #ff00ff #666666 #009999 #f4f4f4 #3333ff #33ff33]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="72" order="0"/>
+        <field id="1" name="Función" width="84" order="1"/>
+        <field id="tpc0" name="Nombres y Apellidos" width="81" order="2"/>
+        <field id="tpc6" name="E-mail" width="63" order="3"/>
+        <field id="tpc4" name="Tipo de documento" width="63" order="4"/>
+        <field id="tpc5" name="Numero de documento" width="63" order="5"/>
+        <field id="tpc7" name="Direccion" width="63" order="6"/>
+        <field id="tpc1" name="Rate" width="56" order="7"/>
+        <field id="tpc2" name="Perfil" width="56" order="8"/>
+        <field id="tpc3" name="Dispositivo" width="55" order="9"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="317" name="1.Fase de planificación." color="#33ffff" meeting="false" start="2020-08-13" duration="57" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+            <task id="326" name="Determinación y delimitación del ambito del proyecto." color="#8cb6ce" meeting="false" start="2020-08-13" duration="20" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+                <depend id="331" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="331" name="Estudio de viabilidad." color="#8cb6ce" meeting="false" start="2020-09-10" duration="15" complete="0" thirdDate="2020-08-17" thirdDate-constraint="0" expand="true">
+                <depend id="333" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="333" name="Creación de objetivos y problema." color="#8cb6ce" meeting="false" start="2020-10-01" duration="11" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+                <depend id="341" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="341" name="Estimación del costo." color="#8cb6ce" meeting="false" start="2020-10-16" duration="11" complete="0" thirdDate="2020-08-25" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="320" name="2.Fase de análisis." color="#33ffff" meeting="false" start="2020-11-02" duration="84" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+            <task id="337" name="Definición de requisitos." color="#8cb6ce" meeting="false" start="2020-11-02" duration="15" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+                <depend id="339" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="339" name="Definición de casos de uso." color="#8cb6ce" meeting="false" start="2020-11-23" duration="6" complete="0" thirdDate="2020-09-02" thirdDate-constraint="0" expand="true">
+                <depend id="342" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="342" name="Prototipos de interfaz" color="#8cb6ce" meeting="false" start="2020-12-01" duration="40" complete="0" thirdDate="2020-09-04" thirdDate-constraint="0" expand="true">
+                <depend id="362" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="362" name="Diseño de diagrama de casos de uso extendidos." color="#8cb6ce" meeting="false" start="2021-01-26" duration="9" complete="0" thirdDate="2020-09-08" thirdDate-constraint="0" expand="true">
+                <depend id="322" type="2" difference="0" hardness="Strong"/>
+                <depend id="363" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="363" name="Diseño de formato de casos de uso." color="#8cb6ce" meeting="false" start="2021-02-08" duration="14" complete="0" thirdDate="2024-11-11" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="322" name="3.Fase de diseño." color="#33ffff" meeting="false" start="2021-02-26" duration="47" complete="6" thirdDate="2020-09-14" thirdDate-constraint="0" expand="true">
+            <task id="355" name="Diseño de diagrama de distribución." meeting="false" start="2021-02-26" duration="7" complete="0" expand="true">
+                <depend id="356" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="356" name="Diseño de modelo entidad relación." color="#8cb6ce" meeting="false" start="2021-03-09" duration="13" complete="0" thirdDate="2020-09-17" thirdDate-constraint="0" expand="true">
+                <depend id="359" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="359" name="Diseño de diagrama de clases." meeting="false" start="2021-03-26" duration="11" complete="0" expand="true">
+                <depend id="360" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="360" name="Diseño de diagrama de Gantt" color="#8cb6ce" meeting="false" start="2021-04-12" duration="13" complete="0" thirdDate="2020-09-23" thirdDate-constraint="0" expand="true">
+                <depend id="383" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="383" name="Diseño de mapas BPMN." color="#8cb6ce" meeting="false" start="2021-04-29" duration="3" complete="100" thirdDate="2020-09-25" thirdDate-constraint="0" expand="true">
+                <depend id="371" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="323" name="4.Fase de desarrollo." color="#33ffff" meeting="false" start="2021-05-04" duration="81" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+            <task id="371" name="Requisito funcional 1 (autentificación)." meeting="false" start="2021-05-04" duration="11" complete="0" expand="true">
+                <depend id="372" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="372" name="Requisito funcional 2 (gestión de usuarios)." color="#8cb6ce" meeting="false" start="2021-05-19" duration="6" complete="0" thirdDate="2020-10-02" thirdDate-constraint="0" expand="true">
+                <depend id="373" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="373" name="Requisito funcional 3 (gestión de fichas)." meeting="false" start="2021-05-27" duration="4" complete="0" expand="true">
+                <depend id="374" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="374" name="Requisito funcional 4 (gestión de clases)." meeting="false" start="2021-06-02" duration="9" complete="0" expand="true">
+                <depend id="375" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="375" name="Requisito funcional 5 (visualización de gráficas)" meeting="false" start="2021-06-15" duration="7" complete="0" expand="true">
+                <depend id="376" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="376" name="Requisito funcional 6 (registro de asistencia vía qr)." meeting="false" start="2021-06-24" duration="3" complete="0" expand="true">
+                <depend id="382" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="382" name="Requisito funcional 7 (gestion de solicitudes de cambio de asistencia)." meeting="false" start="2021-06-29" duration="5" complete="0" expand="true">
+                <depend id="381" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="381" name="Requisito funcional 8 (visualización de historial de asistencias)." meeting="false" start="2021-07-06" duration="7" complete="0" expand="true">
+                <depend id="380" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="380" name="Requisito funcional 9 (añadir constraseña a la cuenta)" meeting="false" start="2021-07-15" duration="9" complete="0" expand="true">
+                <depend id="378" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="378" name="Requisito funcional 10 (recuperacion de contraseña)." color="#8cb6ce" meeting="false" start="2021-07-28" duration="20" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+                <depend id="367" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="324" name="5.Fase de pruebas." color="#33ffff" meeting="false" start="2021-08-25" duration="45" complete="0" thirdDate="2020-11-23" thirdDate-constraint="0" expand="true">
+            <task id="367" name="Plan de pruebas." meeting="false" start="2021-08-25" duration="15" complete="0" expand="true">
+                <depend id="368" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="368" name="Pruebas unitarias." color="#8cb6ce" meeting="false" start="2021-09-15" duration="14" complete="0" thirdDate="2002-11-27" thirdDate-constraint="0" expand="true">
+                <depend id="369" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="369" name="Pruebas de integración." meeting="false" start="2021-10-05" duration="16" complete="0" expand="true">
+                <depend id="370" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="325" name="6.Fase de implemetación-despliegue." color="#33ffff" meeting="false" start="2021-10-27" duration="43" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+            <task id="370" name="Integración de producción." meeting="false" start="2021-10-27" duration="43" complete="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources>
+        <custom-property-definition id="tpc0" name="Nombres y Apellidos" type="text"/>
+        <custom-property-definition id="tpc1" name="Rate" type="text"/>
+        <custom-property-definition id="tpc2" name="Perfil" type="text"/>
+        <custom-property-definition id="tpc3" name="Dispositivo" type="text"/>
+        <custom-property-definition id="tpc4" name="Tipo de documento" type="text"/>
+        <custom-property-definition id="tpc5" name="Numero de documento" type="text"/>
+        <custom-property-definition id="tpc6" name="E-mail" type="text"/>
+        <custom-property-definition id="tpc7" name="Direccion" type="text"/>
+        <resource id="0" name="Encargado del proyecto" function="SoftwareDevelopment:2" contacts="" phone="">
+            <custom-property definition-id="tpc7" value="cra 33 b sur"/>
+            <custom-property definition-id="tpc5" value="1001658796"/>
+            <custom-property definition-id="tpc6" value="cgarcia369@misena.edu.co"/>
+            <custom-property definition-id="tpc3" value="PC HP"/>
+            <custom-property definition-id="tpc4" value="Cedula de ciudadania"/>
+            <custom-property definition-id="tpc1" value="100.000"/>
+            <custom-property definition-id="tpc2" value="Bachiller Tecnico"/>
+            <custom-property definition-id="tpc0" value="Camilo Garcia"/>
+        </resource>
+        <resource id="1" name="Encargado del proyecto" function="SoftwareDevelopment:2" contacts="" phone="">
+            <custom-property definition-id="tpc7" value="cra 18 A sur"/>
+            <custom-property definition-id="tpc5" value="1000352479"/>
+            <custom-property definition-id="tpc6" value="bagutierrez312@misena.edu.co"/>
+            <custom-property definition-id="tpc3" value="PC PCK"/>
+            <custom-property definition-id="tpc4" value="Cedula de ciudadania"/>
+            <custom-property definition-id="tpc1" value="100.000"/>
+            <custom-property definition-id="tpc2" value="Bachiller Tecnico"/>
+            <custom-property definition-id="tpc0" value="Andres Gutierrez"/>
+        </resource>
+        <resource id="2" name="Encargado del proyecto" function="SoftwareDevelopment:2" contacts="" phone="">
+            <custom-property definition-id="tpc7" value="cra 36-58 sur"/>
+            <custom-property definition-id="tpc5" value="1007654821"/>
+            <custom-property definition-id="tpc6" value="jssalazar30@misena.edu.co"/>
+            <custom-property definition-id="tpc3" value="PC - Movil"/>
+            <custom-property definition-id="tpc4" value="Cedula de ciudadania"/>
+            <custom-property definition-id="tpc1" value="100.000"/>
+            <custom-property definition-id="tpc2" value="Bachiller"/>
+            <custom-property definition-id="tpc0" value="Sebastian Salazar"/>
+        </resource>
+        <resource id="3" name="Encargado del proyecto" function="SoftwareDevelopment:2" contacts="" phone="">
+            <custom-property definition-id="tpc7" value="cra 74 n sur"/>
+            <custom-property definition-id="tpc5" value="1001000020"/>
+            <custom-property definition-id="tpc6" value="jsrodriguez890@misena.edu.co"/>
+            <custom-property definition-id="tpc3" value="PC - Movil"/>
+            <custom-property definition-id="tpc4" value="Cedula de ciudadania"/>
+            <custom-property definition-id="tpc1" value="100.000"/>
+            <custom-property definition-id="tpc2" value="Bachiller"/>
+            <custom-property definition-id="tpc0" value="Jhon Cuburuco"/>
+        </resource>
+    </resources>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
