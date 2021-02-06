@@ -1,0 +1,39 @@
+{
+  "name": "qrlean",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@nivo/bar": "^0.67.0",
+    "@nivo/bump": "^0.67.0",
+    "@nivo/calendar": "^0.67.0",
+    "@nivo/core": "^0.67.0",
+    "@nivo/pie": "^0.67.0",
+    "@svgr/webpack": "^5.5.0",
+    "autoprefixer": "^10.2.3",
+    "babel-runtime": "^6.26.0",
+    "dateformat": "^4.5.1",
+    "formik": "^2.2.6",
+    "framer-motion": "^3.2.2-rc.1",
+    "hamburger-react": "^2.4.0",
+    "next": "10.0.5",
+    "postcss": "^8.2.4",
+    "react": "17.0.1",
+    "react-avatar": "^3.9.7",
+    "react-collapsible": "^2.8.2",
+    "react-contextmenu": "^2.14.0",
+    "react-datepicker": "^3.4.1",
+    "react-dom": "17.0.1",
+    "react-loader-spinner": "^3.1.14",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-player": "^2.8.1",
+    "react-plx": "^1.3.16",
+    "scroll-data-hook": "^1.0.4",
+    "tailwindcss": "^2.0.2",
+    "yup": "^0.32.8"
+  }
+}
