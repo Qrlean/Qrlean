@@ -128,7 +128,6 @@ SELECT * FROM qrlean.departamentos;
 
 /*Insertar ciudades*/
 INSERT INTO Qrlean.ciudades (nombre_ciudad,id_departamento) VALUES ('Bogotá',15),('Medellín',2),('Santiago_de_Cali',31),('Barranquilla',4),('Cartagena',5),('San_Jose_de_Cucuta',23),('Bucaramanga',28),('Soledad',4),('Ibagué',30),('Soacha',14),('Pereira',26),('Santa_Marta',20),('Villavicencio',21),('Bello',2),('Valledupar',11),('Pasto',22),('Buenaventuta',31),('Montería',13),('Manizales',7);
-/*SELECT ciudades.id_ciudad,ciudades.nombre_ciudad,departamentos.nombre_departamento FROM qrlean.ciudades INNER JOIN qrlean.departamentos ON ciudades.id_departamento=departamentos.id_departamento ;*/
 
 INSERT INTO Programas(nombre_programa) VALUES ('Contabilidad y finanzas'),('Gestiîn administrativa'),('Gestion bancaria y de entidades financieras'),('Gestion de negocios'),('Gestion empresarial'),('Gestion empresarial'),('Mecanico de maquinaria industrial');
 SELECT * from qrlean.programas;
@@ -147,7 +146,7 @@ SELECT * from qrlean.Tipo_documento;
 
 INSERT INTO Ficha(id_programa) VALUES (1),(2),(3),(4),(5);
 SELECT * from qrlean.ficha;
-/*SELECT ficha.id_ficha,programas.nombre_programa FROM qrlean.ficha INNER JOIN qrlean.programas ON ficha.id_programa=programas.id_programa;*/
+
 
 INSERT INTO Usuarios(nombres_usuario,apellidos_usuario,numero_documento,id_tipo_documento,id_tipo_rol,password,direccion_recidencial,id_ciudad,telefono_movil) VALUES 
 ('Hedda', 'Reuss', 8250167828,1,1,'a4322fda0d314e2d4e242b46fe76118d', '4094 East Road',1, 3270821745),
@@ -168,16 +167,7 @@ SELECT * FROM qrlean.correos;
 INSERT INTO Asociacion_usuarios_fichas(id_usuario,id_ficha) VALUES (1,1),(2,1),(3,2),(4,2),(5,3),(6,3),(7,4),(8,4),(9,5),(2,5);
 SELECT * FROM qrlean.Asociacion_usuarios_fichas;
 
-SELECT usuarios.id_usuario,usuarios.nombres_usuario,usuarios.apellidos_usuario,usuarios.numero_documento,usuarios.password,usuarios.direccion_recidencial,usuarios.telefono_movil,tipo_documento.descripcion as TipoDocumento ,correos.email as Correo , tipo_roles.nombre_rol AS Rol , Ciudades.nombre_ciudad as Ciudad ,departamentos.nombre_departamento as Departamento ,asociacion_usuarios_fichas.id_ficha As NumeroFicha,programas.nombre_programa as NombrePrograma FROM qrlean.usuarios
-	INNER JOIN qrlean.Tipo_documento ON usuarios.id_tipo_documento=tipo_documento.id_tipo_documento
-    INNER JOIN qrlean.Correos ON usuarios.id_usuario=correos.id_usuario
-    INNER JOIN qrlean.tipo_roles ON usuarios.id_tipo_rol=tipo_roles.id_tipo_rol
-    INNER JOIN qrlean.ciudades ON usuarios.id_ciudad=ciudades.id_ciudad
-    INNER JOIN qrlean.departamentos ON ciudades.id_departamento=departamentos.id_departamento
-    INNER JOIN qrlean.asociacion_usuarios_fichas ON usuarios.id_usuario=asociacion_usuarios_fichas.id_usuario
-    INNER JOIN qrlean.ficha ON asociacion_usuarios_fichas.id_ficha=ficha.id_ficha
-    INNER JOIN qrlean.programas ON ficha.id_programa=programas.id_programa
-    ORDER BY usuarios.id_usuario;
+
 
 INSERT INTO Solicitudes_cambio_asistencia(asunto,contenido,id_aprendiz,id_instructor,id_ficha) VALUES 
 ('Lorem ipsum dolor','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et laoreet nisl. Phasellus viverra turpis ligula, eu lobortis diam venenatis in. Mauris gravida mauris vel iaculis viverra. Etiam eu lacus ex. Nam rutrum dolor euismod nisl commodo, vitae viverra lorem convallis. Suspendisse faucibus metus leo, vitae mattis purus vehicula quis. Nam egestas porttitor tristique. Nunc vitae erat eu massa maximus porta. Donec tincidunt, leo accumsan consequat porttitor, augue justo euismod sem, ac luctus tortor nulla accumsan quam. Sed sollicitudin sapien nec nunc faucibus ullamcorper.',1,2,1),
@@ -196,6 +186,43 @@ Select * from qrlean.clase;
 INSERT INTO Asistencias(id_tipo_asistencia,id_aprendiz,id_clase) VALUES (1,1,1);
 Select * from qrlean.asistencias;
 
+
+
+
+/* ==== Ver las materias que hay ====*/
+SELECT asociacion_asignaturas.id_asociacion_asignatura AS id ,tipo_asignaturas.nombre_asignatura,ficha.id_ficha,usuarios.nombres_usuario AS NombresInstructor, usuarios.apellidos_usuario AS ApellidosInstructor from qrlean.asociacion_asignaturas
+	INNER JOIN qrlean.tipo_asignaturas ON tipo_asignaturas.id_tipo_asignatura = asociacion_asignaturas.id_tipo_asignatura
+	INNER JOIN qrlean.ficha ON ficha.id_ficha = asociacion_asignaturas.id_ficha
+    INNER JOIN qrlean.usuarios ON usuarios.id_usuario = asociacion_asignaturas.id_instructor
+;
+
+/* ==== Traer la informacion de una ficha ==== */
+
+SELECT ficha.id_ficha,programas.nombre_programa FROM qrlean.ficha 
+INNER JOIN qrlean.programas ON ficha.id_programa=programas.id_programa;
+
+/* ==== Traer toda la informacion de una ciudad*/
+
+SELECT ciudades.id_ciudad,ciudades.nombre_ciudad,departamentos.nombre_departamento FROM qrlean.ciudades INNER JOIN qrlean.departamentos ON ciudades.id_departamento=departamentos.id_departamento ;
+
+/* ==== Traer toda la informacion de una asistencia ==== */
+
+SELECT asistencias.id_asistencia,asistencias.id_aprendiz,asistencias.hora_firmada,clase.nombre_clase,clase.dia,clase.hora_inicio,clase.hora_final,tipo_asistencias.nombre_tipo_asistencia AS TipoAsistencia FROM qrlean.asistencias 
+	INNER JOIN qrlean.clase ON asistencias.id_clase = clase.id_clase
+	INNER JOIN qrlean.tipo_asistencias ON asistencias.id_tipo_asistencia = tipo_asistencias.id_tipo_asistencia;
+    
+/* ==== Traer toda la informacion de un usuario ==== */
+SELECT usuarios.id_usuario,usuarios.nombres_usuario,usuarios.apellidos_usuario,usuarios.numero_documento,usuarios.password,usuarios.direccion_recidencial,usuarios.telefono_movil,tipo_documento.descripcion as TipoDocumento ,correos.email as Correo , tipo_roles.nombre_rol AS Rol , Ciudades.nombre_ciudad as Ciudad ,departamentos.nombre_departamento as Departamento ,asociacion_usuarios_fichas.id_ficha As NumeroFicha,programas.nombre_programa as NombrePrograma FROM qrlean.usuarios
+	INNER JOIN qrlean.Tipo_documento ON usuarios.id_tipo_documento=tipo_documento.id_tipo_documento
+    INNER JOIN qrlean.Correos ON usuarios.id_usuario=correos.id_usuario
+    INNER JOIN qrlean.tipo_roles ON usuarios.id_tipo_rol=tipo_roles.id_tipo_rol
+    INNER JOIN qrlean.ciudades ON usuarios.id_ciudad=ciudades.id_ciudad
+    INNER JOIN qrlean.departamentos ON ciudades.id_departamento=departamentos.id_departamento
+    INNER JOIN qrlean.asociacion_usuarios_fichas ON usuarios.id_usuario=asociacion_usuarios_fichas.id_usuario
+    INNER JOIN qrlean.ficha ON asociacion_usuarios_fichas.id_ficha=ficha.id_ficha
+    INNER JOIN qrlean.programas ON ficha.id_programa=programas.id_programa
+    ORDER BY usuarios.id_usuario;
+/*
 SET FOREIGN_KEY_CHECKS = 0; 
 TRUNCATE table qrlean.Asociacion_asignaturas; 
-SET FOREIGN_KEY_CHECKS = 1;
+SET FOREIGN_KEY_CHECKS = 1;*/
