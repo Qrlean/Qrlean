@@ -33,13 +33,28 @@ const Ficha = () => {
             <svg  viewBox="0 0 20 20" fill="black" className="cursor-pointer   top-0 left-0 absolute  w-10 h-10 fill-current text-gray-800 m-4" onClick={()=>router.push('/dashboard/instructor/fichas')} style={{zIndex:999}}>
                 <path d="M11.739,13.962c-0.087,0.086-0.199,0.131-0.312,0.131c-0.112,0-0.226-0.045-0.312-0.131l-3.738-3.736c-0.173-0.173-0.173-0.454,0-0.626l3.559-3.562c0.173-0.175,0.454-0.173,0.626,0c0.173,0.172,0.173,0.451,0,0.624l-3.248,3.25l3.425,3.426C11.911,13.511,11.911,13.789,11.739,13.962 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.148,3.374,7.521,7.521,7.521C14.147,17.521,17.521,14.148,17.521,10"></path>
             </svg>
-
             <div className="col-span-4 xl:col-span-3 w-full lg:w-auto h-auto flex flex-col flex-start items-center overflow-y-visible xl:overflow-y-auto relative">
-                <svg onClick={()=> router.push('/dashboard/instructor/fichas/[ficha]/[materia]',`/dashboard/instructor/fichas/${router.query.ficha}/${"Ingles"}`)} xmlns="http://www.w3.org/2000/svg" className="m-4 top-0 right-0 absolute cursor-pointer fill-current text-gray-800 h-10 w-10" viewBox="0 0 16 16">
-                    <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                </svg>
-                <h1 className="text-center mx-auto text-4xl text-gray-800 my-8  border-b-2 border-orange-500 ">Ficha 2141041</h1>
+                
+                <div className="w-full lg:w-11/12 flex flex-row justify-center items-center ">
+                    <h1 className="flex-1 text-center text-4xl text-gray-800 my-8 mx-4">Ficha 2141041</h1>
+
+                    <div className="flex flex-col justify-center items-center mx-2" onClick={()=> router.push('/dashboard/instructor/fichas/[ficha]/solicitudes',`/dashboard/instructor/fichas/${router.query.ficha}/solicitudes`)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className=" cursor-pointer fill-current text-gray-800 h-8 w-8" viewBox="0 0 16 16">
+                            <path d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708z"/>
+                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+                            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+                        </svg>
+                        <p className="text-sm text-gray-800 text-center">Gestionar solicitudes.</p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center mx-3">
+                        <svg onClick={()=> router.push('/dashboard/instructor/fichas/[ficha]/[materia]',`/dashboard/instructor/fichas/${router.query.ficha}/${"Ingles"}`)} xmlns="http://www.w3.org/2000/svg" className=" cursor-pointer fill-current text-gray-800 h-8 w-8" viewBox="0 0 16 16">
+                            <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                        </svg>
+                        <p className="text-sm text-gray-800 text-center">Gestionar clases.</p>
+                    </div>
+                    
+                </div>
                 <h1 className="text-left mb-3 text-base text-gray-600" style={{width:"83.333334%"}}>Gráfica general.</h1>
                 <div className="flex flex-row justify-center items-center w-11/12 md:w-full h-full flex-wrap">
                     <div className="h-96  overflow-none rounded-lg shadow-lg md:mx-2 w-full md:w-5/12 " style={{border: "1px solid rgba(31, 41, 55,1)"}}>

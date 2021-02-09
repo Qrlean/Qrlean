@@ -30,10 +30,10 @@ const InicioAdmin = () => {
                 <DashboardAdminHelp className="transform rotate-90 sm:rotate-0"></DashboardAdminHelp>
             </Modal>
             <PerfectScrollbar className="h-full grid grid-cols-2 relative">
-                <motion.svg  whileHover="hover" variants={infoVariants} viewBox="0 0 16 16" className="left-0 top-0 absolute w-10 h-10 fill-current text-gray-700 m-4" xmlns="http://www.w3.org/2000/svg" onClick={()=>setHelp(true)} style={{zIndex:99}}>
+                {/* <motion.svg  whileHover="hover" variants={infoVariants} viewBox="0 0 16 16" className="left-0 top-0 absolute w-10 h-10 fill-current text-gray-700 m-4" xmlns="http://www.w3.org/2000/svg" onClick={()=>setHelp(true)} style={{zIndex:99}}>
                         <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
                         <circle cx="8" cy="4.5" r="1"/>
-                </motion.svg>
+                </motion.svg> */}
                 {/* //COLUMNA 1 - PERSONAS */}
                 <div  className="flex flex-col justify-center items-center  bg-deeppink-200 col-span-2 sm:col-span-2 lg:col-span-1 h-screen lg:h-auto relative">
                     <div className="flex flex-col justify-center items-center">
