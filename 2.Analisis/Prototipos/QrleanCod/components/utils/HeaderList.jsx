@@ -24,7 +24,7 @@ const HeaderList = ({setHeaderOptions}) => {
             </svg>
             <motion.div initial="initial" animate="show" variants={divVariants} className="my-8">
                 <Link href="/"><motion.h3 variants={itemVariants} className="text-white text-3xl font-semibold mx-5 cursor-pointer">Inicio</motion.h3></Link>
-                <Link href="/login"><motion.h3 variants={itemVariants} className="text-white text-3xl font-semibold mx-5 cursor-pointer">Login</motion.h3></Link>
+                <Link href="/login"><motion.h3 variants={itemVariants} className="text-white text-3xl font-semibold mx-5 cursor-pointer">Iniciar sesión</motion.h3></Link>
             </motion.div>
         </motion.div>
     );

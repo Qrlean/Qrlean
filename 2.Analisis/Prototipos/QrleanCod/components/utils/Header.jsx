@@ -36,7 +36,7 @@ const Header = ({forceBackground}) => {
                 {/* NAVEGACION */}
                 <motion.div className="flex-row justify-end items-center flex-1 mx-8 hidden md:flex lg:flex xl:flex " initial="initial" animate="show" variants={wordList}>
                     <Link href="/"><h3 className={`text-white text-xl font-semibold mx-5 cursor-pointer`}>Inicio</h3></Link>
-                    <Link href="/login"><h3 className={`text-white text-xl font-semibold mx-5 cursor-pointer`}>Login</h3></Link>
+                    <Link href="/login"><h3 className={`text-white text-xl font-semibold mx-5 cursor-pointer`}>Iniciar sesión</h3></Link>
                 </motion.div>
             </motion.div>
         </>
