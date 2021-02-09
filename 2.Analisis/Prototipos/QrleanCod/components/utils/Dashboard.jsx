@@ -71,6 +71,7 @@ const Dashboard = (props) => {
     const [menu ,setMenu] = useState(false)
     const [opc,setOpc]= useState(false)
     const bgColor = "bg-gray-800"
+    const [user,setUser] = useState('aprendiz')
     return (
         <>
             <AnimatePresence>
@@ -100,14 +101,6 @@ const Dashboard = (props) => {
                             <AnimatePresence>
                                 {opc ?
                                     <motion.div animate="show" initial="initial" exit="unshow" variants={opcVariants} className="flex flex-col justify-center w-full overflow-hidden bg-gray-700 shadow-lg bg-opacity-75">
-                                        <Link href="/dashboard/admin/perfil" >
-                                            <div className="flex flex-row items-center m-1 mx-auto p-1 ">
-                                                <svg className="w-6 mx-2 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775 M3.415,17.69c0.218-3.51,3.142-6.297,6.704-6.297c3.562,0,6.486,2.787,6.705,6.297H3.415z"></path>
-                                                </svg>
-                                                <h5 className="text-base font-semibold">Perfil</h5>
-                                            </div>
-                                        </Link>
                                         <Link href="/" className="flex flex-row items-center m-1 mx-auto p-1">
                                             <div className="flex flex-row items-center m-1 mx-auto p-1 ">
                                                 <svg className="w-6 mx-2 fill-current" viewBox="0 0 20 20">
@@ -125,13 +118,13 @@ const Dashboard = (props) => {
                         <div className="w-full flex flex-col items-center">
                             
                             <div className="flex flex-col justify-center h-full">
-                                <Link className="flex flex-row items-center rounded-lg" href="/dashboard/admin">
-                                    <>
+                                <Link className="flex flex-row items-center rounded-lg cursor-pointe" href={`/dashboard/${user}`}>
+                                    <div>
                                     <svg className="w-8 mx-auto text-center fill-current" viewBox="0 0 20 20">
                                         <path d="M17.896,12.706v-0.005v-0.003L15.855,2.507c-0.046-0.24-0.255-0.413-0.5-0.413H4.899c-0.24,0-0.447,0.166-0.498,0.4L2.106,12.696c-0.008,0.035-0.013,0.071-0.013,0.107v4.593c0,0.28,0.229,0.51,0.51,0.51h14.792c0.28,0,0.51-0.229,0.51-0.51v-4.593C17.906,12.77,17.904,12.737,17.896,12.706 M5.31,3.114h9.625l1.842,9.179h-4.481c-0.28,0-0.51,0.229-0.51,0.511c0,0.703-1.081,1.546-1.785,1.546c-0.704,0-1.785-0.843-1.785-1.546c0-0.281-0.229-0.511-0.51-0.511H3.239L5.31,3.114zM16.886,16.886H3.114v-3.572H7.25c0.235,1.021,1.658,2.032,2.75,2.032c1.092,0,2.515-1.012,2.749-2.032h4.137V16.886z"></path>
                                     </svg>
-                                    <motion.h1 className="cursor-pointer text-center mx-auto  text-base font-semibold">Inicio</motion.h1>
-                                    </>
+                                    <motion.h1 className="text-center mx-auto  text-base font-semibold">Inicio</motion.h1>
+                                    </div>
                                 </Link>
                             </div>
                         </div>
