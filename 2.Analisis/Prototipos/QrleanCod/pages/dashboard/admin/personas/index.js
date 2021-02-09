@@ -22,7 +22,7 @@ const infoVariants={
 const ManagerUsuarios = () => {
 
     const instructores = [
-        {_id:1,nombre:'Camilo Garcia',documento:'12341234',tipo_documento:'CC',direccion:'crra 5 abis #48 r 08',email:'cgarcia369@misena.edu.co',telefono:'3193617146',rol:'Instructor'},
+        {_id:1,nombre:'Graciela',documento:'12341234',tipo_documento:'CC',direccion:'crra 5 abis #48 r 08',email:'cgarcia369@misena.edu.co',telefono:'3193617146',rol:'Instructor'},
         {_id:2,nombre:'Camilo Garcia',documento:'12341234',tipo_documento:'CC',direccion:'crra 5 abis #48 r 08',email:'cgarcia369@misena.edu.co',telefono:'3193617146',rol:'Instructor'},
         {_id:3,nombre:'Camilo Garcia',documento:'12341234',tipo_documento:'CC',direccion:'crra 5 abis #48 r 08',email:'cgarcia369@misena.edu.co',telefono:'3193617146',rol:'Instructor'},
         {_id:4,nombre:'Camilo Garcia',documento:'12341234',tipo_documento:'CC',direccion:'crra 5 abis #48 r 08',email:'cgarcia369@misena.edu.co',telefono:'3193617146',rol:'Instructor'},
@@ -55,7 +55,7 @@ const ManagerUsuarios = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" className=" px-3 h-full fill-current text-gray-800 " viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"/>
                         </svg>
-                        <button onClick={()=> router.push('/dashboard/admin/personas/crear')} className="outline-none bg-orange-300 rounded-lg text-xl text-gray-800 px-2 shadow-lg">Nueva persona.</button>
+                        <button onClick={()=> router.push('/dashboard/admin/personas/crear')} className="outline-none bg-orange-300 rounded-lg text-xl text-gray-800 px-2 shadow-lg">Registrar nueva persona.</button>
 
                     </div>
                 </div>
