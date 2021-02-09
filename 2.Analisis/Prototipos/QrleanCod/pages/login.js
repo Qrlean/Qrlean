@@ -99,7 +99,7 @@ const Login = () => {
                             </AnimatePresence>
                             <input type="password" placeholder="Ingrese una contraseña" name="password" onChange={formik.handleChange} value={formik.values.password} className="outline-none bg-gray-300 p-3  text-gray-800 my-2 "/>
                             <button type={formik.isValid && "submit"} className={formik.isValid && formik.values.documento !== '' && formik.values.tipo_doc !== '' && formik.values.password !== '' ? "bg-orange-500 outline-none p-3 text-white text-base font-extrabold my-2 ":"bg-gray-600 outline-none p-3 text-white text-base font-extrabold my-2 cursor-not-allowed"}>Ingresar</button>
-                            <p className="text-gray-800 text-base text-right ">¿Olvidaste tu contraseña?</p>
+                            <p className="text-gray-800 text-base text-right " onClick={()=> router.push('/passwordrecover')}>¿Olvidaste tu contraseña?</p>
                         </>
                         
                     </div>
