@@ -5,7 +5,7 @@ import {useRouter} from 'next/router'
 import {motion} from 'framer-motion'
 import ItemPersonaAsistencia from '../../../../../components/layout/fichas/ItemPersonaAsistencia'
 import Dashboard from '../../../../../components/utils/Dashboard'
-import ItemLista from '../../../../../components/layout/fichas/ItemLista'
+import ItemListaAdmin from '../../../../../components/layout/fichas/ItemListaAdmin'
 import ItemMaterias from '../../../../../components/layout/fichas/ItemMaterias'
 import { ResponsivePie } from '@nivo/pie'
 // import { ResponsiveAreaBump } from '@nivo/bump'
@@ -97,7 +97,7 @@ const Ficha = () => {
             <div className="xl:col-span-1 col-span-4 bg-gray-200 shadow-lg h-auto w-full flex flex-col items-center overflow-y-visible xl:overflow-y-auto">
             <h1 className="text-gray-800 text-2xl my-4 text-center font-semibold">Personas</h1>
             {[1,2,3,4,5,6,7,8,9,10].map((value)=>(
-                <ItemLista></ItemLista>
+                <ItemListaAdmin></ItemListaAdmin>
             ))}
             </div>
         </div>
