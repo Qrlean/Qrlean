@@ -147,7 +147,7 @@ const CrearClase = () => {
                         />
                     </div>
 
-                    <button className={formik.isValid && formik.values.nombre !== '' ? "bg-red-500 rounded w-11/12 outline-none p-3 text-white text-base font-extrabold mx-auto my-6 ":"bg-red-300 rounded w-11/12 mx-auto outline-none p-3 text-white text-base font-extrabold my-6 cursor-not-allowed"} type={formik.isValid && "submit"} >
+                    <button className={formik.isValid && formik.values.nombre !== ''&& formik.values.dia !== ''&& formik.values.hora_inicio  !== '' && formik.values.hora_inicio !== '' ? "bg-red-500 rounded w-11/12 outline-none p-3 text-white text-base font-extrabold mx-auto my-6 ":"bg-red-300 rounded w-11/12 mx-auto outline-none p-3 text-white text-base font-extrabold my-6 cursor-not-allowed"} type={formik.isValid && "submit"} >
                         {
                             loader ?
                                 <div className="flex flex-row justify-center items-center">
