@@ -62,7 +62,7 @@ const Login = () => {
         validationSchema
     })
     return (
-        <div className="w-full h-screen " style={{backgroundImage: "url('https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557396_960_720.jpg')",backgroundSize: "cover",backgroundRepeat: "no-repeat" }}>
+        <div className="w-full h-screen " style={{backgroundImage: "https://archivos.territorio.la/archivos/clases/2020n08n18n11n37n26nWindow___645f3c05ba7afe2___.png",backgroundSize: "cover",backgroundRepeat: "no-repeat" }}>
             <div className="w-full h-full bg-gray-800 bg-opacity-50 flex flex-col justify-center items-center">
                     
                 <form onSubmit={formik.handleSubmit} className="w-11/12 lg:w-1/3 xl:w-1/3 bg-white rounded-lg " style={{height:"95%"}}>
