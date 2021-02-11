@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2020-05-17" view-index="0" gantt-divider-location="539" resource-divider-location="660" version="2.8.11" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2021-05-01" view-index="0" gantt-divider-location="625" resource-divider-location="660" version="2.8.11" locale="en_US">
     <description/>
-    <view zooming-state="default:7" id="gantt-chart">
-        <field id="tpd3" name="Name" width="207" order="0"/>
-        <field id="tpd4" name="Begin date" width="159" order="1"/>
-        <field id="tpd5" name="End date" width="169" order="2"/>
+    <view zooming-state="default:8" id="gantt-chart">
+        <field id="tpd3" name="Name" width="420" order="0"/>
+        <field id="tpd4" name="Begin date" width="108" order="1"/>
+        <field id="tpd5" name="End date" width="93" order="2"/>
         <option id="color.recent"><![CDATA[#33ffff #ffff00 #ff00ff #666666 #009999 #f4f4f4 #3333ff #33ff33]]></option>
     </view>
     <view id="resource-table">
@@ -39,102 +39,146 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="317" name="1.Fase de planificación." color="#33ffff" meeting="false" start="2020-08-13" duration="57" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="false">
-            <task id="326" name="Determinación y delimitación del ambito del proyecto." color="#8cb6ce" meeting="false" start="2020-08-13" duration="20" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
-                <depend id="331" type="2" difference="0" hardness="Strong"/>
+        <task id="317" name="1.Fase de planificación." color="#33ffff" meeting="false" start="2020-08-13" duration="32" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="false">
+            <task id="387" name="1.1 Componente metodologico" meeting="false" start="2020-08-13" duration="22" complete="0" expand="false">
+                <task id="393" name="Nombre del proyecto" meeting="false" start="2020-08-13" duration="2" complete="0" expand="true">
+                    <depend id="390" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="390" name="Estudio de viabilidad." color="#8cb6ce" meeting="false" start="2020-08-17" duration="5" complete="0" thirdDate="2020-08-17" thirdDate-constraint="0" expand="true">
+                    <depend id="394" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="394" name="Planteamiento del problema" color="#8cb6ce" meeting="false" start="2020-08-24" duration="5" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+                    <depend id="389" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="389" name="Determinación, justificación y delimitación del ambito del proyecto." color="#8cb6ce" meeting="false" start="2020-08-31" duration="4" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+                    <depend id="391" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="391" name="Estimación del costo." color="#8cb6ce" meeting="false" start="2020-09-04" duration="2" complete="0" thirdDate="2020-08-25" thirdDate-constraint="0" expand="true">
+                    <depend id="396" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="396" name="Creación de objetivos." color="#8cb6ce" meeting="false" start="2020-09-08" duration="4" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+                    <depend id="397" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
-            <task id="331" name="Estudio de viabilidad." color="#8cb6ce" meeting="false" start="2020-09-10" duration="15" complete="0" thirdDate="2020-08-17" thirdDate-constraint="0" expand="true">
-                <depend id="333" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="333" name="Creación de objetivos y problema." color="#8cb6ce" meeting="false" start="2020-10-01" duration="11" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
-                <depend id="341" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="341" name="Estimación del costo." color="#8cb6ce" meeting="false" start="2020-10-16" duration="11" complete="0" thirdDate="2020-08-25" thirdDate-constraint="0" expand="true">
-                <depend id="337" type="2" difference="0" hardness="Strong"/>
-            </task>
-        </task>
-        <task id="320" name="2.Fase de análisis." color="#33ffff" meeting="false" start="2020-11-02" duration="84" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="false">
-            <task id="337" name="Definición de requisitos." color="#8cb6ce" meeting="false" start="2020-11-02" duration="15" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
-                <depend id="339" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="339" name="Definición de casos de uso." color="#8cb6ce" meeting="false" start="2020-11-23" duration="6" complete="0" thirdDate="2020-09-02" thirdDate-constraint="0" expand="true">
-                <depend id="342" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="342" name="Prototipos de interfaz" color="#8cb6ce" meeting="false" start="2020-12-01" duration="40" complete="0" thirdDate="2020-09-04" thirdDate-constraint="0" expand="true">
-                <depend id="362" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="362" name="Diseño de diagrama de casos de uso extendidos." color="#8cb6ce" meeting="false" start="2021-01-26" duration="9" complete="0" thirdDate="2020-09-08" thirdDate-constraint="0" expand="true">
-                <depend id="363" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="363" name="Diseño de formato de casos de uso." color="#8cb6ce" meeting="false" start="2021-02-08" duration="14" complete="0" thirdDate="2024-11-11" thirdDate-constraint="0" expand="true">
-                <depend id="355" type="2" difference="0" hardness="Strong"/>
-            </task>
-        </task>
-        <task id="322" name="3.Fase de diseño." color="#33ffff" meeting="false" start="2021-02-26" duration="47" complete="0" thirdDate="2020-09-14" thirdDate-constraint="0" expand="false">
-            <task id="355" name="Diseño de diagrama de distribución." meeting="false" start="2021-02-26" duration="7" complete="0" expand="true">
-                <depend id="356" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="356" name="Diseño de modelo entidad relación." color="#8cb6ce" meeting="false" start="2021-03-09" duration="13" complete="0" thirdDate="2020-09-17" thirdDate-constraint="0" expand="true">
-                <depend id="359" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="359" name="Diseño de diagrama de clases." meeting="false" start="2021-03-26" duration="11" complete="0" expand="true">
-                <depend id="360" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="360" name="Diseño de diagrama de Gantt" color="#8cb6ce" meeting="false" start="2021-04-12" duration="13" complete="0" thirdDate="2020-09-23" thirdDate-constraint="0" expand="true">
-                <depend id="383" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="383" name="Diseño de mapas BPMN." color="#8cb6ce" meeting="false" start="2021-04-29" duration="3" complete="0" thirdDate="2020-09-25" thirdDate-constraint="0" expand="true">
-                <depend id="371" type="2" difference="0" hardness="Strong"/>
+            <task id="395" name="1.2 Levantamiento de información" meeting="false" start="2020-09-14" duration="10" complete="0" expand="false">
+                <task id="397" name="Entrevistas" color="#8cb6ce" meeting="false" start="2020-09-14" duration="5" complete="0" thirdDate="2020-09-10" thirdDate-constraint="0" expand="true">
+                    <depend id="398" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="398" name="Encuestas" color="#8cb6ce" meeting="false" start="2020-09-21" duration="5" complete="0" thirdDate="2020-09-22" thirdDate-constraint="0" expand="true">
+                    <depend id="408" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
         </task>
-        <task id="323" name="4.Fase de desarrollo." color="#33ffff" meeting="false" start="2021-05-04" duration="82" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="false">
-            <task id="371" name="Requisito funcional 1." meeting="false" start="2021-05-04" duration="11" complete="0" expand="true">
-                <depend id="372" type="2" difference="0" hardness="Strong"/>
+        <task id="320" name="2.Fase de análisis." color="#33ffff" meeting="false" start="2020-09-28" duration="86" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="false">
+            <task id="407" name="2.1 Informe de requerimientos IEEE830" meeting="false" start="2020-09-28" duration="13" complete="0" expand="false">
+                <task id="408" name="Definición de requisitos." color="#8cb6ce" meeting="false" start="2020-09-28" duration="5" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="true">
+                    <depend id="409" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="409" name="Creación de informe" color="#8cb6ce" meeting="false" start="2020-10-05" duration="8" complete="0" thirdDate="2020-05-01" thirdDate-constraint="0" expand="true">
+                    <depend id="411" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
-            <task id="372" name="Requisito funcional 2." color="#8cb6ce" meeting="false" start="2021-05-19" duration="6" complete="0" thirdDate="2020-10-02" thirdDate-constraint="0" expand="true">
-                <depend id="373" type="2" difference="0" hardness="Strong"/>
+            <task id="410" name="2.2 Diagramas de casos de uso" meeting="false" start="2020-10-15" duration="20" complete="0" expand="false">
+                <task id="411" name="Definición de casos de uso." color="#8cb6ce" meeting="false" start="2020-10-15" duration="7" complete="0" thirdDate="2020-09-02" thirdDate-constraint="0" expand="true">
+                    <depend id="412" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="412" name="Diseño de diagrama de casos de uso extendidos." color="#8cb6ce" meeting="false" start="2020-10-26" duration="7" complete="0" thirdDate="2020-09-08" thirdDate-constraint="0" expand="true">
+                    <depend id="413" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="413" name="Diseño de formato de casos de uso." color="#8cb6ce" meeting="false" start="2020-11-04" duration="6" complete="0" thirdDate="2024-11-11" thirdDate-constraint="0" expand="true">
+                    <depend id="418" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
-            <task id="373" name="Requisito funcional 3." meeting="false" start="2021-05-27" duration="4" complete="0" expand="true">
-                <depend id="374" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="374" name="Requisito funcional 4." meeting="false" start="2021-06-02" duration="9" complete="0" expand="true">
-                <depend id="375" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="375" name="Requisito funcional 5." meeting="false" start="2021-06-15" duration="7" complete="0" expand="true">
-                <depend id="376" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="376" name="Requisito funcional 6." meeting="false" start="2021-06-24" duration="3" complete="0" expand="true">
-                <depend id="382" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="382" name="Requisito funcional 7." meeting="false" start="2021-06-29" duration="5" complete="0" expand="true">
-                <depend id="381" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="381" name="Requisito funcional 8." meeting="false" start="2021-07-06" duration="7" complete="0" expand="true">
-                <depend id="380" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="380" name="Requisito funcional 9." meeting="false" start="2021-07-15" duration="9" complete="0" expand="true">
-                <depend id="386" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="386" name="Requisito funcional 10." meeting="false" start="2021-07-28" duration="10" complete="0" expand="true">
-                <depend id="384" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="384" name="Requisito funcional 11." meeting="false" start="2021-08-11" duration="11" complete="0" expand="true">
-                <depend id="367" type="2" difference="0" hardness="Strong"/>
+            <task id="414" name="2.3 Diseño de diagrama BPMN" meeting="false" start="2020-11-12" duration="53" complete="0" expand="false">
+                <task id="418" name="Diseño de mapas BPMN." color="#8cb6ce" meeting="false" start="2020-11-12" duration="53" complete="0" thirdDate="2020-09-25" thirdDate-constraint="0" expand="true">
+                    <depend id="423" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
         </task>
-        <task id="324" name="5.Fase de pruebas." color="#33ffff" meeting="false" start="2021-08-26" duration="45" complete="0" thirdDate="2020-11-23" thirdDate-constraint="0" expand="false">
-            <task id="367" name="Plan de pruebas." meeting="false" start="2021-08-26" duration="15" complete="0" expand="true">
-                <depend id="368" type="2" difference="0" hardness="Strong"/>
+        <task id="322" name="3.Fase de diseño." color="#33ffff" meeting="false" start="2021-01-26" duration="35" complete="0" thirdDate="2020-09-14" thirdDate-constraint="0" expand="false">
+            <task id="421" name="3.1 Diagramas y diccionario de datos" meeting="false" start="2021-01-26" duration="19" complete="0" expand="true">
+                <task id="423" name="Diseño de modelo entidad relación." color="#8cb6ce" meeting="false" start="2021-01-26" duration="8" complete="0" thirdDate="2020-09-17" thirdDate-constraint="0" expand="true">
+                    <depend id="424" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="424" name="Diseño de diagrama de clases." color="#8cb6ce" meeting="false" start="2021-02-05" duration="5" complete="0" thirdDate="2021-03-26" thirdDate-constraint="0" expand="true">
+                    <depend id="425" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="425" name="Diseño de diagrama de distribución." color="#8cb6ce" meeting="false" start="2021-02-12" duration="3" complete="0" thirdDate="2021-02-26" thirdDate-constraint="0" expand="true">
+                    <depend id="428" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="428" name="Diccionario de datos." color="#8cb6ce" meeting="false" start="2021-02-17" duration="3" complete="0" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true">
+                    <depend id="427" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
-            <task id="368" name="Pruebas unitarias." color="#8cb6ce" meeting="false" start="2021-09-16" duration="14" complete="0" thirdDate="2002-11-27" thirdDate-constraint="0" expand="true">
-                <depend id="369" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="369" name="Pruebas de integración." meeting="false" start="2021-10-06" duration="16" complete="0" expand="true">
-                <depend id="370" type="2" difference="0" hardness="Strong"/>
+            <task id="422" name="3.2 Prototipos" meeting="false" start="2021-02-22" duration="16" complete="0" expand="true">
+                <task id="427" name="Prototipos de interfaz" color="#8cb6ce" meeting="false" start="2021-02-22" duration="16" complete="0" thirdDate="2020-09-04" thirdDate-constraint="0" expand="true">
+                    <depend id="444" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
         </task>
-        <task id="325" name="6.Fase de implemetación-despliegue." color="#33ffff" meeting="false" start="2021-10-28" duration="43" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="false">
-            <task id="370" name="Integración de producción." meeting="false" start="2021-10-28" duration="43" complete="0" expand="true"/>
+        <task id="323" name="4.Fase de desarrollo." color="#33ffff" meeting="false" start="2021-03-16" duration="137" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="false">
+            <task id="443" name="4.1 Desarrollo del sistema en base a los requisitos" meeting="false" start="2021-03-16" duration="137" complete="0" expand="true">
+                <task id="444" name="Requisito funcional 1 (Autentificación)." color="#8cb6ce" meeting="false" start="2021-03-16" duration="15" complete="0" thirdDate="2021-02-12" thirdDate-constraint="0" expand="true">
+                    <depend id="445" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="445" name="Requisito funcional 2 (Añadir contraseñas como instructor y aprendiz)." color="#8cb6ce" meeting="false" start="2021-04-06" duration="11" complete="0" thirdDate="2020-10-02" thirdDate-constraint="0" expand="true">
+                    <depend id="446" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="446" name="Requisito funcional 3 (Recuperar contraseña)." color="#8cb6ce" meeting="false" start="2021-04-21" duration="12" complete="0" thirdDate="2021-01-13" thirdDate-constraint="0" expand="true">
+                    <depend id="447" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="447" name="Requisito funcional 4 (Gestionar usuarios)." color="#8cb6ce" meeting="false" start="2021-05-07" duration="12" complete="0" thirdDate="2021-01-26" thirdDate-constraint="0" expand="true">
+                    <depend id="448" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="448" name="Requisito funcional 5 (Gestion de fichas)." color="#8cb6ce" meeting="false" start="2021-05-25" duration="12" complete="0" thirdDate="2021-02-09" thirdDate-constraint="0" expand="true">
+                    <depend id="449" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="449" name="Requisito funcional 6 (Gestion de clases)." color="#8cb6ce" meeting="false" start="2021-06-10" duration="12" complete="0" thirdDate="2021-02-25" thirdDate-constraint="0" expand="true">
+                    <depend id="450" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="450" name="Requisito funcional 7 (Solicitudes de cambio de asistencia (Instructor))." color="#8cb6ce" meeting="false" start="2021-06-28" duration="12" complete="0" thirdDate="2021-03-15" thirdDate-constraint="0" expand="true">
+                    <depend id="451" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="451" name="Requisito funcional 8 (Visualizar gráficas (instructor))." color="#8cb6ce" meeting="false" start="2021-07-14" duration="12" complete="0" thirdDate="2021-04-28" thirdDate-constraint="0" expand="true">
+                    <depend id="452" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="452" name="Requisito funcional 9 (Registro de asistencia via qr)." color="#8cb6ce" meeting="false" start="2021-07-30" duration="12" complete="0" thirdDate="2021-05-13" thirdDate-constraint="0" expand="true">
+                    <depend id="453" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="453" name="Requisito funcional 10 (Visualizar gráficas (Aprendiz))." color="#8cb6ce" meeting="false" start="2021-08-17" duration="15" complete="0" thirdDate="2021-05-28" thirdDate-constraint="0" expand="true">
+                    <depend id="454" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="454" name="Requisito funcional 11 (Gestion solicitudes de cambio de asistencia (Aprendiz))." color="#8cb6ce" meeting="false" start="2021-09-07" duration="12" complete="0" thirdDate="2021-06-16" thirdDate-constraint="0" expand="true">
+                    <depend id="461" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+        </task>
+        <task id="324" name="5.Fase de pruebas." color="#33ffff" meeting="false" start="2021-09-23" duration="55" complete="0" thirdDate="2020-11-23" thirdDate-constraint="0" expand="false">
+            <task id="460" name="5.1 Pruebas" meeting="false" start="2021-09-23" duration="55" complete="0" expand="false">
+                <task id="461" name="Plan de pruebas." color="#8cb6ce" meeting="false" start="2021-09-23" duration="15" complete="0" thirdDate="2021-08-26" thirdDate-constraint="0" expand="true">
+                    <depend id="462" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="462" name="Pruebas unitarias." color="#8cb6ce" meeting="false" start="2021-10-14" duration="20" complete="0" thirdDate="2002-11-27" thirdDate-constraint="0" expand="true">
+                    <depend id="463" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="463" name="Pruebas de integración." color="#8cb6ce" meeting="false" start="2021-11-11" duration="20" complete="0" thirdDate="2021-10-06" thirdDate-constraint="0" expand="true">
+                    <depend id="470" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+        </task>
+        <task id="325" name="6.Fase de implemetación-despliegue." color="#33ffff" meeting="false" start="2021-12-09" duration="40" complete="0" thirdDate="2020-08-10" thirdDate-constraint="0" expand="false">
+            <task id="370" name="Integración de producción." color="#000000" meeting="false" start="2021-12-09" duration="40" complete="0" thirdDate="2021-10-28" thirdDate-constraint="0" expand="true">
+                <task id="470" name="Deploy del front end" meeting="false" start="2021-12-09" duration="13" complete="0" expand="true">
+                    <depend id="473" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="473" name="Deploy del back end" meeting="false" start="2021-12-28" duration="7" complete="0" expand="true">
+                    <depend id="475" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="475" name="Conexion de front y backend" color="#8cb6ce" meeting="false" start="2022-01-06" duration="10" complete="0" thirdDate="2021-10-29" thirdDate-constraint="0" expand="true">
+                    <depend id="477" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="477" name="Conexion con cluster de base de datos" color="#8cb6ce" meeting="false" start="2022-01-20" duration="10" complete="0" thirdDate="2021-11-12" thirdDate-constraint="0" expand="true"/>
+            </task>
         </task>
     </tasks>
     <resources>
