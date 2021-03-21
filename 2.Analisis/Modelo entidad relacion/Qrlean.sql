@@ -1,3 +1,4 @@
+DROP DATABASE IF  EXISTS qrlean;
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -165,9 +166,6 @@ CREATE TABLE IF NOT EXISTS `qrlean`.`usuarios` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
-CREATE UNIQUE INDEX `numero_documento` ON `qrlean`.`usuarios` (`numero_documento` ASC) ;
-
-CREATE UNIQUE INDEX `emailInstitucional` ON `qrlean`.`usuarios` (`emailInstitucional` ASC) ;
 
 CREATE INDEX `id_tipo_documento` ON `qrlean`.`usuarios` (`id_tipo_documento` ASC) ;
 
