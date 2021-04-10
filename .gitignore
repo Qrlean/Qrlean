@@ -6,3 +6,11 @@ OLD/
 Qrlean presentacion
 2.Analisis/Prototipos/QrleanCod/.next/
 2.Analisis/Prototipos/QrleanCod/node_modules/
+
+CodigoProyecto/Backend/node_modules/
+CodigoProyecto/Backend/dist/
+CodigoProyecto/Backend/logs/
+CodigoProyecto/Backend/sequelize
+CodigoProyecto/Frontend/node_modules/
+CodigoProyecto/Frontend/.next/
+CodigoProyecto/BackendOld/
