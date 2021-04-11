@@ -1,7 +1,6 @@
-import App from './class/app'
+import App from './class/app';
 
-
-const app:App = new App();
+const app = new App();
 app.listen();
 app.sequelize();
 
