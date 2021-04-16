@@ -5,11 +5,15 @@ module.exports = {
         browser: true,
         es6: true,
     },
-    extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+    extends: ['eslint:recommended', 'prettier', 'plugin:prettier/recommended'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 12,
     },
     plugins: ['@typescript-eslint'],
-    rules: {},
+    rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars-experimental': 'error',
+        'no-control-regex': 0,
+    },
 };

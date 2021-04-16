@@ -9,7 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Usuario } from './usuarios.model';
 
-@Table
+@Table({ timestamps: false })
 export class Tipo_documento extends Model {
     @AutoIncrement
     @AllowNull(false)

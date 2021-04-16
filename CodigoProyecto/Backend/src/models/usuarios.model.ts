@@ -10,12 +10,14 @@ import {
     ForeignKey,
     BelongsTo,
     BelongsToMany,
+    Unique,
 } from 'sequelize-typescript';
-import { Ciudades } from './cuidades.model';
-import { Tipo_roles } from './tipo_roles.models';
-import { Ficha } from './ficha.model';
+import { Ciudades } from '../models/cuidades.model';
+import { Tipo_documento } from '../models/tipo_documento.model';
+import { Tipo_roles } from '../models/tipo_roles.models';
+import { Ficha } from '../models/ficha.model';
 import { Asociacion_usuarios_fichas } from './asociacion_usuarios_fichas.model';
-import { Tipo_documento } from './tipo_documento.model';
+// import { v4 as uuidv4 } from 'uuid';
 
 @Table({ timestamps: false })
 export class Usuario extends Model {
@@ -23,58 +25,63 @@ export class Usuario extends Model {
     @AutoIncrement
     @AllowNull(false)
     @Column
-    id_usuario!: number;
+    id_usuario: number;
 
     @AllowNull(false)
     @Column(DataType.STRING(30))
-    nombres_usuario!: string;
+    nombres_usuario: string;
 
     @AllowNull(false)
     @Column(DataType.STRING(30))
-    apellidos_usuario!: string;
+    apellidos_usuario: string;
 
     @AllowNull(false)
+    @Unique
     @Column(DataType.INTEGER)
-    numero_documento!: number;
+    numero_documento: number;
 
     @AllowNull(false)
     @Column(DataType.STRING(150))
-    password!: string;
+    password: string;
 
     @AllowNull(false)
+    @Unique
     @Column(DataType.STRING(100))
-    emailInstitucional!: string;
+    emailInstitucional: string;
 
     @AllowNull(true)
     @Column(DataType.STRING(60))
-    direccion_recidencial!: string;
+    direccion_residencial: string;
 
     @Comment('Adios')
     @AllowNull(true)
     @Column(DataType.INTEGER)
-    telefono_movil!: number;
+    telefono_movil: number;
 
     @ForeignKey(() => Ciudades)
     @AllowNull(false)
     @Column
-    id_ciudad!: number;
+    id_ciudad: number;
 
     @ForeignKey(() => Tipo_roles)
     @AllowNull(false)
     @Column
-    id_tipo_rol!: number;
+    id_tipo_rol: number;
 
     @ForeignKey(() => Tipo_documento)
     @AllowNull(false)
     @Column
-    id_tipo_documento!: number;
+    id_tipo_documento: number;
 
     @BelongsTo(() => Ciudades)
-    ciudad!: Ciudades;
+    ciudad: Ciudades;
 
     @BelongsTo(() => Tipo_roles)
-    rol!: Tipo_roles;
+    rol: Tipo_roles;
+
+    @BelongsTo(() => Tipo_documento)
+    documento: Tipo_documento;
 
     @BelongsToMany(() => Ficha, () => Asociacion_usuarios_fichas)
-    fichas!: Ficha[];
+    fichas: Ficha[];
 }
