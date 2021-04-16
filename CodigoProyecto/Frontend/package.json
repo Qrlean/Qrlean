@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint --ext .jsx,.js . --quiet --fix"
   },
   "dependencies": {
     "@nivo/bar": "^0.67.0",
@@ -16,6 +17,7 @@
     "@svgr/webpack": "^5.5.0",
     "@tinymce/tinymce-react": "^3.10.1",
     "autoprefixer": "^10.2.3",
+    "axios": "^0.21.1",
     "babel-runtime": "^6.26.0",
     "dateformat": "^4.5.1",
     "formik": "^2.2.6",
@@ -33,8 +35,22 @@
     "react-perfect-scrollbar": "^1.5.8",
     "react-player": "^2.8.1",
     "react-plx": "^1.3.16",
+    "react-redux": "^7.2.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "scroll-data-hook": "^1.0.4",
     "tailwindcss": "^2.0.2",
     "yup": "^0.32.8"
+  },
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-react": "^7.23.2",
+    "prettier": "2.2.1"
   }
 }

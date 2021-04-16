@@ -1,55 +1,60 @@
-import React from 'react'
-import {motion} from 'framer-motion'
+import React from 'react';
+import { motion } from 'framer-motion';
 
-import { ResponsiveCalendar } from '@nivo/calendar'
-import { ResponsivePie } from '@nivo/pie'
+import { ResponsiveCalendar } from '@nivo/calendar';
+import { ResponsivePie } from '@nivo/pie';
 
-import Dashboard from '../../../components/utils/Dashboard'
-import {useRouter} from 'next/router'
-const infoVariants={
-    hover:{
-        rotate:-10,
-        scale:1
-    }
-}
+import Dashboard from '../../../components/utils/Dashboard';
+import { useRouter } from 'next/router';
+const infoVariants = {
+    hover: {
+        rotate: -10,
+        scale: 1,
+    },
+};
 const Aprendiz = () => {
-    const router = useRouter()
+    const router = useRouter();
     const data = [
         {
-            "day": "2021-02-27",
-            "value": 0
+            day: '2021-02-27',
+            value: 0,
         },
         {
-            "day": "2021-02-15",
-            "value": 1
+            day: '2021-02-15',
+            value: 1,
         },
         {
-            "day": "2021-02-25",
-            "value": 2
-        }
-    ]
+            day: '2021-02-25',
+            value: 2,
+        },
+    ];
     const data2 = [
         {
-            "id": "Asistió",
-            "label": "Asistió",
-            "value": 1,
+            id: 'Asistió',
+            label: 'Asistió',
+            value: 1,
         },
         {
-            "id": "No asistió",
-            "label": "No asistió",
-            "value": 3,
-        }
-    ]
+            id: 'No asistió',
+            label: 'No asistió',
+            value: 3,
+        },
+    ];
     return (
         <Dashboard>
-            <div className="grid gap-4 grid-cols-2 h-full w-full overflow-y-auto" >
-
-                <div className="col-span-2 xl:col-span-1 flex flex-col justify-center items-center border-gray-800 bg-green-100 relative" style={{border:"1px solid"}}>
+            <div className="grid gap-4 grid-cols-2 h-full w-full overflow-y-auto">
+                <div
+                    className="col-span-2 xl:col-span-1 flex flex-col justify-center items-center border-gray-800 bg-green-100 relative"
+                    style={{ border: '1px solid' }}
+                >
                     <div className="flex-1 w-full">
                         <ResponsivePie
-                            margin={{top:40,bottom:40}}
+                            margin={{ top: 40, bottom: 40 }}
                             data={data2}
-                            colors={[  'rgba(52, 211, 153, 1)','rgba(248, 113, 113, 1)',]}
+                            colors={[
+                                'rgba(52, 211, 153, 1)',
+                                'rgba(248, 113, 113, 1)',
+                            ]}
                             borderColor="black"
                             borderWidth={1}
                             innerRadius={0.5}
@@ -62,40 +67,61 @@ const Aprendiz = () => {
                     </motion.svg> */}
                 </div>
 
-
                 <div className="col-span-2 xl:col-span-1 flex flex-col justify-between items-center ">
-
-                    <div className="flex flex-col justify-center items-center w-full h-60 mb-3 border-gray-800 relative"  style={{border:"1px solid"}}>
+                    <div
+                        className="flex flex-col justify-center items-center w-full h-60 mb-3 border-gray-800 relative"
+                        style={{ border: '1px solid' }}
+                    >
                         <div className="flex-1 w-full">
                             <ResponsiveCalendar
                                 data={data}
                                 from="2021-03-01"
                                 to="2021-03-30"
                                 emptyColor="#eeeeee"
-                                colors={[ ' #FF8D33', '#1FFF00', '#FF0000']}
-                                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+                                colors={[' #FF8D33', '#1FFF00', '#FF0000']}
+                                margin={{
+                                    top: 40,
+                                    right: 40,
+                                    bottom: 40,
+                                    left: 40,
+                                }}
                                 yearSpacing={40}
                                 monthBorderColor="#ffffff"
                                 dayBorderWidth={2}
                                 dayBorderColor="#ffffff"
-
                             />
                         </div>
-                        <h1 className="py-2 text-center text-gray-800 text-xl">Calendario</h1>
+                        <h1 className="py-2 text-center text-gray-800 text-xl">
+                            Calendario
+                        </h1>
                         {/* <motion.svg  whileHover="hover" variants={infoVariants} viewBox="0 0 16 16" className="cursor-pointer shadow-xl bg-green-300 rounded bottom-0 right-0 absolute  w-10 h-10 fill-current text-gray-800 m-4" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
                             <circle cx="8" cy="4.5" r="1"/>
                         </motion.svg> */}
                     </div>
 
-                    <div className="flex flex-row justify-evenly items-center w-full h-60 mt-3 border-gray-800 relative"  style={{border:"1px solid"}}>
-                        <div className="flex flex-col justify-center items-center" onClick={()=>router.push('/dashboard/aprendiz/solicitudes/')}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="mx-3 text-gray-800 fill-current h-16 w-16 " viewBox="0 0 16 16">
-                                <path d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708z"/>
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
-                                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+                    <div
+                        className="flex flex-row justify-evenly items-center w-full h-60 mt-3 border-gray-800 relative"
+                        style={{ border: '1px solid' }}
+                    >
+                        <div
+                            className="flex flex-col justify-center items-center"
+                            onClick={() =>
+                                router.push('/dashboard/aprendiz/solicitudes/')
+                            }
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="mx-3 text-gray-800 fill-current h-16 w-16 "
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708z" />
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
                             </svg>
-                            <h1 className="text-xl text-gray-800 text-center mx-auto" >Solicitudes de cambio de asistencia</h1>
+                            <h1 className="text-xl text-gray-800 text-center mx-auto">
+                                Solicitudes de cambio de asistencia
+                            </h1>
                         </div>
                         {/* <div className="flex flex-col justify-center items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="mx-3 text-gray-800 fill-current h-16 w-16 " viewBox="0 0 16 16">
@@ -110,12 +136,10 @@ const Aprendiz = () => {
                             <circle cx="8" cy="4.5" r="1"/>
                         </motion.svg> */}
                     </div>
-
                 </div>
             </div>
-
         </Dashboard>
     );
-}
- 
+};
+
 export default Aprendiz;

@@ -1,29 +1,27 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react';
 
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router';
 
-import Dashboard from '../../../components/utils/Dashboard'
-import Modal from '../../../components/utils/Modal'
+import Dashboard from '../../../components/utils/Dashboard';
+import Modal from '../../../components/utils/Modal';
 
-import {motion} from 'framer-motion'
-import PerfectScrollbar from 'react-perfect-scrollbar'
+// import { motion } from 'framer-motion';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
+import Teacher from '../../../svg/teacher2.svg';
+import Cursos from '../../../svg/cursos.svg';
+import DashboardAdminHelp from '../../../svg/dashboardAdminHelp.svg';
 
-
-import Teacher from '../../../svg/teacher2.svg'
-import Cursos from '../../../svg/cursos.svg'
-import DashboardAdminHelp from '../../../svg/dashboardAdminHelp.svg'
-
-const infoVariants={
-    hover:{
-        rotate:-10,
-        scale:1
-    }
-}
+// const infoVariants = {
+//     hover: {
+//         rotate: -10,
+//         scale: 1,
+//     },
+// };
 const InicioAdmin = () => {
-    const router = useRouter()
-    const [help,setHelp] = useState(false)
+    const router = useRouter();
+    const [help, setHelp] = useState(false);
     return (
         <Dashboard>
             <Modal state={help} setState={setHelp} titulo="Ayuda">
@@ -35,10 +33,17 @@ const InicioAdmin = () => {
                         <circle cx="8" cy="4.5" r="1"/>
                 </motion.svg> */}
                 {/* //COLUMNA 1 - PERSONAS */}
-                <div  className="flex flex-col justify-center items-center  bg-deeppink-200 col-span-2 sm:col-span-2 lg:col-span-1 h-screen lg:h-auto relative">
+                <div className="flex flex-col justify-center items-center  bg-deeppink-200 col-span-2 sm:col-span-2 lg:col-span-1 h-screen lg:h-auto relative">
                     <div className="flex flex-col justify-center items-center">
-                        <div className="rounded-full ring-2 ring-gray-800 ring-offset-2 bg-darkorchid-400 m-6"><Teacher className="w-64 h-64"></Teacher></div>
-                        <button onClick={()=> router.push('/dashboard/admin/personas')} className="m-2 outline-none transform hover:scale-110 bg-darkorchid-400 w-10/12 rounded p-2 text-gray-800 text-center text-2xl ring-2 ring-gray-800 ring-offset-2">
+                        <div className="rounded-full ring-2 ring-gray-800 ring-offset-2 bg-darkorchid-400 m-6">
+                            <Teacher className="w-64 h-64"></Teacher>
+                        </div>
+                        <button
+                            onClick={() =>
+                                router.push('/dashboard/admin/personas')
+                            }
+                            className="m-2 outline-none transform hover:scale-110 bg-darkorchid-400 w-10/12 rounded p-2 text-gray-800 text-center text-2xl ring-2 ring-gray-800 ring-offset-2"
+                        >
                             <h1>Personas</h1>
                         </button>
                     </div>
@@ -47,19 +52,24 @@ const InicioAdmin = () => {
                 {/* //COLUMNA 3 - FICHAS */}
                 <div className="flex flex-col justify-center items-center bg-red-200 col-span-2 sm:col-span-2 lg:col-span-1 h-screen lg:h-auto">
                     <div className="flex flex-col justify-center items-center ">
-                        <div className="rounded-full ring-2 ring-gray-800 ring-offset-2 bg-red-400 m-6">  <Cursos className="w-64 h-64"></Cursos></div>
-                        <button onClick={()=> router.push('/dashboard/admin/fichas')} className="m-2 outline-none transform hover:scale-110 bg-red-400 w-10/12 rounded p-2 text-gray-800 text-center text-2xl ring-2 ring-gray-800 ring-offset-2">
+                        <div className="rounded-full ring-2 ring-gray-800 ring-offset-2 bg-red-400 m-6">
+                            {' '}
+                            <Cursos className="w-64 h-64"></Cursos>
+                        </div>
+                        <button
+                            onClick={() =>
+                                router.push('/dashboard/admin/fichas')
+                            }
+                            className="m-2 outline-none transform hover:scale-110 bg-red-400 w-10/12 rounded p-2 text-gray-800 text-center text-2xl ring-2 ring-gray-800 ring-offset-2"
+                        >
                             <h1>Fichas</h1>
                         </button>
                     </div>
                 </div>
                 {/* //COLUMNA 3 - FICHAS */}
-
-                
             </PerfectScrollbar>
         </Dashboard>
-
     );
-}
- 
+};
+
 export default InicioAdmin;
