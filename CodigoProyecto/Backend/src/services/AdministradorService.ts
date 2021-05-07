@@ -129,10 +129,9 @@ export class AdministradorService extends UsuarioService {
                     );
                 }
                 if (
-                    (<string>(<any>usuarioEdit![value as keyof UsuarioEdit]) ===
+                    <string>(<any>usuarioEdit![value as keyof UsuarioEdit]) ===
                         <any>usuario[value as keyof UsuarioEdit] &&
-                        <any>usuario[value as keyof UsuarioEdit]) ||
-                    value === 'id_usuario'
+                    <any>usuario[value as keyof UsuarioEdit]
                 ) {
                     return;
                 } else {

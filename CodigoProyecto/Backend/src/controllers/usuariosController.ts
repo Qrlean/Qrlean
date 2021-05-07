@@ -249,7 +249,8 @@ export class UsuariosController extends Controller {
                     .withMessage(
                         'El campo "dirección residencial" debería estar dentro del rango de los 5 a 60 caracteres.',
                     )
-                    .trim(),
+                    .trim()
+                    .optional({ nullable: true }),
                 body('telefono_movil')
                     .matches(/^\d+$/)
                     .withMessage(
@@ -259,7 +260,8 @@ export class UsuariosController extends Controller {
                     .withMessage(
                         'El campo "teléfono movil" debería estar dentro del rango de los 5 a 11 caracteres.',
                     )
-                    .trim(),
+                    .trim()
+                    .optional({ nullable: true }),
             ],
         },
     ];

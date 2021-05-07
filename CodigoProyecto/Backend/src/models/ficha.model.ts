@@ -26,10 +26,6 @@ export class Ficha extends Model {
     id_ficha!: number;
 
     @AllowNull(false)
-    @Column
-    nombre_ficha!: string;
-
-    @AllowNull(false)
     @ForeignKey(() => Programa)
     @Column
     id_programa!: number;
