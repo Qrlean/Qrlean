@@ -68,4 +68,11 @@ export class Helpers {
             return Promise.reject('Error al intentar enviar el correo');
         }
     }
+    // static async detectarDuplicado(
+    //     plantilla: {},
+    //     objeto1: {},
+    //     objeto2: {},
+    // ): Promise<boolean> {
+
+    // }
 }

@@ -20,8 +20,8 @@ export interface IRoute {
         // eslint-disable-next-line no-unused-vars
         res: Response,
         // eslint-disable-next-line no-unused-vars
-        next: NextFunction,
-    ) => void | Promise<void>;
+        next?: NextFunction,
+    ) => void | Promise<any>;
     localMiddleware: ((
         // eslint-disable-next-line no-unused-vars
         req: Request,
