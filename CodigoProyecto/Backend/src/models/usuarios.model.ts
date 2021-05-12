@@ -6,11 +6,11 @@ import {
     PrimaryKey,
     AutoIncrement,
     DataType,
-    Comment,
     ForeignKey,
     BelongsTo,
     BelongsToMany,
     Unique,
+    HasMany,
 } from 'sequelize-typescript';
 import { Ciudades } from '../models/cuidades.model';
 import { Tipo_documento } from '../models/tipo_documento.model';
@@ -53,7 +53,6 @@ export class Usuario extends Model {
     @Column(DataType.STRING(60))
     direccion_residencial: string;
 
-    @Comment('Adios')
     @AllowNull(true)
     @Column(DataType.INTEGER)
     telefono_movil: number;
@@ -84,4 +83,7 @@ export class Usuario extends Model {
 
     @BelongsToMany(() => Ficha, () => Asociacion_usuarios_fichas)
     fichas: Ficha[];
+
+    @HasMany(() => Asociacion_usuarios_fichas)
+    fichasT!: Asociacion_usuarios_fichas[];
 }

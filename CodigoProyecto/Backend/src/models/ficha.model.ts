@@ -33,12 +33,18 @@ export class Ficha extends Model {
     @BelongsTo(() => Programa)
     programa!: Programa;
 
-    @BelongsToMany(() => Usuario, () => Asociacion_usuarios_fichas)
-    usuarios!: Usuario[];
-
     @HasMany(() => Solicitudes_cambio_asistencia)
     solicitudesCambioAsistencia!: Solicitudes_cambio_asistencia[];
 
+    @BelongsToMany(() => Usuario, () => Asociacion_usuarios_fichas)
+    usuarios!: Usuario[];
+
     @BelongsToMany(() => Asignatura, () => Asociacion_asignaturas_fichas)
     asignaturas!: Asignatura[];
+
+    @HasMany(() => Asociacion_usuarios_fichas)
+    usuariosT!: Asociacion_usuarios_fichas[];
+
+    @HasMany(() => Asociacion_asignaturas_fichas)
+    asignaturasT!: Asociacion_asignaturas_fichas[];
 }

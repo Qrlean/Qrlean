@@ -27,10 +27,15 @@ export class Asociacion_asignaturas_fichas extends Model {
     @Column
     id_ficha!: number;
 
+    @BelongsTo(() => Ficha)
+    ficha: Ficha;
+
     @AllowNull(false)
     @ForeignKey(() => Asignatura)
     @Column
     id_asignatura!: number;
+    @BelongsTo(() => Asignatura)
+    asignatura: Asignatura;
 
     @AllowNull(false)
     @ForeignKey(() => Asociacion_usuarios_fichas)

@@ -14,6 +14,7 @@ import { Clases } from '../models/clases.model';
 import { Asistencias } from '../models/asistencias.model';
 import { Tipo_asistencias } from '../models/tipo_asistencias.model';
 // console.log(path.resolve(__dirname, '../models'))
+console.log('Cargando db');
 export const sequelize = new Sequelize({
     database: 'qrlean',
     dialect: 'mysql',

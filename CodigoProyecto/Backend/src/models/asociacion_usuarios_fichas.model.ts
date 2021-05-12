@@ -10,12 +10,15 @@ import {
     Table,
     ForeignKey,
     HasMany,
+    BelongsTo,
+    AutoIncrement,
 } from 'sequelize-typescript';
 
 @Table({ timestamps: false })
 export class Asociacion_usuarios_fichas extends Model {
     @PrimaryKey
     @AllowNull(false)
+    @AutoIncrement
     @Column
     id_asociacion_usuario_ficha!: number;
 
@@ -24,10 +27,16 @@ export class Asociacion_usuarios_fichas extends Model {
     @Column
     id_usuario!: number;
 
+    @BelongsTo(() => Usuario)
+    usuario: Usuario;
+
     @ForeignKey(() => Ficha)
     @AllowNull(false)
     @Column
     id_ficha!: number;
+
+    @BelongsTo(() => Ficha)
+    ficha: Ficha;
 
     @HasMany(() => Solicitudes_cambio_asistencia, 'id_aprendiz')
     solicitudesCambioAsistenciaAprendiz!: Solicitudes_cambio_asistencia[];

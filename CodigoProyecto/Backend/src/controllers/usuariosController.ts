@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import Controller, { Methods } from '../class/Controller';
-import { body, param, validationResult } from 'express-validator';
+import { body, param, query, validationResult } from 'express-validator';
 import { UsuarioService } from '../services/UsuarioService';
 import { AdministradorService } from '../services/AdministradorService';
 import { Usuario } from '../models/usuarios.model';
+import Sequelize from 'sequelize';
+const Op = Sequelize.Op;
 export class UsuariosController extends Controller {
     path = '/usuarios';
     routes = [
@@ -45,12 +47,40 @@ export class UsuariosController extends Controller {
                     .withMessage(
                         'El campo "numero de documento" debería estar dentro del rango de los 4 a 20 caracteres.',
                     )
+                    .custom(async (value) => {
+                        try {
+                            let resUser = await Usuario.findOne({
+                                where: { numero_documento: value },
+                            });
+                            if (resUser) {
+                                return Promise.reject(
+                                    'El numero de documento enviado ya esta en uso por otra persona',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    })
                     .trim(),
                 body('emailInstitucional')
                     .isEmail()
                     .withMessage(
                         'El campo "email - correo electrónico" debería coincidir con el formato de un correo electrónico prueba@dominio.com.',
                     )
+                    .custom(async (value) => {
+                        try {
+                            let resUser = await Usuario.findOne({
+                                where: { emailInstitucional: value },
+                            });
+                            if (resUser) {
+                                return Promise.reject(
+                                    'El correo enviado ya esta en uso por otra persona',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    })
                     .trim()
                     .normalizeEmail(),
                 body('id_tipo_documento')
@@ -92,8 +122,7 @@ export class UsuariosController extends Controller {
                     .withMessage(
                         'El campo "dirección residencial" debería estar dentro del rango de los 5 a 60 caracteres.',
                     )
-                    .trim()
-                    .optional(),
+                    .trim(),
                 body('telefono_movil')
                     .matches(/^\d+$/)
                     .withMessage(
@@ -103,21 +132,102 @@ export class UsuariosController extends Controller {
                     .withMessage(
                         'El campo "teléfono movil" debería estar dentro del rango de los 5 a 11 caracteres.',
                     )
-                    .trim()
-                    .optional(),
+                    .trim(),
             ],
         },
         {
             path: '/',
             method: Methods.GET,
             handler: this.getUsuarios,
-            localMiddleware: [],
+            localMiddleware: [
+                query('offset')
+                    .matches(/^\d+$/)
+                    .withMessage(
+                        'El campo offset debería tener solo caracteres numéricos.',
+                    )
+                    .trim()
+                    .optional(),
+                query('limit')
+                    .matches(/^\d+$/)
+                    .withMessage(
+                        'El campo limit debería tener solo caracteres numéricos.',
+                    )
+                    .trim()
+                    .optional(),
+                query('order').trim().optional(),
+            ],
+        },
+        {
+            path: '/search',
+            method: Methods.GET,
+            handler: this.queryUsuario,
+            localMiddleware: [
+                query('offset')
+                    .matches(/^\d+$/)
+                    .withMessage(
+                        'El campo offset debería tener solo caracteres numéricos.',
+                    )
+                    .trim()
+                    .optional(),
+                query('limit')
+                    .matches(/^\d+$/)
+                    .withMessage(
+                        'El campo limit debería tener solo caracteres numéricos.',
+                    )
+                    .trim()
+                    .optional(),
+                query('order').trim().optional(),
+                query('searchBy')
+                    .custom(async (value) => {
+                        let campos = [
+                            'nombres_usuario',
+                            'apellidos_usuario',
+                            'numero_documento',
+                            'emailInstitucional',
+                            'direccion_residencial',
+                            'telefono_movil',
+                            'id_ciudad',
+                            'id_tipo_rol',
+                            'id_tipo_documento',
+                        ];
+                        if (campos.indexOf(value) <= -1) {
+                            return Promise.reject(
+                                `El campo por el cual se debe buscar no es valido, debería estar dentro de estos (${campos.join(
+                                    ' - ',
+                                )})`,
+                            );
+                        }
+                    })
+                    .trim(),
+
+                query('query').trim(),
+            ],
         },
         {
             path: '/:id',
             method: Methods.GET,
             handler: this.getUsuario,
-            localMiddleware: [],
+            localMiddleware: [
+                param('id')
+                    .isAlphanumeric()
+                    .withMessage(
+                        'El id solo debe contener caracteres alfanuméricos',
+                    )
+                    .custom(async (value) => {
+                        try {
+                            let resUser = await Usuario.findOne({
+                                where: { id_usuario: value },
+                            });
+                            if (!resUser) {
+                                return Promise.reject(
+                                    'El id enviado no corresponde a una persona',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    }),
+            ],
         },
         {
             path: '/eliminar/:id',
@@ -249,8 +359,7 @@ export class UsuariosController extends Controller {
                     .withMessage(
                         'El campo "dirección residencial" debería estar dentro del rango de los 5 a 60 caracteres.',
                     )
-                    .trim()
-                    .optional({ nullable: true }),
+                    .trim(),
                 body('telefono_movil')
                     .matches(/^\d+$/)
                     .withMessage(
@@ -260,8 +369,7 @@ export class UsuariosController extends Controller {
                     .withMessage(
                         'El campo "teléfono movil" debería estar dentro del rango de los 5 a 11 caracteres.',
                     )
-                    .trim()
-                    .optional({ nullable: true }),
+                    .trim(),
             ],
         },
     ];
@@ -305,14 +413,59 @@ export class UsuariosController extends Controller {
             );
         }
     }
+    async queryUsuario(_req: Request, res: Response) {
+        const errors = validationResult(_req);
+        if (!errors.isEmpty()) {
+            return super.sendE400(
+                res,
+                'Los datos requeridos no fueron llenados correctamente',
+                errors,
+            );
+        }
+        try {
+            return super.sendSuccess(
+                res,
+                'Se obtuvo los usuarios correctamente.',
+                await UsuarioService.buscarUsuarios(
+                    {
+                        [(_req.query.searchBy as unknown) as string]: {
+                            [Op.like]: `%${_req.query.query}%`,
+                        },
+                    },
+                    (_req.query.offset as unknown) as number,
+                    (_req.query.order as unknown) as string,
+                    (_req.query.limit as unknown) as number,
+                ),
+            );
+        } catch (e) {
+            console.log(e);
+            return super.sendE400(
+                res,
+                'Error al intentar buscar los usuarios, intente de nuevo más tarde.',
+            );
+        }
+    }
 
     async getUsuarios(_req: Request, res: Response) {
+        const errors = validationResult(_req);
+        if (!errors.isEmpty()) {
+            return super.sendE400(
+                res,
+                'Los datos requeridos no fueron llenados correctamente',
+                errors,
+            );
+        }
         try {
             return super.sendSuccess(
                 res,
                 'Se obtuvo los usuarios correctamente.',
                 {
-                    usuarios: await UsuarioService.buscarUsuarios({}),
+                    usuarios: await UsuarioService.buscarUsuarios(
+                        {},
+                        (_req.query.offset as unknown) as number,
+                        (_req.query.order as unknown) as string,
+                        (_req.query.limit as unknown) as number,
+                    ),
                 },
             );
         } catch (e) {
@@ -324,6 +477,14 @@ export class UsuariosController extends Controller {
         }
     }
     async getUsuario(req: Request, res: Response) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return super.sendE400(
+                res,
+                'Los datos requeridos no fueron llenados correctamente',
+                errors,
+            );
+        }
         try {
             let usuario = await UsuarioService.buscarUsuario({
                 id_usuario: req.params.id,

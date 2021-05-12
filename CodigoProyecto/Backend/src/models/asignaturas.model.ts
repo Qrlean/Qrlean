@@ -5,6 +5,7 @@ import {
     BelongsToMany,
     Column,
     DataType,
+    HasMany,
     Model,
     PrimaryKey,
     Table,
@@ -24,4 +25,7 @@ export class Asignatura extends Model {
 
     @BelongsToMany(() => Ficha, () => Asociacion_asignaturas_fichas)
     fichas!: Ficha[];
+
+    @HasMany(() => Asociacion_asignaturas_fichas)
+    fichasT!: Asociacion_asignaturas_fichas[];
 }
