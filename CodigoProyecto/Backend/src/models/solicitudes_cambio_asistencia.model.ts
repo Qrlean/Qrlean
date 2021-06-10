@@ -1,13 +1,17 @@
 import { Asociacion_usuarios_fichas } from './asociacion_usuarios_fichas.model';
 import { Usuario } from './usuarios.model';
 import { Ficha } from './ficha.model';
+import { Asistencias } from './asistencias.model';
+import { Tipo_estados_solicitudes } from './tipo_estados_solicitudes';
 import {
     AllowNull,
     AutoIncrement,
     BelongsTo,
     Column,
     DataType,
+    Default,
     ForeignKey,
+    HasMany,
     Model,
     PrimaryKey,
     Table,
@@ -44,6 +48,15 @@ export class Solicitudes_cambio_asistencia extends Model {
     @Column
     id_ficha!: number;
 
+    @ForeignKey(() => Tipo_estados_solicitudes)
+    @Default(1)
+    @AllowNull(false)
+    @Column
+    id_estado!: number;
+
+    @HasMany(() => Asistencias)
+    asistencias!: Asistencias[];
+
     @BelongsTo(() => Asociacion_usuarios_fichas, 'id_aprendiz')
     aprendiz!: Usuario;
 
@@ -52,4 +65,7 @@ export class Solicitudes_cambio_asistencia extends Model {
 
     @BelongsTo(() => Ficha)
     ficha!: Ficha;
+
+    @BelongsTo(() => Tipo_estados_solicitudes)
+    estado!: Tipo_estados_solicitudes;
 }

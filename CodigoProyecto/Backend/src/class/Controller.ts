@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction, Router } from 'express';
-
+import { validationResult } from 'express-validator';
 export enum Methods {
     // eslint-disable-next-line no-unused-vars
     GET = 'GET',
@@ -35,6 +35,22 @@ export interface IRoute {
 export default abstract class Controller {
     public router: Router = Router();
     public abstract path: string;
+    public controllerMiddleware: any = (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return this.sendE400(
+                res,
+                'Los datos requeridos no fueron llenados correctamente',
+                errors,
+            );
+        } else {
+            next();
+        }
+    };
     protected abstract readonly routes: IRoute[] = [];
 
     public setRoutes = (): Router => {
@@ -46,28 +62,28 @@ export default abstract class Controller {
                 case 'GET':
                     this.router.get(
                         route.path,
-                        route.localMiddleware,
+                        [route.localMiddleware, this.controllerMiddleware],
                         route.handler,
                     );
                     break;
                 case 'POST':
                     this.router.post(
                         route.path,
-                        route.localMiddleware,
+                        [route.localMiddleware, this.controllerMiddleware],
                         route.handler,
                     );
                     break;
                 case 'PUT':
                     this.router.put(
                         route.path,
-                        route.localMiddleware,
+                        [route.localMiddleware, this.controllerMiddleware],
                         route.handler,
                     );
                     break;
                 case 'DELETE':
                     this.router.delete(
                         route.path,
-                        route.localMiddleware,
+                        [route.localMiddleware, this.controllerMiddleware],
                         route.handler,
                     );
                     break;

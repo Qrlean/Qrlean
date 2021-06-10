@@ -37,7 +37,7 @@ export class Usuario extends Model {
 
     @AllowNull(false)
     @Unique
-    @Column(DataType.INTEGER)
+    @Column(DataType.BIGINT)
     numero_documento: number;
 
     @AllowNull(false)
@@ -54,7 +54,7 @@ export class Usuario extends Model {
     direccion_residencial: string;
 
     @AllowNull(true)
-    @Column(DataType.INTEGER)
+    @Column(DataType.BIGINT)
     telefono_movil: number;
 
     @ForeignKey(() => Ciudades)
@@ -84,6 +84,12 @@ export class Usuario extends Model {
     @BelongsToMany(() => Ficha, () => Asociacion_usuarios_fichas)
     fichas: Ficha[];
 
-    @HasMany(() => Asociacion_usuarios_fichas)
+    @HasMany(() => Asociacion_usuarios_fichas, {
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        hooks: true,
+    })
     fichasT!: Asociacion_usuarios_fichas[];
+
+    Asociacion_usuarios_fichas: Asociacion_usuarios_fichas;
 }

@@ -13,6 +13,7 @@ import { Asignatura } from '../models/asignaturas.model';
 import { Clases } from '../models/clases.model';
 import { Asistencias } from '../models/asistencias.model';
 import { Tipo_asistencias } from '../models/tipo_asistencias.model';
+import {Tipo_estados_solicitudes} from '../models/tipo_estados_solicitudes'
 // console.log(path.resolve(__dirname, '../models'))
 console.log('Cargando db');
 export const sequelize = new Sequelize({
@@ -22,6 +23,7 @@ export const sequelize = new Sequelize({
     password: '',
     storage: ':memory:',
     models: [
+		Tipo_estados_solicitudes,
         Usuario,
         Departamento,
         Ciudades,

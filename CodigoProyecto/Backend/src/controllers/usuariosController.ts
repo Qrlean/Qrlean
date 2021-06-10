@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import Controller, { Methods } from '../class/Controller';
-import { body, param, query, validationResult } from 'express-validator';
+import { body, param, query } from 'express-validator';
 import { UsuarioService } from '../services/UsuarioService';
-import { AdministradorService } from '../services/AdministradorService';
 import { Usuario } from '../models/usuarios.model';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
@@ -374,15 +373,8 @@ export class UsuariosController extends Controller {
         },
     ];
 
+    //registrar usuario
     async registrar(req: Request, res: Response): Promise<any> {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             console.log(req.body);
             let usuario = new UsuarioService({
@@ -399,7 +391,7 @@ export class UsuariosController extends Controller {
                 id_tipo_documento: req.body.id_tipo_documento,
             });
             console.log(usuario);
-            usuario = await AdministradorService.registrarUsuario(usuario);
+            usuario = await usuario.registrarUsuario();
             if (usuario) {
                 return super.sendSuccess(res, 'Usuario creado con éxito.', {
                     usuario,
@@ -413,15 +405,9 @@ export class UsuariosController extends Controller {
             );
         }
     }
+
+    //buscar un usuario
     async queryUsuario(_req: Request, res: Response) {
-        const errors = validationResult(_req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             return super.sendSuccess(
                 res,
@@ -446,15 +432,8 @@ export class UsuariosController extends Controller {
         }
     }
 
+    //Obtener todos los usuarios
     async getUsuarios(_req: Request, res: Response) {
-        const errors = validationResult(_req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             return super.sendSuccess(
                 res,
@@ -476,15 +455,9 @@ export class UsuariosController extends Controller {
             );
         }
     }
+
+    //Obtener usuario por id
     async getUsuario(req: Request, res: Response) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             let usuario = await UsuarioService.buscarUsuario({
                 id_usuario: req.params.id,
@@ -500,17 +473,11 @@ export class UsuariosController extends Controller {
             );
         }
     }
+
+    //Eliminar usuario
     async deleteUsuario(req: Request, res: Response) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
-            await AdministradorService.eliminarUsuario(
+            await UsuarioService.eliminarUsuario(
                 (req.params.id as unknown) as number,
             );
             return super.sendSuccess(res, 'Usuario desactivado correctamente');
@@ -522,17 +489,11 @@ export class UsuariosController extends Controller {
             );
         }
     }
+
+    //Editar usuario
     async editUsuario(req: Request, res: Response) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
-            let usuario = await AdministradorService.editarUsuario(
+            let usuario = await UsuarioService.editarUsuario(
                 (req.params.id as unknown) as number,
                 {
                     nombres_usuario: req.body.nombres_usuario,
@@ -549,15 +510,12 @@ export class UsuariosController extends Controller {
                         .id_tipo_documento as unknown) as number,
                 },
             );
-            return super.sendSuccess(res, 'Usuario editado con exito.', {
+            return super.sendSuccess(res, 'Usuario editado con éxito.', {
                 usuario,
             });
         } catch (e) {
-            console.log(e);
-            return super.sendE400(
-                res,
-                'Error al intentar editar el usuario, intente de nuevo más tarde.',
-            );
+            // console.log(e.message);
+            return super.sendE400(res, (e as Error).message as string);
         }
     }
 }

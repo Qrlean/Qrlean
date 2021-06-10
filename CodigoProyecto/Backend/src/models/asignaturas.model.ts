@@ -26,6 +26,10 @@ export class Asignatura extends Model {
     @BelongsToMany(() => Ficha, () => Asociacion_asignaturas_fichas)
     fichas!: Ficha[];
 
-    @HasMany(() => Asociacion_asignaturas_fichas)
+    @HasMany(() => Asociacion_asignaturas_fichas, {
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        hooks: true,
+    })
     fichasT!: Asociacion_asignaturas_fichas[];
 }

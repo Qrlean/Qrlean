@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import Controller, { Methods } from '../class/Controller';
 import { UsuarioService } from '../services/UsuarioService';
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
 import { Helpers } from '../class/Helpers';
+import { Tipo_documento } from '../models/tipo_documento.model';
 export class AuthController extends Controller {
     path = '/autentificacion';
     routes = [
@@ -30,7 +31,21 @@ export class AuthController extends Controller {
                     .withMessage(
                         'El campo "tipo de documento" debería estar dentro del rango de los 1 a 1 caracteres, (probablemente este vació).',
                     )
-                    .trim(),
+                    .trim()
+                    .custom(async (value) => {
+                        try {
+                            let documento = await Tipo_documento.findOne({
+                                where: { id_tipo_documento: value },
+                            });
+                            if (!documento) {
+                                return Promise.reject(
+                                    'El id enviado no corresponde a un documento',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    }),
                 body('password')
                     .matches(/^[\x00-\xFC]*$/)
                     .withMessage(
@@ -56,21 +71,12 @@ export class AuthController extends Controller {
         },
     ];
     async login(req: Request, res: Response): Promise<any> {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
-            let usuarioLogeado = new UsuarioService({
-                numero_documento: req.body.numero_documento,
-                password: req.body.password,
-                id_tipo_documento: req.body.id_tipo_documento,
-            });
-            let { token, usuario } = await usuarioLogeado.login();
+            let { token, usuario } = await UsuarioService.login(
+                req.body.numero_documento,
+                req.body.id_tipo_documento,
+                req.body.password,
+            );
             return super.sendSuccess(res, 'Usuario logeado correctamente', {
                 token,
                 usuario,
@@ -83,14 +89,6 @@ export class AuthController extends Controller {
         }
     }
     async verificarToken(req: Request, res: Response): Promise<any> {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             let decoded = await Helpers.jwtVerify(req.body.token);
             let usuario = await UsuarioService.buscarUsuario({

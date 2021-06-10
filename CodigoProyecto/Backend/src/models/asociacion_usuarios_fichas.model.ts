@@ -2,6 +2,7 @@ import { Usuario } from './usuarios.model';
 import { Ficha } from './ficha.model';
 import { Solicitudes_cambio_asistencia } from './solicitudes_cambio_asistencia.model';
 import { Asociacion_asignaturas_fichas } from './asociacion_asignaturas_fichas.model';
+import { Asistencias } from './asistencias.model';
 import {
     Column,
     Model,
@@ -46,4 +47,7 @@ export class Asociacion_usuarios_fichas extends Model {
 
     @HasMany(() => Asociacion_asignaturas_fichas)
     materia!: Asociacion_asignaturas_fichas[];
+
+    @HasMany(() => Asistencias)
+    asistencias!: Asistencias[];
 }

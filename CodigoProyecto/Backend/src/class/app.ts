@@ -3,11 +3,12 @@ import express, { Express } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import path from 'path';
-
 import { SequelizeTypescriptMigration } from 'sequelize-typescript-migration';
 import { UsuariosController } from '../controllers/usuariosController';
 import { AuthController } from '../controllers/authController';
 import { FichasController } from '../controllers/fichasController';
+import { ClasesController } from '../controllers/clasesController';
+import { AsistenciasController } from '../controllers/asistenciasController';
 const { sequelize } = require('../config/index');
 
 export default class App {
@@ -15,10 +16,14 @@ export default class App {
     private authController = new AuthController();
     private usuariosController = new UsuariosController();
     private fichasController = new FichasController();
+    private clasesController = new ClasesController();
+    private asistenciasController = new AsistenciasController();
     private controllers = [
         this.usuariosController,
         this.authController,
         this.fichasController,
+        this.clasesController,
+        this.asistenciasController,
     ];
     constructor() {
         this.app = express();

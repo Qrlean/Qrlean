@@ -2,10 +2,12 @@ import Controller from '../class/Controller';
 import { Methods } from '../class/Controller';
 import { Request, Response } from 'express';
 import { FichaService } from '../services/FichaService';
-import { body, query, validationResult, param } from 'express-validator';
+import { body, query, param } from 'express-validator';
 import { Programa } from '../models/programa.model';
 import { Ficha } from '../models/ficha.model';
 import { Usuario } from '../models/usuarios.model';
+import { Asignatura } from '../models/asignaturas.model';
+import { AsignaturaService } from '../services/AsignaturaService';
 export class FichasController extends Controller {
     path = '/fichas';
     routes = [
@@ -32,6 +34,12 @@ export class FichasController extends Controller {
             ],
         },
         {
+            path: '/asignaturas/',
+            method: Methods.GET,
+            handler: this.obtenerAsignaturas,
+            localMiddleware: [],
+        },
+        {
             path: '/:id',
             method: Methods.GET,
             handler: this.getFicha,
@@ -44,7 +52,7 @@ export class FichasController extends Controller {
                     .custom(async (value) => {
                         try {
                             let ficha = await Ficha.findOne({
-                                where: { if_ficha: value },
+                                where: { id_ficha: value },
                             });
                             if (!ficha) {
                                 return Promise.reject(
@@ -52,6 +60,7 @@ export class FichasController extends Controller {
                                 );
                             }
                         } catch (e) {
+                            console.log(e);
                             return Promise.reject('Error, intente más tarde.');
                         }
                     }),
@@ -167,6 +176,115 @@ export class FichasController extends Controller {
                     .custom(async (value) => {
                         try {
                             let usuario = await Usuario.findOne({
+                                where: { id_usuario: value, id_tipo_rol: 3 },
+                            });
+                            if (!usuario) {
+                                return Promise.reject(
+                                    'El id enviado no corresponde a un aprendiz',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    }),
+                body('id_ficha')
+                    .isNumeric()
+                    .withMessage(
+                        'El id de la ficha solo debe contener caracteres numéricos',
+                    )
+                    .custom(async (value) => {
+                        try {
+                            let ficha = await Ficha.findOne({
+                                where: { id_ficha: value },
+                            });
+                            if (!ficha) {
+                                return Promise.reject(
+                                    'El id enviado no corresponde a una fichas',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    }),
+            ],
+        },
+        {
+            path: '/asociar-instructor/',
+            method: Methods.POST,
+            handler: this.asociarInstructor,
+            localMiddleware: [
+                body('id_instructor')
+                    .isNumeric()
+                    .withMessage(
+                        'El id solo debe contener caracteres numéricos',
+                    )
+                    .custom(async (value) => {
+                        try {
+                            let usuario = await Usuario.findOne({
+                                where: { id_usuario: value, id_tipo_rol: 2 },
+                            });
+                            if (!usuario) {
+                                return Promise.reject(
+                                    'El id enviado no corresponde a un instructor',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    }),
+                body('id_ficha')
+                    .isNumeric()
+                    .withMessage(
+                        'El id de la ficha solo debe contener caracteres numéricos',
+                    )
+                    .custom(async (value) => {
+                        try {
+                            let ficha = await Ficha.findOne({
+                                where: { id_ficha: value },
+                            });
+                            if (!ficha) {
+                                return Promise.reject(
+                                    'El id enviado no corresponde a una fichas',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    }),
+                body('id_asignatura')
+                    .isNumeric()
+                    .withMessage(
+                        'El id de la asignatura solo debe contener caracteres numéricos',
+                    )
+                    .custom(async (value) => {
+                        try {
+                            let asignatura = await Asignatura.findOne({
+                                where: { id_asignatura: value },
+                            });
+                            if (!asignatura) {
+                                return Promise.reject(
+                                    'El id enviado no corresponde a una asignatura',
+                                );
+                            }
+                        } catch (e) {
+                            return Promise.reject('Error, intente más tarde.');
+                        }
+                    }),
+            ],
+        },
+        {
+            path: '/desasociar-usuario/',
+            method: Methods.DELETE,
+            handler: this.desasociarUsuario,
+            localMiddleware: [
+                body('id_usuario')
+                    .isNumeric()
+                    .withMessage(
+                        'El id solo debe contener caracteres numéricos',
+                    )
+                    .custom(async (value) => {
+                        try {
+                            let usuario = await Usuario.findOne({
                                 where: { id_usuario: value },
                             });
                             if (!usuario) {
@@ -201,14 +319,6 @@ export class FichasController extends Controller {
         },
     ];
     async getFicha(_req: Request, res: Response) {
-        const errors = validationResult(_req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             super.sendSuccess(res, 'Se obtuvo las fichas correctamente.', {
                 fichas: await FichaService.buscarFicha({
@@ -217,18 +327,10 @@ export class FichasController extends Controller {
             });
         } catch (e) {
             console.log(e);
-            super.sendE400(res, 'Error al intentar obtener las fichas');
+            super.sendE400(res, (e as Error).message);
         }
     }
     async getFichas(_req: Request, res: Response) {
-        const errors = validationResult(_req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             super.sendSuccess(res, 'Se obtuvo las fichas correctamente.', {
                 fichas: await FichaService.buscarFichas(
@@ -240,19 +342,11 @@ export class FichasController extends Controller {
             });
         } catch (e) {
             console.log(e);
-            super.sendE400(res, 'Error al intentar obtener las fichas');
+            super.sendE400(res, (e as Error).message);
         }
     }
 
     async crearFicha(req: Request, res: Response) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             let nuevaFicha = new FichaService(req.body.id_programa);
             let ficha = await nuevaFicha.crearFicha();
@@ -266,14 +360,6 @@ export class FichasController extends Controller {
         }
     }
     async editarFicha(req: Request, res: Response) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             let ficha = await FichaService.editarFicha(
                 (req.params.id as unknown) as number,
@@ -285,18 +371,10 @@ export class FichasController extends Controller {
             super.sendSuccess(res, 'Ficha editada con éxito,', { ficha });
         } catch (e) {
             console.log(e);
-            super.sendE400(res, 'Error al intentar editar la ficha.');
+            super.sendE400(res, (e as Error).message);
         }
     }
     async eliminarFicha(req: Request, res: Response) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
             await FichaService.eliminarFicha(
                 (req.params.id as unknown) as number,
@@ -309,22 +387,53 @@ export class FichasController extends Controller {
     }
 
     async asociarAprendiz(req: Request, res: Response) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return super.sendE400(
-                res,
-                'Los datos requeridos no fueron llenados correctamente',
-                errors,
-            );
-        }
         try {
-            let ficha = await FichaService.asociarAprendiz(
-                req.body.id_aprendiz,
-                req.body.id_ficha,
-            );
+            return super.sendSuccess(res, 'Usuario asociado con éxito.', {
+                ficha: await FichaService.asociarAprendiz(
+                    req.body.id_aprendiz,
+                    req.body.id_ficha,
+                ),
+            });
         } catch (e) {
             console.log(e);
-            super.sendE400(res, 'Error al intentar asociar aprendiz.');
+            super.sendE400(res, (e as Error).message);
+        }
+    }
+    async asociarInstructor(req: Request, res: Response) {
+        try {
+            return super.sendSuccess(res, 'Usuario asociado con éxito.', {
+                ficha: await FichaService.asociarInstructor(
+                    req.body.id_instructor,
+                    req.body.id_ficha,
+                    req.body.id_asignatura,
+                ),
+            });
+        } catch (e) {
+            console.log(e);
+            super.sendE400(res, (e as Error).message);
+        }
+    }
+    async desasociarUsuario(req: Request, res: Response) {
+        try {
+            return super.sendSuccess(res, 'Usuario desasociado con éxito.', {
+                ficha: await FichaService.desAsociarUsuario(
+                    req.body.id_usuario,
+                    req.body.id_ficha,
+                ),
+            });
+        } catch (e) {
+            console.log(e);
+            super.sendE400(res, 'Error al intentar desasociar usuario.');
+        }
+    }
+    async obtenerAsignaturas(_req: Request, res: Response) {
+        try {
+            return super.sendSuccess(res, 'Asignaturas obtenidas con éxito.', {
+                asignaturas: await AsignaturaService.obtenerAsignaturas({}),
+            });
+        } catch (e) {
+            console.log(e);
+            super.sendE400(res, 'Error al intentar obtener asignaturas.');
         }
     }
 }

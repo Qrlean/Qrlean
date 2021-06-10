@@ -9,6 +9,7 @@ import {
     PrimaryKey,
     Table,
     BelongsTo,
+    Default,
 } from 'sequelize-typescript';
 import { Asociacion_asignaturas_fichas } from './asociacion_asignaturas_fichas.model';
 import { Asistencias } from './asistencias.model';
@@ -31,11 +32,16 @@ export class Clases extends Model {
 
     @AllowNull(false)
     @Column(DataType.TIME)
-    hora_inicio!: Date;
+    hora_inicio!: String;
 
     @AllowNull(false)
     @Column(DataType.TIME)
-    hora_final!: Date;
+    hora_final!: String;
+
+    @AllowNull(false)
+    @Default(true)
+    @Column(DataType.BOOLEAN)
+    permite_qr!: boolean;
 
     @ForeignKey(() => Asociacion_asignaturas_fichas)
     @AllowNull(false)
