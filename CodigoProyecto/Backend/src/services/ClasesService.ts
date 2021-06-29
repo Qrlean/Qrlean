@@ -257,7 +257,7 @@ export class ClasesService {
                             <br>
                         Dia: ${moment(infoCompletaClase.dia)
                             .locale('es')
-                            .format('MMMM, dddd [de] YYYY')
+                            .format('MMMM, dddd [de] YYYY, h:mm:ss a')
                             .split(' ')
                             .map(
                                 (valor) =>

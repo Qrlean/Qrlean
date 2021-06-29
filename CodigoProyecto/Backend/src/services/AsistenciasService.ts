@@ -6,6 +6,10 @@ import { Tipo_roles } from '../models/tipo_roles.models';
 import { Tipo_documento } from '../models/tipo_documento.model';
 import { Ciudades } from '../models/cuidades.model';
 import { Departamento } from '../models/departamentos.models';
+import { Ficha } from '../models/ficha.model';
+import { Clases } from '../models/clases.model';
+import { Asociacion_asignaturas_fichas } from '../models/asociacion_asignaturas_fichas.model';
+import moment from 'moment';
 export class AsistenciasService {
     public readonly id_clase: number;
     public readonly id_tipo_asistencia: number;
@@ -74,11 +78,49 @@ export class AsistenciasService {
         }
     }
 
-    //Verificar si el usuario pertenece a la ficha.
     public async registrarAsistenciaInstructor(): Promise<
         Asistencias | boolean
     > {
         try {
+            let clase = await Clases.findByPk(this.id_clase, {
+                include: [
+                    {
+                        model: Asociacion_asignaturas_fichas,
+                        include: [
+                            {
+                                model: Ficha,
+                            },
+                        ],
+                    },
+                ],
+            });
+            if (!clase) {
+                throw new Error('Error , la clase no existe.');
+            }
+            let ficha = await Ficha.findByPk(clase.asignatura.ficha.id_ficha);
+            let asociacionUsuarioFicha = await Asociacion_usuarios_fichas.findByPk(
+                this.id_aprendiz,
+            );
+
+            let usuario = await Usuario.findByPk(
+                asociacionUsuarioFicha?.id_usuario,
+            );
+            if (!usuario) {
+                return false;
+            }
+            if (usuario.id_tipo_rol === 2) {
+                return false;
+            }
+            let usuarioPerteneceFicha = await ficha?.$has('usuarios', usuario);
+            if (!usuarioPerteneceFicha) {
+                return false;
+            }
+            // console.log(
+            //     clase.toJSON(),
+            //     ficha?.toJSON(),
+            //     usuario?.toJSON(),
+            //     usuarioPerteneceFicha,
+            // );
             let asistenciaUsuario = await Asistencias.findOne({
                 where: {
                     id_clase: this.id_clase,
@@ -106,31 +148,88 @@ export class AsistenciasService {
                     id_asistencia: asistenciaCreada.id_asistencia,
                 });
             }
-
-            // let existeAsistenciaDelUsuario = await AsistenciasService.obtenerAsistencia(
-            //     {
-            //         id_clase: this.id_clase,
-            //         id_tipo_asistencia: this.id_tipo_asistencia,
-            //         id_aprendiz: this.id_aprendiz,
-            //     },
-            // );
-            // if (existeAsistenciaDelUsuario) {
-            //     throw new Error(
-            //         'El aprendiz ya tiene una asistencia registrada , si desea cambiarla contacte al instructor de la clase',
-            //     );
-            // }
-            // return await Asistencias.create({
-            //     id_aprendiz: this.id_aprendiz,
-            //     id_clase: this.id_clase,
-            //     id_tipo_asistencia: this.id_tipo_asistencia,
-            //     id_solicitud_cambio_asistencia: this
-            //         .id_solicitud_cambio_asistencia,
-            // });
         } catch (e) {
             console.log(e);
             return false;
+        }
+    }
+    public async registrarAsistenciaAprendiz(): Promise<Asistencias> {
+        try {
+            let clase = await Clases.findByPk(this.id_clase, {
+                include: [
+                    {
+                        model: Asociacion_asignaturas_fichas,
+                        include: [
+                            {
+                                model: Ficha,
+                            },
+                        ],
+                    },
+                ],
+            });
+            if (!clase) {
+                throw new Error('Error , la clase no existe.');
+            }
+            let diaHoraInicioClase = moment(
+                `${clase.dia} ${clase.hora_inicio}`,
+            );
+            let diaHoraFinalClase = moment(`${clase.dia} ${clase.hora_final}`);
 
-            // throw new Error('Error al firmar asistencia');
+            let diaActual = moment(Date.now());
+
+            if (
+                diaActual.isBetween(diaHoraInicioClase, diaHoraFinalClase) ===
+                false
+            ) {
+                throw new Error(
+                    'Error, no esta permito firmar asistencia fuera del tiempo establecido por la clase.',
+                );
+            }
+
+            let ficha = await Ficha.findByPk(clase.asignatura.ficha.id_ficha);
+            let asociacionUsuarioFicha = await Asociacion_usuarios_fichas.findByPk(
+                this.id_aprendiz,
+            );
+
+            let usuario = await Usuario.findByPk(
+                asociacionUsuarioFicha?.id_usuario,
+            );
+            if (!usuario) {
+                throw new Error('Error, el usuario no existe');
+            }
+            if (usuario.id_tipo_rol === 2) {
+                throw new Error(
+                    'Error, el usuario no puede ser instructor de la ficha',
+                );
+            }
+            let usuarioPerteneceFicha = await ficha?.$has('usuarios', usuario);
+            if (!usuarioPerteneceFicha) {
+                throw new Error('Error, el usuario no pertenece a la ficha.');
+            }
+            let existeAsistenciaDelUsuario = await Asistencias.findOne({
+                where: {
+                    id_clase: this.id_clase,
+                    id_tipo_asistencia: this.id_tipo_asistencia,
+                    id_aprendiz: this.id_aprendiz,
+                },
+            });
+            if (existeAsistenciaDelUsuario) {
+                throw new Error(
+                    'El aprendiz ya tiene una asistencia registrada , si desea cambiarla contacte al instructor de la clase',
+                );
+            }
+            let asistenciaCreada = await Asistencias.create({
+                id_aprendiz: this.id_aprendiz,
+                id_clase: this.id_clase,
+                id_tipo_asistencia: 1,
+                id_solicitud_cambio_asistencia: null,
+            });
+            return AsistenciasService.obtenerAsistencia({
+                id_asistencia: asistenciaCreada.id_asistencia,
+            });
+        } catch (e) {
+            console.log(e);
+            throw new Error((e as Error).message);
         }
     }
 }

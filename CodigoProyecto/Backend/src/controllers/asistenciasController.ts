@@ -39,12 +39,23 @@ export class AsistenciasController extends Controller {
                     .optional({ nullable: true }),
             ],
         },
-        // {
-        //     path: '/firmar/aprendiz',
-        //     handler: this.firmarAsistenciaAprendiz,
-        //     method: Methods.POST,
-        //     localMiddleware: [],
-        // },
+        {
+            path: '/firmar/aprendiz',
+            handler: this.firmarAsistenciaAprendiz,
+            method: Methods.POST,
+            localMiddleware: [
+                body('id_clase')
+                    .isNumeric()
+                    .withMessage(
+                        'El id de la clase debiera solo contener caracteres numéricos.',
+                    ),
+                body('id_aprendiz')
+                    .isNumeric()
+                    .withMessage(
+                        'El id del aprendiz debiera solo contener caracteres numéricos.',
+                    ),
+            ],
+        },
     ];
 
     async firmarAsistenciaInstructor(req: Request, res: Response) {
@@ -75,9 +86,25 @@ export class AsistenciasController extends Controller {
             console.log(e);
             return super.sendE400(
                 res,
-                'Error al intentar obtener asignaturas.',
+                'Error al intentar registrar la asistencia.',
             );
         }
     }
-    // async firmarAsistenciaAprendiz(req: Request, res: Response) {}
+    async firmarAsistenciaAprendiz(req: Request, res: Response) {
+        try {
+            let asistenciaAprendiz = new AsistenciasService(
+                req.body.id_clase,
+                1,
+                req.body.id_aprendiz,
+                undefined,
+            );
+            return super.sendSuccess(res, 'Asistencia firmada correctamente.', {
+                ok: true,
+                asistencia: await asistenciaAprendiz.registrarAsistenciaAprendiz(),
+            });
+        } catch (e) {
+            console.log(e);
+            return super.sendE400(res, (e as Error).message);
+        }
+    }
 }
