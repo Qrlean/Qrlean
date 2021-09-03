@@ -9,6 +9,7 @@ import { AuthController } from '../controllers/authController';
 import { FichasController } from '../controllers/fichasController';
 import { ClasesController } from '../controllers/clasesController';
 import { AsistenciasController } from '../controllers/asistenciasController';
+import fs from 'fs';
 const { sequelize } = require('../config/index');
 
 export default class App {
@@ -53,6 +54,50 @@ export default class App {
                     'Servidor conectado en puerto',
                     process.env.PORT || 8082,
                 );
+            },
+        );
+    }
+
+    public createDbConfig(): void {
+        var json: {} = {
+            development: {
+                username: process.env.DATABASE_USER,
+                password: process.env.DATABASE_PASSWORD,
+                database: process.env.DATABASE,
+                host: process.env.DATABASE_HOST,
+                port: process.env.DATABASE_PORT,
+                dialect: 'postgres',
+            },
+            test: {
+                username: process.env.DATABASE_USER,
+                password: process.env.DATABASE_PASSWORD,
+                database: process.env.DATABASE,
+                host: process.env.DATABASE_HOST,
+                port: process.env.DATABASE_PORT,
+                dialect: 'postgres',
+            },
+            production: {
+                username: process.env.DATABASE_USER,
+                password: process.env.DATABASE_PASSWORD,
+                database: process.env.DATABASE,
+                host: process.env.DATABASE_HOST,
+                port: process.env.DATABASE_PORT,
+                dialect: 'postgres',
+            },
+        };
+        fs.writeFile(
+            path.resolve(__dirname, '../config/config.json'),
+            JSON.stringify(json),
+            'utf8',
+            () => {
+                // console.log(
+                //     path.resolve(__dirname, '../config/config.json'),
+                //     process.env.DATABASE_USER,
+                //     process.env.DATABASE_PASSWORD,
+                //     process.env.DATABASE,
+                //     process.env.DATABASE_HOST,
+                //     process.env.DATABASE_PORT,
+                // );
             },
         );
     }

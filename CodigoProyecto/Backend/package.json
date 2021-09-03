@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint '*/**/*.ts' --quiet --fix ",
     "dev": "copyfiles -u 1 src/email/*.html dist/ && copyfiles -u 1 src/config/config.json dist/ &&  copyfiles -u 1 src/migrations dist/ && tsc -w",
-    "nodemon": "nodemon ./dist/ --ignore /migrate/*",
+    "nodemon": "nodemon ./dist/ --ignore '/dist/migrations/*.js' --ignore /dist/config/config.json",
     "sequelize": "sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
   },
   "author": "",
@@ -35,6 +35,8 @@
     "mysql2": "^2.2.5",
     "node-schedule": "^2.0.0",
     "nodemailer": "^6.5.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0",
