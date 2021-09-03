@@ -1,7 +1,7 @@
 import React from 'react';
-import Dashboard from '../../../../../../../components/utils/Dashboard';
-import ItemAprendiz from '../../../../../../../components/layout/firmarAsistencia/ItemAprendiz';
-import * as Yup from 'yup';
+import Dashboard from '../../../../../../components/utils/Dashboard';
+import ItemAprendiz from '../../../../../../components/layout/firmarAsistencia/ItemAprendiz';
+// import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 const FirmarClase = () => {

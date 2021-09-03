@@ -10,6 +10,9 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { login } from '../actions/appActions';
+
+import { useDispatch } from 'react-redux';
 const errorVariants = {
     initial: {
         height: '0px',
@@ -30,24 +33,24 @@ const errorVariants = {
 };
 
 const validationSchema = Yup.object().shape({
-    documento: Yup.string()
+    numero_documento: Yup.string()
         .matches(
             /^\d+$/,
             'El documento debería solo contener caracteres numéricos.',
         )
-        .min(4, 'El documento debería tener mínimo 4 caracteres.')
+        .min(4, 'El documento debería tener mínimo 3 caracteres.')
         .max(20, 'El documento debería tener máximo 20 caracteres.')
         .required('El campo documento es requerido.'),
-    tipo_doc: Yup.string(
+    id_tipo_documento: Yup.string(
         'El tipo de documento debería solo contener caracteres alfanuméricos.',
     )
         .min(
-            2,
-            'El tipo de documento debería tener mínimo 2 caracteres (selecciona algún documento).',
+            1,
+            'El tipo de documento debería tener mínimo 1 caracteres (selecciona algún documento).',
         )
         .max(
-            2,
-            'El tipo de documento debería tener máximo 2 caracteres (selecciona algún documento).',
+            1,
+            'El tipo de documento debería tener máximo 1 caracteres (selecciona algún documento).',
         )
         .required('El campo tipo de documento es requerido.'),
     password: Yup.string(
@@ -59,27 +62,28 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+    const dispatch = useDispatch();
     const router = useRouter();
     const loader = false;
 
     const formik = useFormik({
         initialValues: {
-            documento: '',
-            tipo_doc: '',
+            numero_documento: '',
+            id_tipo_documento: '',
             password: '',
         },
         onSubmit: (values) => {
-            console.log(values);
-            router.push('/dashboard/admin');
+            dispatch(login(values));
         },
         validationSchema,
     });
+
     return (
         <div
             className="w-full h-screen "
             style={{
                 backgroundImage:
-                    "url('https://archivos.territorio.la/archivos/clases/2020n08n18n11n37n26nWindow___645f3c05ba7afe2___.png')",
+                    "url('https://cdn.pixabay.com/photo/2017/03/27/13/03/book-2178586_960_720.jpg')",
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
             }}
@@ -105,9 +109,10 @@ const Login = () => {
                             <div className="flex flex-row justify-center items-center my-5">
                                 <Logo className="mx-3 w-105 h-20 " />
                             </div>
+                            {/* Campo numero_documento */}
                             <AnimatePresence>
-                                {formik.errors.documento &&
-                                formik.touched.documento ? (
+                                {formik.errors.numero_documento &&
+                                formik.touched.numero_documento ? (
                                     <motion.p
                                         initial="initial"
                                         animate="animate"
@@ -115,21 +120,22 @@ const Login = () => {
                                         variants={errorVariants}
                                         className="rounded-lg overflow-hidden text-center  text-red-600 text-base"
                                     >
-                                        {formik.errors.documento}
+                                        {formik.errors.numero_documento}
                                     </motion.p>
                                 ) : null}
                             </AnimatePresence>
                             <input
                                 type="text"
-                                placeholder="Ingrese un documento"
-                                name="documento"
+                                placeholder="Ingrese un numero de documento"
+                                name="numero_documento"
                                 onChange={formik.handleChange}
-                                value={formik.values.documento}
+                                value={formik.values.numero_documento}
                                 className="outline-none bg-gray-300 p-3  text-gray-800 my-2 "
                             />
+                            {/* Campo tipo documento */}
                             <AnimatePresence>
-                                {formik.errors.tipo_doc &&
-                                formik.touched.tipo_doc ? (
+                                {formik.errors.id_tipo_documento &&
+                                formik.touched.id_tipo_documento ? (
                                     <motion.p
                                         initial="initial"
                                         animate="animate"
@@ -137,30 +143,31 @@ const Login = () => {
                                         variants={errorVariants}
                                         className="rounded-lg overflow-hidden text-center  text-red-600 text-base"
                                     >
-                                        {formik.errors.tipo_doc}
+                                        {formik.errors.id_tipo_documento}
                                     </motion.p>
                                 ) : null}
                             </AnimatePresence>
                             <select
-                                name="tipo_doc"
+                                name="id_tipo_documento"
                                 onChange={formik.handleChange}
-                                value={formik.values.tipo_doc}
+                                value={formik.values.id_tipo_documento}
                                 className="text-center outline-none bg-gray-300 p-2  text-gray-800 my-2 "
                             >
                                 <option value="" selected>
                                     Tipo de documento.
                                 </option>
-                                <option value="CC">
+                                <option value="1">
                                     CC Cedula de ciudadanía.
                                 </option>
-                                <option value="TI">
+                                <option value="2">
                                     TI Tarjeta de identidad.
                                 </option>
-                                <option value="CE">
+                                <option value="3">
                                     CE Cedula de extranjería.
                                 </option>
-                                <option value="PA">PA Pasaporte.</option>
+                                <option value="4">PA Pasaporte.</option>
                             </select>
+                            {/* Campo password */}
                             <AnimatePresence>
                                 {formik.errors.password &&
                                 formik.touched.password ? (
@@ -187,8 +194,8 @@ const Login = () => {
                                 type={formik.isValid && 'submit'}
                                 className={
                                     formik.isValid &&
-                                    formik.values.documento !== '' &&
-                                    formik.values.tipo_doc !== '' &&
+                                    formik.values.numero_documento !== '' &&
+                                    formik.values.id_tipo_documento !== '' &&
                                     formik.values.password !== ''
                                         ? 'bg-orange-500 outline-none p-3 text-white text-base font-extrabold my-2 '
                                         : 'bg-gray-600 outline-none p-3 text-white text-base font-extrabold my-2 cursor-not-allowed'

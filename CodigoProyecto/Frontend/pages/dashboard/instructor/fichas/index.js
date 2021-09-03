@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 import Dashboard from '../../../../components/utils/Dashboard';
 
-import Item from '../../../../components/layout/fichasInstructor/Item';
+import Item from '../../../../components/layout/item/Item';
 import Modal from '../../../../components/utils/Modal';
 import DashboardAdminHelp from '../../../../svg/dashboardAdminHelp.svg';
 
 import Loader from 'react-loader-spinner';
 
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 
-const infoVariants = {
-    hover: {
-        rotate: -10,
-        scale: 1,
-    },
-};
+// const infoVariants = {
+//     hover: {
+//         rotate: -10,
+//         scale: 1,
+//     },
+// };
 const InstructorDashboard = () => {
     const fichas = [
         { _id: 1, ficha: 12341234 },
@@ -25,11 +25,10 @@ const InstructorDashboard = () => {
         { _id: 3, ficha: 12341234 },
         { _id: 4, ficha: 12341234 },
     ];
-    const router = useRouter();
+    // const router = useRouter();
 
     const error = false;
     const loader = false;
-    const [item, setItem] = useState(null);
     const [help, setHelp] = useState(false);
     return (
         <Dashboard>
@@ -60,14 +59,53 @@ const InstructorDashboard = () => {
                             Fichas
                         </h1>
 
-                        {fichas.map((i) => (
-                            <Item
-                                data={i}
-                                key={i._id}
-                                itemActivo={item}
-                                setItem={setItem}
-                            />
-                        ))}
+                        {/* 
+                        list,
+                        openPropierties,
+                        closePropierties,
+                        openTitle,
+                        iconExpand,
+                        routerDir,
+                        routerQuery,
+                        idPropertie,
+                        modalText,
+                        modalTitle,
+                        */}
+                        {/* [{
+                            key:"nombre",
+                            text:"Tu nombre:",
+                            className:"asdcasd"
+                        }] */}
+                        <Item
+                            list={fichas}
+                            openPropierties={[
+                                {
+                                    key: '_id',
+                                    text: 'Id',
+                                },
+                                {
+                                    key: 'ficha',
+                                    text: 'Ficha',
+                                },
+                            ]}
+                            closePropierties={[
+                                {
+                                    key: '_id',
+                                    text: 'Id',
+                                },
+                                {
+                                    key: 'ficha',
+                                    text: 'Ficha',
+                                },
+                            ]}
+                            openTitle="Información de persona"
+                            iconExpand={true}
+                            trashIcon={false}
+                            editIcon={false}
+                            routerDir="/dashboard/instructor/fichas"
+                            routerQuery="ficha"
+                            idPropertie="_id"
+                        />
                     </>
                 )}
             </div>

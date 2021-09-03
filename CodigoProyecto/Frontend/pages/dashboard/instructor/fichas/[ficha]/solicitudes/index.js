@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useRouter } from 'next/router';
 
 import Dashboard from '../../../../../../components/utils/Dashboard';
 
-import Item from '../../../../../../components/layout/solicitudesInstructor/Item';
+import Item from '../../../../../../components/layout/item/Item';
 // import Modal from '../../../../components/utils/Modal'
 
 import Loader from 'react-loader-spinner';
 
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 
-const infoVariants = {
-    hover: {
-        rotate: -10,
-        scale: 1,
-    },
-};
+// const infoVariants = {
+//     hover: {
+//         rotate: -10,
+//         scale: 1,
+//     },
+// };
 const SolicitudesAprendiz = () => {
     const solicitudes = [
         {
@@ -52,8 +52,7 @@ const SolicitudesAprendiz = () => {
 
     const error = false;
     const loader = false;
-    const [item, setItem] = useState(null);
-    const [help, setHelp] = useState(false);
+    // const [help, setHelp] = useState(false);
     return (
         <Dashboard>
             {/* <Modal state={help} setState={setHelp} titulo="Ayuda">
@@ -113,15 +112,55 @@ const SolicitudesAprendiz = () => {
                         <h1 className="w-full text-gray-800 text-3xl font-semibold lg:text-4xl text-center my-8">
                             Tus solicitudes
                         </h1>
-
-                        {solicitudes.map((i) => (
-                            <Item
-                                data={i}
-                                key={i._id}
-                                itemActivo={item}
-                                setItem={setItem}
-                            />
-                        ))}
+                        {/* 
+                        list,
+                        openPropierties,
+                        closePropierties,
+                        openTitle,
+                        iconExpand,
+                        routerDir,
+                        routerQuery,
+                        idPropertie,
+                        modalText,
+                        modalTitle,
+                        */}
+                        {/* [{
+                            key:"nombre",
+                            text:"Tu nombre:",
+                            className:"asdcasd"
+                        }] */}
+                        <Item
+                            list={solicitudes}
+                            openPropierties={[
+                                {
+                                    key: 'ficha',
+                                    text: 'Ficha',
+                                },
+                                {
+                                    key: 'asunto',
+                                    text: 'Asunto',
+                                },
+                            ]}
+                            closePropierties={[
+                                {
+                                    key: 'ficha',
+                                    text: 'Ficha',
+                                },
+                                {
+                                    key: 'asunto',
+                                    text: 'Asunto',
+                                },
+                            ]}
+                            openTitle="Información de solicitud"
+                            iconExpand={false}
+                            trashIcon={true}
+                            editIcon={false}
+                            routerDir="/dashboard/instructor/fichas/12/solicitudes"
+                            routerQuery="solicitud"
+                            idPropertie="_id"
+                            modalTitle="Eliminar solicitud"
+                            modalText="hola"
+                        />
                     </>
                 )}
             </div>

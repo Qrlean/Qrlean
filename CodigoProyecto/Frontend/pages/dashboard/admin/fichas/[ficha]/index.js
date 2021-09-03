@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import ItemPersonaAsistencia from '../../../../../components/layout/fichas/ItemPersonaAsistencia';
 import Dashboard from '../../../../../components/utils/Dashboard';
 import ItemListaAdmin from '../../../../../components/layout/fichas/ItemListaAdmin';
@@ -130,6 +130,7 @@ const Ficha = () => {
                         </h1>
                         {['Ingles', 'Matematicas', 'Español'].map((value) => (
                             <ItemMaterias
+                                key={value}
                                 titulo={`${value}`}
                                 width="w-11/12"
                                 clases={['1.Programacion', '2.Diagramas']}
@@ -141,8 +142,10 @@ const Ficha = () => {
                             Aprendices en estado critico.
                         </h1>
                         <div className="flex flex-row items-center justify-center flex-wrap w-full">
-                            {[1, 2, 3, 4, 5].map(() => (
-                                <ItemPersonaAsistencia></ItemPersonaAsistencia>
+                            {[1, 2, 3, 4, 5].map((e) => (
+                                <ItemPersonaAsistencia
+                                    key={e}
+                                ></ItemPersonaAsistencia>
                             ))}
                         </div>
                     </div>
@@ -153,7 +156,7 @@ const Ficha = () => {
                         Personas
                     </h1>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-                        <ItemListaAdmin></ItemListaAdmin>
+                        <ItemListaAdmin key={value}></ItemListaAdmin>
                     ))}
                 </div>
             </div>

@@ -29,12 +29,12 @@ const errorVariants = {
         },
     },
 };
-const infoVariants = {
-    hover: {
-        rotate: -10,
-        scale: 1,
-    },
-};
+// const infoVariants = {
+//     hover: {
+//         rotate: -10,
+//         scale: 1,
+//     },
+// };
 const validationSchema = Yup.object().shape({
     instructor: Yup.string().required('El campo instructor es requerido.'),
     asunto: Yup.string(
@@ -194,9 +194,7 @@ const CrearSolicitud = () => {
                                     'insertdatetime media table paste code help wordcount',
                                 ],
                                 toolbar:
-                                    'undo redo | formatselect | bold italic backcolor | \
-                                alignleft aligncenter alignright alignjustify | \
-                                bullist numlist outdent indent | removeformat ',
+                                    'undo redo | formatselect | bold italic backcolor |  alignleft aligncenter alignright alignjustify |  bullist numlist outdent indent | removeformat ',
                             }}
                             onEditorChange={handleEditorChange}
                         />

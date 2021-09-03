@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
-import Avatar from 'react-avatar';
-
-import Modal from '../../utils/Modal';
-const ItemClose = ({ data, openItem }) => {
-    const [modal, setModal] = useState(false);
+const ItemClose = ({ data, openItem, closePropierties }) => {
     return (
         <>
             <motion.div
@@ -22,18 +18,25 @@ const ItemClose = ({ data, openItem }) => {
                         layoutId="contenido"
                         className="flex flex-col justify-center items-start mx-4 h-full py-6 flex-1"
                     >
-                        <motion.h1
-                            layoutId="asunto"
-                            className="capitalize text-sm font-semibold md:text-xl text-left text-gray-800"
-                        >
-                            Asunto: {data.asunto}
-                        </motion.h1>
-                        <motion.h2
-                            layoutId="receptor"
-                            className="text-xs md:text-base text-left text-gray-800"
-                        >
-                            Para: {data.receptor}
-                        </motion.h2>
+                        {/* 
+                        [{
+                            key:"nombre",
+                            text:"Tu nombre:",
+                            className:"asdcasd"
+                        }] */}
+                        {closePropierties.map((p) => (
+                            <motion.h2
+                                key={p.key}
+                                layoutId={p.key}
+                                className={
+                                    p.className
+                                        ? p.className
+                                        : 'text-xs md:text-base text-left text-gray-800'
+                                }
+                            >
+                                {p.text} : {data[p.key]}
+                            </motion.h2>
+                        ))}
                     </motion.div>
                 </div>
             </motion.div>

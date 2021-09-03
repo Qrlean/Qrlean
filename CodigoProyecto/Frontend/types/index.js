@@ -1,9 +1,9 @@
 export const FIRST_CALL = 'FIRST_CALL';
 export const FIRST_CALL_EXITO = 'FIRST_CALL_EXITO';
 export const FIRST_CALL_ERROR = 'FIRST_CALL_ERROR';
-export const LOGIN_CALL = 'LOGIN_CALL';
-export const LOGIN_CALL_EXITO = 'LOGIN_CALL_EXITO';
-export const LOGIN_CALL_ERROR = 'LOGIN_CALL_ERROR';
+export const LOGIN = 'LOGIN';
+export const LOGIN_EXITO = 'LOGIN_EXITO';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_EXITO = 'LOGOUT_EXITO';
 export const GET_USUARIOS = 'GET_USUARIOS';

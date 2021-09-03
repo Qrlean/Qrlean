@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import Item from '../../../../../../components/layout/clases/Item';
+import Item from '../../../../../../components/layout/item/Item';
 import Modal from '../../../../../../components/utils/Modal';
 import Dashboard from '../../../../../../components/utils/Dashboard';
 import DashboardAdminHelp from '../../../../../../svg/dashboardAdminHelp.svg';
 
 import Loader from 'react-loader-spinner';
 
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 
-const infoVariants = {
-    hover: {
-        rotate: -10,
-        scale: 1,
-    },
-};
+// const infoVariants = {
+//     hover: {
+//         rotate: -10,
+//         scale: 1,
+//     },
+// };
 
 const Materia = () => {
     const clases = [
@@ -44,7 +44,6 @@ const Materia = () => {
     ];
     const error = false;
     const loader = false;
-    const [item, setItem] = useState(null);
     const [help, setHelp] = useState(false);
     const router = useRouter();
     return (
@@ -106,15 +105,53 @@ const Materia = () => {
                         <h1 className="w-full text-gray-800 text-3xl font-semibold lg:text-4xl text-center my-8">
                             Clases de {router.query.materia}
                         </h1>
-
-                        {clases.map((i) => (
-                            <Item
-                                data={i}
-                                key={i._id}
-                                itemActivo={item}
-                                setItem={setItem}
-                            />
-                        ))}
+                        {/* 
+                        list,
+                        openPropierties,
+                        closePropierties,
+                        openTitle,
+                        iconExpand,
+                        routerDir,
+                        routerQuery,
+                        idPropertie,
+                        modalText,
+                        modalTitle,
+                        */}
+                        {/* [{
+                            key:"nombre",
+                            text:"Tu nombre:",
+                            className:"asdcasd"
+                        }] */}
+                        <Item
+                            list={clases}
+                            openPropierties={[
+                                {
+                                    key: 'nombre',
+                                    text: 'Nombre',
+                                },
+                                {
+                                    key: 'fecha',
+                                    text: 'Fecha',
+                                },
+                            ]}
+                            closePropierties={[
+                                {
+                                    key: 'nombre',
+                                    text: 'Nombre',
+                                },
+                                {
+                                    key: 'fecha',
+                                    text: 'Fecha',
+                                },
+                            ]}
+                            openTitle="Información de clase"
+                            iconExpand={true}
+                            trashIcon={true}
+                            editIcon={true}
+                            routerDir="/dashboard/instructor/fichas/12/Ingles"
+                            routerQuery="materia"
+                            idPropertie="_id"
+                        />
                     </>
                 )}
             </div>

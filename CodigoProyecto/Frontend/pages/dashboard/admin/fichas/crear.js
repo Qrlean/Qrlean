@@ -29,12 +29,12 @@ const errorVariants = {
         },
     },
 };
-const infoVariants = {
-    hover: {
-        rotate: -10,
-        scale: 1,
-    },
-};
+// const infoVariants = {
+//     hover: {
+//         rotate: -10,
+//         scale: 1,
+//     },
+// };
 const validationSchema = Yup.object().shape({
     numero: Yup.string()
         .matches(

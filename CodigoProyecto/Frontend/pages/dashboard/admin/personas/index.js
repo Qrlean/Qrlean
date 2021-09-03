@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import Item from '../../../../components/layout/personas/Item';
 import Modal from '../../../../components/utils/Modal';
 import Dashboard from '../../../../components/utils/Dashboard';
 import DashboardAdminHelp from '../../../../svg/dashboardAdminHelp.svg';
+
+import Item from '../../../../components/layout/item/Item';
 
 import Loader from 'react-loader-spinner';
 
@@ -76,7 +77,6 @@ const ManagerUsuarios = () => {
 
     const error = false;
     const loader = false;
-    const [item, setItem] = useState(null);
     const [help, setHelp] = useState(false);
     return (
         <Dashboard>
@@ -144,15 +144,53 @@ const ManagerUsuarios = () => {
                         <h1 className="w-full text-gray-800 text-3xl font-semibold lg:text-4xl text-center my-8">
                             Usuarios
                         </h1>
-
-                        {instructores.map((i) => (
-                            <Item
-                                data={i}
-                                key={i._id}
-                                itemActivo={item}
-                                setItem={setItem}
-                            />
-                        ))}
+                        {/* 
+                        list,
+                        openPropierties,
+                        closePropierties,
+                        openTitle,
+                        iconExpand,
+                        routerDir,
+                        routerQuery,
+                        idPropertie,
+                        modalText,
+                        modalTitle,
+                        */}
+                        {/* [{
+                            key:"nombre",
+                            text:"Tu nombre:",
+                            className:"asdcasd"
+                        }] */}
+                        <Item
+                            list={instructores}
+                            openPropierties={[
+                                {
+                                    key: 'nombre',
+                                    text: 'Nombre',
+                                },
+                                {
+                                    key: 'documento',
+                                    text: 'Numero de documento',
+                                },
+                            ]}
+                            closePropierties={[
+                                {
+                                    key: 'nombre',
+                                    text: 'Nombre',
+                                },
+                                {
+                                    key: 'documento',
+                                    text: 'Numero de documento',
+                                },
+                            ]}
+                            openTitle="Información de persona"
+                            iconExpand={false}
+                            routerDir="/dashboard/admin/personas"
+                            routerQuery="persona"
+                            idPropertie="_id"
+                            modalText="Eliminar persona"
+                            modalTitle="Eliminar persona"
+                        />
                     </>
                 )}
             </div>
