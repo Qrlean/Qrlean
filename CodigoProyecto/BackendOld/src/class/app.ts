@@ -66,7 +66,7 @@ export default class App {
                 database: process.env.DATABASE,
                 host: process.env.DATABASE_HOST,
                 port: process.env.DATABASE_PORT,
-                dialect: 'postgres',
+                dialect: process.env.DATABASE_DRIVER || 'postgres',
             },
             test: {
                 username: process.env.DATABASE_USER,
@@ -74,7 +74,7 @@ export default class App {
                 database: process.env.DATABASE,
                 host: process.env.DATABASE_HOST,
                 port: process.env.DATABASE_PORT,
-                dialect: 'postgres',
+                dialect: process.env.DATABASE_DRIVER || 'postgres',
             },
             production: {
                 username: process.env.DATABASE_USER,
@@ -82,7 +82,7 @@ export default class App {
                 database: process.env.DATABASE,
                 host: process.env.DATABASE_HOST,
                 port: process.env.DATABASE_PORT,
-                dialect: 'postgres',
+                dialect: process.env.DATABASE_DRIVER || 'postgres',
             },
         };
         fs.writeFile(

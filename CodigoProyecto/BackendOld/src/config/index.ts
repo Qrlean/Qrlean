@@ -14,12 +14,13 @@ import { Clases } from '../models/clases.model';
 import { Asistencias } from '../models/asistencias.model';
 import { Tipo_asistencias } from '../models/tipo_asistencias.model';
 import { Tipo_estados_solicitudes } from '../models/tipo_estados_solicitudes';
+import { Dialect } from 'sequelize/types';
 // console.log(path.resolve(__dirname, '../models'))
 console.log('Cargando db');
 export const sequelize = new Sequelize({
     host: process.env.DATABASE_HOST,
     port: <number>(process.env.DATABASE_PORT as unknown),
-    dialect: 'postgres',
+    dialect: <Dialect>(process.env.DATABASE_DRIVER as unknown) || 'postgres',
     database: process.env.DATABASE,
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
