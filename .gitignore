@@ -16,4 +16,4 @@ CodigoProyecto/Frontend/node_modules/
 CodigoProyecto/Frontend/.next/
 CodigoProyecto/Frontend/.env
 CodigoProyecto/Backend/.env
-package-lock
+package-lock.json
