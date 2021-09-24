@@ -9,6 +9,7 @@
   "synchronize": false,
   "migrationsTableName":"migrations",
   "migrations":["src/database/migrations/*.ts"],
+  "ssl": true,
   "cli":{
     "migrationsDir":"src/database/migrations"
   },
