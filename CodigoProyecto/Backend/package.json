@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "copyfiles -u 1 src/correo/templates/*.html dist/ && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "node dist/main.js",
     "start:dev": "copyfiles -u 1 src/correo/templates/*.html dist/ && nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main.js",
@@ -26,8 +26,7 @@
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "seed:test:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed -r test",
-    "seed:test:config": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js config -r test",
-    "postinstall": "npm run start:prod"
+    "seed:test:config": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js config -r test"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
