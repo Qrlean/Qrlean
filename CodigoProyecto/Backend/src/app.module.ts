@@ -23,7 +23,10 @@ import { ConfigModule } from '@nestjs/config';
             synchronize: false,
             retryDelay: 3000,
             retryAttempts: 10,
-            ssl: true,
+            ssl:
+                process.env.NODE_ENV === 'production'
+                    ? { rejectUnauthorized: false }
+                    : false,
         }),
         UsuariosModule,
         AuthModule,

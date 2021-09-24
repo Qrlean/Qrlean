@@ -10,6 +10,11 @@
   "migrationsTableName":"migrations",
   "migrations":["src/database/migrations/*.ts"],
   "ssl": true,
+  "extra": {
+    "ssl": {
+      "rejectUnauthorized": false
+    }
+  },
   "cli":{
     "migrationsDir":"src/database/migrations"
   },
