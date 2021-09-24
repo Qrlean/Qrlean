@@ -1,8 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToMany,
+    PrimaryColumn,
+} from 'typeorm';
 import { Usuario } from './usuario.entity';
 @Entity()
 export class Tipo_roles {
     @PrimaryGeneratedColumn({ type: 'smallint' })
+    @PrimaryColumn()
     id_tipo_rol: number;
 
     @Column({ length: 20 })

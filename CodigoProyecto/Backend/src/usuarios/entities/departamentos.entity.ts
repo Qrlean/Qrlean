@@ -1,8 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToMany,
+    PrimaryColumn,
+} from 'typeorm';
 import { Ciudades } from './ciudades.entity';
 @Entity()
 export class Departamentos {
     @PrimaryGeneratedColumn({ type: 'smallint' })
+    @PrimaryColumn()
     id_departamento: number;
 
     @Column({ length: 30 })

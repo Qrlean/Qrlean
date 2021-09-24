@@ -21,12 +21,12 @@ export class CreateUsuarioDto {
     @ApiProperty()
     @IsNumber()
     @NumberLength(4, 20)
-    @UserExits()
+    // @UserExits()
     numero_documento: number;
 
     @ApiProperty()
     @IsEmail()
-    @UserExits()
+    // @UserExits()
     emailInstitucional: string;
 
     @ApiProperty()
@@ -45,8 +45,8 @@ export class CreateUsuarioDto {
     id_tipo_documento: number;
 
     @ApiProperty()
-    @IsNumber()
     @NumberLength(1, 2)
+    @IsNumber()
     id_tipo_rol: number;
 
     @ApiProperty()

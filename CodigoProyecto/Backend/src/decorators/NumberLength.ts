@@ -20,7 +20,11 @@ export function NumberLength(
             validator: {
                 validate(value: number, args: ValidationArguments) {
                     const [min, max] = args.constraints;
+                    if (!value) {
+                        return false;
+                    }
                     const valueString = value.toString().length;
+
                     return valueString >= min && valueString <= max;
                 },
                 defaultMessage: buildMessage(

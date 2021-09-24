@@ -4,15 +4,19 @@ import {
     Column,
     PrimaryGeneratedColumn,
     JoinColumn,
+    PrimaryColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Tipo_documento } from './tipo-documento.entity';
 import { Tipo_roles } from './tipo-roles.entity';
 import { Ciudades } from './ciudades.entity';
+import { OneToMany } from 'typeorm';
+import { fichaUsuario } from '../../fichas/entities/fichaUsuario.entity';
 
 @Entity()
 export class Usuario {
     @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id_usuario: number;
 
     @Column({ nullable: false, length: 30 })
@@ -25,7 +29,7 @@ export class Usuario {
     numero_documento: number;
 
     @Exclude({ toPlainOnly: true })
-    @Column({ select: false, nullable: false, length: 150 })
+    @Column({ nullable: false, length: 150 })
     password: string;
 
     @Column({ nullable: false, length: 100, unique: true })
@@ -59,4 +63,7 @@ export class Usuario {
     })
     @JoinColumn({ name: 'id_ciudad' })
     ciudad: Ciudades;
+
+    @OneToMany(() => fichaUsuario, (ficha) => ficha.usuario)
+    fichas: fichaUsuario[];
 }
