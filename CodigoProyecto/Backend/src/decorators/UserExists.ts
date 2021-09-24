@@ -24,7 +24,9 @@ export class IsUserAlreadyExistConstraint
         const fullProperty = {
             [args.property]: property,
         };
+
         return this.usersRepository.findOne(fullProperty).then((user) => {
+            // console.log(user);
             if (user) return false;
             return true;
         });

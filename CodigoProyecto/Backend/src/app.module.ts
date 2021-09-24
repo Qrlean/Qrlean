@@ -3,16 +3,22 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { FichasModule } from './fichas/fichas.module';
-import SeedDatabaseService from './database/seed/seeder';
+import { RolesGuard } from './auth/guards/roles-auth.guard';
+import { CorreoModule } from './correo/correo.module';
+import { ConfigModule } from '@nestjs/config';
 @Module({
     imports: [
+        ConfigModule.forRoot({
+            isGlobal: true,
+            // envFilePath: '../.env',
+        }),
         TypeOrmModule.forRoot({
-            type: 'postgres',
-            host: 'localhost',
-            port: 5432,
-            username: 'postgres',
-            password: 'React2020*',
-            database: 'Qrlean',
+            type: <any>(process.env.DATABASE_DRIVER as unknown) || 'postgres',
+            host: process.env.DATABASE_HOST,
+            port: parseInt(process.env.DATABASE_PORT),
+            username: process.env.DATABASE_USER,
+            password: process.env.DATABASE_PASSWORD,
+            database: process.env.DATABASE,
             entities: ['dist/**/*.entity{.ts,.js}'],
             synchronize: false,
             retryDelay: 3000,
@@ -21,12 +27,9 @@ import SeedDatabaseService from './database/seed/seeder';
         UsuariosModule,
         AuthModule,
         FichasModule,
+        CorreoModule,
     ],
     controllers: [],
-    providers: [SeedDatabaseService],
+    providers: [],
 })
-export class AppModule {
-    constructor(private readonly seeder: SeedDatabaseService) {
-        this.seeder.run();
-    }
-}
+export class AppModule {}
