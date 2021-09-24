@@ -26,9 +26,9 @@
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "seed:test:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed -r test",
-    "seed:test:config": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js config -r test"
+    "seed:test:config": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js config -r test",
+    "postinstall": "npm run start:prod"
   },
-  "postinstall": "npm run start:prod",
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.0.1",

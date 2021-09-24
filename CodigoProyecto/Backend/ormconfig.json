@@ -1,10 +1,6 @@
 {
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "postgres",
-  "password": "React2020*",
-  "database": "Qrlean",
+  "type":"postgres",
+  "url":"postgres://tovjhqzolysskq:5c2353b762b93cd5f34d31c04474f4843bc156ac3cfce8d5fed9fcb4e37a3c43@ec2-107-22-245-82.compute-1.amazonaws.com:5432/d43858jk16fg8c",
   "entities": ["src/**/*.entity{.ts,.js}"],
   "synchronize": false,
   "migrationsTableName":"migrations",
