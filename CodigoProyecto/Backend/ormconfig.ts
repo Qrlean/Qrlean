@@ -8,9 +8,9 @@ export default {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE,
     synchronize: false,
-    entities: ['src/**/*.entity.ts'],
+    entities: ['dist/**/*.entity.{ts,js}'],
     migrationsTableName: 'migrations',
-    migrations: ['src/database/migrations/*.ts'],
+    migrations: ['src/database/migrations/*.{ts,js}'],
     ssl:
         process.env.NODE_ENV === 'production'
             ? { rejectUnauthorized: false }
@@ -18,5 +18,5 @@ export default {
     cli: {
         migrationsDir: 'src/database/migrations',
     },
-    seeds: ['src/database/seed/*.ts'],
+    seeds: ['src/database/seed/*.{ts,js}'],
 };
