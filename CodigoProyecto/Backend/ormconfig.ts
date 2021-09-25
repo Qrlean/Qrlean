@@ -8,7 +8,7 @@ export default {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE,
     synchronize: false,
-    entities: ['dist/**/*.entity.{ts,js}'],
+    entities: ['src/**/*.entity.{ts,js}'],
     migrationsTableName: 'migrations',
     migrations: ['src/database/migrations/*.{ts,js}'],
     ssl:
