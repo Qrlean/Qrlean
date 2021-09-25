@@ -413,7 +413,7 @@ describe('AppController (e2e)', () => {
                     });
                 });
             });
-            describe.only('Fichas', () => {
+            describe('Fichas', () => {
                 beforeAll(async () => {
                     await FichasRepository.save([
                         { id_programa: 1 },

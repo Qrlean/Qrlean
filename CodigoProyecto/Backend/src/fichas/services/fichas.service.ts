@@ -78,7 +78,7 @@ export class FichasService {
                 relations: ['programa'],
             });
         } catch (e) {
-            console.log(e);
+            // console.log(e);
             if (e instanceof NotFoundException) {
                 throw e;
             }
