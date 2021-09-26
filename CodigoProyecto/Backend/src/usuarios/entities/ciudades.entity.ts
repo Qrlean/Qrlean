@@ -5,6 +5,7 @@ import {
     OneToMany,
     ManyToOne,
     PrimaryColumn,
+    JoinColumn,
 } from 'typeorm';
 import { Usuario } from './usuario.entity';
 import { Departamentos } from './departamentos.entity';
@@ -17,9 +18,13 @@ export class Ciudades {
     @Column({ length: 30 })
     nombre_ciudad: string;
 
+    @Column()
+    id_departamento: number;
+
     @OneToMany(() => Usuario, (usuario) => usuario.ciudad)
     usuarios: Usuario[];
 
     @ManyToOne(() => Departamentos, (departamentos) => departamentos.ciudades)
+    @JoinColumn({ name: 'id_departamento' })
     departamento: Departamentos;
 }
