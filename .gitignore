@@ -17,3 +17,4 @@ CodigoProyecto/Frontend/.next/
 CodigoProyecto/Frontend/.env
 CodigoProyecto/Backend/.env
 package-lock.json
+*.db
