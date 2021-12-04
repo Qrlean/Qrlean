@@ -1,0 +1,1 @@
+Para abrir las metricas se deve abir el archivo "index.html" el cual se encuentra el en la carpeta "Coverage/lcov-report".
