@@ -254,7 +254,7 @@ describe('AppController (e2e)', () => {
                                 nombres_usuario: 'testss',
                                 apellidos_usuario: 'test test',
                                 numero_documento: 1111111,
-                                emailInstitucional: 'test@misena.edu.co',
+                                emailInstitucional: 'ctcaerr@gmail.com',
                                 direccion_residencial: 'tes test',
                                 telefono_movil: 1111111,
                                 id_tipo_documento: 1,
