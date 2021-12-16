@@ -22,7 +22,6 @@ export class RolesGuard implements CanActivate {
             const { user }: { user: Usuario } = context
                 .switchToHttp()
                 .getRequest();
-            // console.log(user);
             if (!requiredRoles.find((rol) => rol === user.rol.nombre_rol)) {
                 throw new UnauthorizedException(
                     'No posee los permisos necesarios para esta acción.',

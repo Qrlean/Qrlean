@@ -9,18 +9,18 @@ import {
     UseInterceptors,
     ClassSerializerInterceptor,
     ParseIntPipe,
+    UseGuards,
 } from '@nestjs/common';
 import { FichasService } from '../services/fichas.service';
 import { CreateFichaDto } from '../dto/create-ficha.dto';
 import { UpdateFichaDto } from '../dto/update-ficha.dto';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '../../auth/roles/roles.enum';
-import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../auth/guards/roles-auth.guard';
 
 @UseInterceptors(ClassSerializerInterceptor)
-// @UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('fichas')
 export class FichasController {
     constructor(private readonly fichasService: FichasService) {}

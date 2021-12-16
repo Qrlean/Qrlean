@@ -9,8 +9,8 @@ import handlebars from 'handlebars';
 
 @Injectable()
 export class HandlebarsService {
-    async readHTMLFile(path: string): Promise<string> {
-        return await fs.readFile(path, { encoding: 'utf-8' });
+    async readHTMLFile(pathToFile: string): Promise<string> {
+        return fs.readFile(pathToFile, { encoding: 'utf-8' });
     }
     async handlebarsReplace(
         template: Templates,

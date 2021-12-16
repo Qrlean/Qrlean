@@ -3,7 +3,6 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { FichasModule } from './fichas/fichas.module';
-import { RolesGuard } from './auth/guards/roles-auth.guard';
 import { CorreoModule } from './correo/correo.module';
 import { ConfigModule } from '@nestjs/config';
 @Module({

@@ -5,12 +5,12 @@ import {
     PrimaryGeneratedColumn,
     JoinColumn,
     PrimaryColumn,
+    OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Tipo_documento } from './tipo-documento.entity';
 import { Tipo_roles } from './tipo-roles.entity';
 import { Ciudades } from './ciudades.entity';
-import { OneToMany } from 'typeorm';
 import { fichaUsuario } from '../../fichas/entities/fichaUsuario.entity';
 
 @Entity()

@@ -6,13 +6,9 @@ import { Repository } from 'typeorm';
 
 import { Usuario } from '../entities/usuario.entity';
 
-import { usuariosRepositoryMock } from '../__mocks__/usuarios.repository';
+import { UsuariosRepositoryMock } from '../__mocks__/usuarios.repository';
 import { bcryptServiceMock } from '../../__mocks__/bcrypt.service';
-import {
-    BadRequestException,
-    InternalServerErrorException,
-    NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CreateUsuarioDto } from '../dto/create-usuario.dto';
 import { UpdateUsuarioDto } from '../dto/update-usuario.dto';
 import { CorreoService } from '../../correo/services/correo.service';
@@ -34,7 +30,7 @@ describe('UsuariosService', () => {
                 },
                 {
                     provide: getRepositoryToken(Usuario),
-                    useClass: usuariosRepositoryMock,
+                    useClass: UsuariosRepositoryMock,
                 },
                 {
                     provide: CorreoService,
@@ -64,7 +60,6 @@ describe('UsuariosService', () => {
         });
         it('Deberia retornar un usuario creado con contraseña hasheada e id_usuario', async () => {
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             let usuario: CreateUsuarioDto;
             const output = await service.create(usuario);
             expect(output).toBeInstanceOf(Usuario);
@@ -82,58 +77,40 @@ describe('UsuariosService', () => {
                 id_ciudad: expect.any(Number),
             });
         });
-        it('Deberia desencadenar Throw BadRequestException si ya existe un usuario con el correo enviado', async () => {
+        it('Deberia desencadenar Throw BadRequestException si ya existe un usuario con el correo enviado o documento enviado', async () => {
             let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce({});
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
-            await expect(service.create(usuario)).rejects.toThrowError(
-                BadRequestException,
-            );
-        });
-        it('Deberia desencadenar Throw BadRequestException si ya existe un usuario con el numero de documento enviado', async () => {
-            let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockReturnValueOnce({});
             await expect(service.create(usuario)).rejects.toThrowError(
                 BadRequestException,
             );
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el servicio de Bcrypt falla hasheando la contraseña', async () => {
+
+        it('Deberia desencadenar Throw Error si el servicio de Bcrypt falla hasheando la contraseña', async () => {
             let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceBcrypt.hash.mockImplementationOnce(() => {
                 throw new Error();
             });
-            await expect(service.create(usuario)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.create(usuario)).rejects.toThrowError(Error);
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla guardando el usuario', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla guardando el usuario', async () => {
             let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.save.mockImplementationOnce(() => {
                 throw new Error();
             });
-            await expect(service.create(usuario)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.create(usuario)).rejects.toThrowError(Error);
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando el usuario', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando el usuario', async () => {
             let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockImplementationOnce(() => {
                 throw new Error();
             });
-            await expect(service.create(usuario)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.create(usuario)).rejects.toThrowError(Error);
         });
         it('Deberia llamar a los servicios Repository.create , BcryptService.hash ,Repository.save , Repository.findOne y CorreoService.sendEmail', async () => {
             let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             await service.create(usuario);
             expect(spyServiceRepository.create).toHaveBeenCalled();
@@ -171,13 +148,11 @@ describe('UsuariosService', () => {
                 });
             });
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando los usuarios', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando los usuarios', async () => {
             spyServiceRepository.find.mockImplementationOnce(() => {
                 throw new Error();
             });
-            await expect(service.findAll()).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.findAll()).rejects.toThrowError(Error);
         });
 
         it('Deberia llamar a los servicios Repository.find', async () => {
@@ -217,13 +192,11 @@ describe('UsuariosService', () => {
                 NotFoundException,
             );
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando el usuario', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando el usuario', async () => {
             spyServiceRepository.findOne.mockImplementationOnce(() => {
                 throw new Error('');
             });
-            await expect(service.findOne(1)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.findOne(1)).rejects.toThrowError(Error);
         });
 
         it('Deberia llamar a los servicios Repository.findOne', async () => {
@@ -296,17 +269,17 @@ describe('UsuariosService', () => {
                 BadRequestException,
             );
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando el usuario', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando el usuario', async () => {
             const usuario: UpdateUsuarioDto = { nombres_usuario: '' };
             spyServiceRepository.findOne.mockImplementationOnce(() => {
                 throw new Error('');
             });
 
             await expect(service.update(1, usuario)).rejects.toThrowError(
-                InternalServerErrorException,
+                Error,
             );
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla actualizando el usuario', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla actualizando el usuario', async () => {
             spyServiceRepository.findOne.mockReturnValueOnce({});
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
@@ -316,7 +289,7 @@ describe('UsuariosService', () => {
             });
 
             await expect(service.update(1, usuario)).rejects.toThrowError(
-                InternalServerErrorException,
+                Error,
             );
         });
 
@@ -364,23 +337,19 @@ describe('UsuariosService', () => {
                 NotFoundException,
             );
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando el usuario', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando el usuario', async () => {
             spyServiceRepository.findOne.mockImplementationOnce(() => {
                 throw new Error('');
             });
 
-            await expect(service.remove(1)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.remove(1)).rejects.toThrowError(Error);
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla removiendo el usuario', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla removiendo el usuario', async () => {
             spyServiceRepository.remove.mockImplementationOnce(() => {
                 throw new Error('');
             });
 
-            await expect(service.remove(1)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.remove(1)).rejects.toThrowError(Error);
         });
 
         it('Deberia llamar a los servicios Repository.findOne y Repository.remove', async () => {

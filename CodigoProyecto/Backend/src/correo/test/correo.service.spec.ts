@@ -45,7 +45,7 @@ describe('CorreoService', () => {
             });
             await expect(
                 service.sendEmail(userStub, 'Testing', Templates.newUser),
-            ).rejects.toThrowError(InternalServerErrorException);
+            ).rejects.toThrowError(Error);
         });
         it('Throws InternalServerErrorException si handlebarsService.handlebarsReplace falla', async () => {
             spyHandlebarsService.handlebarsReplace.mockImplementationOnce(
@@ -55,7 +55,7 @@ describe('CorreoService', () => {
             );
             await expect(
                 service.sendEmail(userStub, 'Testing', Templates.newUser),
-            ).rejects.toThrowError(InternalServerErrorException);
+            ).rejects.toThrowError(Error);
         });
         afterEach(() => {
             jest.clearAllMocks();

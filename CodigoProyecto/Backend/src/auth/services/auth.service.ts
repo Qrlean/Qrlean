@@ -12,15 +12,17 @@ export class AuthService {
     ) {}
 
     async validateUser(
-        emailInstitucional: string,
-        password: string,
+        numero_documento: number,
+        id_tipo_documento: number,
+        passwordP: string,
     ): Promise<any> {
         const user = await this.usuariosService.findOneByProperty({
-            emailInstitucional,
+            numero_documento,
+            id_tipo_documento,
         });
         if (
             user &&
-            (await this.bcryptService.compare(password, user.password))
+            (await this.bcryptService.compare(passwordP, user.password))
         ) {
             const { password, ...result } = user;
             return result;
@@ -29,6 +31,7 @@ export class AuthService {
     }
     login(user: Usuario) {
         return {
+            user,
             token: this.jwtService.sign(user),
         };
     }

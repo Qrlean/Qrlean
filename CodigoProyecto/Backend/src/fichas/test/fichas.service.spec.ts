@@ -5,11 +5,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { fichasRepositoryMock } from '../__mocks__/fichas.repository';
 import { CreateFichaDto } from '../dto/create-ficha.dto';
 import { Repository } from 'typeorm';
-import {
-    BadRequestException,
-    InternalServerErrorException,
-    NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { UpdateFichaDto } from '../dto/update-ficha.dto';
 
 describe('FichasService', () => {
@@ -51,23 +47,19 @@ describe('FichasService', () => {
                 id_programa: expect.any(Number),
             });
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla guardando la ficha', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla guardando la ficha', async () => {
             let ficha: CreateFichaDto;
             spyServiceRepository.save.mockImplementationOnce(() => {
                 throw new Error();
             });
-            await expect(service.create(ficha)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.create(ficha)).rejects.toThrowError(Error);
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando la ficha', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando la ficha', async () => {
             let ficha: CreateFichaDto;
             spyServiceRepository.findOne.mockImplementationOnce(() => {
                 throw new Error();
             });
-            await expect(service.create(ficha)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.create(ficha)).rejects.toThrowError(Error);
         });
         it('Deberia llamar a los servicios Repository.create ,Repository.save y Repository.findOne', async () => {
             let ficha: CreateFichaDto;
@@ -95,13 +87,11 @@ describe('FichasService', () => {
                 });
             });
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando las fichas', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando las fichas', async () => {
             spyServiceRepository.find.mockImplementationOnce(() => {
                 throw new Error();
             });
-            await expect(service.findAll()).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.findAll()).rejects.toThrowError(Error);
         });
 
         it('Deberia llamar a los servicios Repository.find', async () => {
@@ -132,13 +122,11 @@ describe('FichasService', () => {
                 NotFoundException,
             );
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando la ficha', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando la ficha', async () => {
             spyServiceRepository.findOne.mockImplementationOnce(() => {
                 throw new Error('');
             });
-            await expect(service.findOne(1)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.findOne(1)).rejects.toThrowError(Error);
         });
 
         it('Deberia llamar a los servicios Repository.findOne', async () => {
@@ -180,24 +168,20 @@ describe('FichasService', () => {
                 BadRequestException,
             );
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando la ficha', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando la ficha', async () => {
             const ficha: UpdateFichaDto = { id_programa: 1234 };
             spyServiceRepository.findOne.mockImplementationOnce(() => {
                 throw new Error('');
             });
-            await expect(service.update(1, ficha)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.update(1, ficha)).rejects.toThrowError(Error);
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla actualizando la ficha', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla actualizando la ficha', async () => {
             const ficha: UpdateFichaDto = { id_programa: 1234 };
             spyServiceRepository.update.mockImplementationOnce(() => {
                 throw new Error('');
             });
 
-            await expect(service.update(1, ficha)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.update(1, ficha)).rejects.toThrowError(Error);
         });
 
         it('Deberia llamar a los servicios Repository.update y Repository.findOne', async () => {
@@ -232,22 +216,18 @@ describe('FichasService', () => {
                 NotFoundException,
             );
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla buscando la ficha', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla buscando la ficha', async () => {
             spyServiceRepository.findOne.mockImplementationOnce(() => {
                 throw new Error('');
             });
-            await expect(service.remove(1)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.remove(1)).rejects.toThrowError(Error);
         });
-        it('Deberia desencadenar Throw InternalServerErrorException si el repositorio falla removiendo la ficha', async () => {
+        it('Deberia desencadenar Throw Error si el repositorio falla removiendo la ficha', async () => {
             spyServiceRepository.remove.mockImplementationOnce(() => {
                 throw new Error('');
             });
 
-            await expect(service.remove(1)).rejects.toThrowError(
-                InternalServerErrorException,
-            );
+            await expect(service.remove(1)).rejects.toThrowError(Error);
         });
 
         it('Deberia llamar a los servicios Repository.findOne y Repository.remove', async () => {

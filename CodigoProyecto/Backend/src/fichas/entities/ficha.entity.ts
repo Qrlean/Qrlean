@@ -4,10 +4,11 @@ import {
     ManyToOne,
     JoinColumn,
     Column,
+    OneToMany,
 } from 'typeorm';
 import { Programa } from './programas.entity';
 import { fichaUsuario } from './fichaUsuario.entity';
-import { OneToMany } from 'typeorm';
+
 @Entity()
 export class Ficha {
     @PrimaryGeneratedColumn()

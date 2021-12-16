@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Matches, Length, IsEmail, IsNumber } from 'class-validator';
 import { NumberLength } from '../../decorators/NumberLength';
-import { UserExits } from '../../decorators/UserExists';
 
 export class CreateUsuarioDto {
     @ApiProperty()

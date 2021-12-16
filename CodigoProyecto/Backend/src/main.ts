@@ -3,7 +3,6 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
-import { RolesGuard } from './auth/guards/roles-auth.guard';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.enableCors();

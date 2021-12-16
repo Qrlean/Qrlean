@@ -10,6 +10,7 @@ import {
     UseInterceptors,
     ClassSerializerInterceptor,
     UseGuards,
+    Req,
 } from '@nestjs/common';
 import { UsuariosService } from '../services/usuarios.service';
 import { CreateUsuarioDto } from '../dto/create-usuario.dto';
@@ -28,17 +29,21 @@ export class UsuariosController {
 
     @Post()
     async create(@Body() createUsuarioDto: CreateUsuarioDto) {
-        return await this.usuariosService.create(createUsuarioDto);
+        return this.usuariosService.create(createUsuarioDto);
     }
 
     @Get()
     async findAll() {
-        return await this.usuariosService.findAll();
+        return this.usuariosService.findAll();
     }
 
+    @Get('/getSelfInformation')
+    async getSelfInformation(@Req() req) {
+        return this.usuariosService.findOne(parseInt(req.user.id_usuario));
+    }
     @Get(':id')
     async findOne(@Param('id', ParseIntPipe) id: number) {
-        return await this.usuariosService.findOne(+id);
+        return this.usuariosService.findOne(+id);
     }
 
     @Patch(':id')
@@ -46,11 +51,11 @@ export class UsuariosController {
         @Param('id', ParseIntPipe) id: number,
         @Body() updateUsuarioDto: UpdateUsuarioDto,
     ) {
-        return await this.usuariosService.update(id, updateUsuarioDto);
+        return this.usuariosService.update(id, updateUsuarioDto);
     }
 
     @Delete(':id')
     async remove(@Param('id', ParseIntPipe) id: number) {
-        return await this.usuariosService.remove(id);
+        return this.usuariosService.remove(id);
     }
 }

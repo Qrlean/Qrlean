@@ -45,7 +45,7 @@ describe('AuthService', () => {
     });
     describe('AuthService.validateUser', () => {
         it('Recibe emailInstitucional y password como parametros y retorna un usuario sin su propiedad "password"', async () => {
-            const output = await service.validateUser('', '');
+            const output = await service.validateUser(1, 1, '');
             expect(output).toEqual({
                 id_usuario: expect.any(Number),
                 nombres_usuario: expect.any(String),
@@ -60,21 +60,21 @@ describe('AuthService', () => {
             });
         });
         it('Llama el metodo "findOneByProperty" del servicio "UsuariosService"', async () => {
-            await service.validateUser('', '');
+            await service.validateUser(1, 1, '');
             expect(spyUsuariosService.findOneByProperty).toHaveBeenCalled();
         });
         it('Llama el metodo "compare" del servicio "BcryptService"', async () => {
-            await service.validateUser('', '');
+            await service.validateUser(1, 1, '');
             expect(spyBcryptService.compare).toHaveBeenCalled();
         });
         it('Recibe null en caso de que usuariosService.findOneByProperty no haya hallado el usuario', async () => {
             spyUsuariosService.findOneByProperty.mockResolvedValue(undefined);
-            const output = await service.validateUser('', '');
+            const output = await service.validateUser(1, 1, '');
             expect(output).toBeNull();
         });
         it('Recibe null en caso de que bcryptService.compare determine que la contraseña es incorrecta', async () => {
             spyBcryptService.compare.mockResolvedValue(false);
-            const output = await service.validateUser('', '');
+            const output = await service.validateUser(1, 1, '');
             expect(output).toBeNull();
         });
     });

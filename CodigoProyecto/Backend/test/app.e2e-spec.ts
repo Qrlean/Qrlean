@@ -83,7 +83,8 @@ describe('AppController (e2e)', () => {
                 return request(app.getHttpServer())
                     .post('/auth/login')
                     .send({
-                        emailInstitucional: 'cgarcia369@misena.edu.co',
+                        numero_documento: 1001277963,
+                        id_tipo_documento: 1,
                         password: '3d28aeaf-195f-4e2d-baeb-48603e061db5',
                     })
                     .expect(201)
@@ -91,31 +92,33 @@ describe('AppController (e2e)', () => {
                         expect(response.body.token).toEqual(expect.any(String));
                     });
             });
-            it('/auth/login (POST) deberia responder con un estado 401 "Unauthorized, El correo y/o contraseña no son correctos." si la contraseña no es correcta', () => {
+            it('/auth/login (POST) deberia responder con un estado 401 "Unauthorized, El numero de documento , tipo de documento o contraseña no son correctos. si la contraseña no es correcta', () => {
                 return request(app.getHttpServer())
                     .post('/auth/login')
                     .send({
-                        emailInstitucional: 'cgarcia369@misena.edu.co',
+                        numero_documento: 1001277963,
+                        id_tipo_documento: 1,
                         password: '123456',
                     })
                     .expect(401)
                     .then((response) =>
                         expect(response.body.message).toBe(
-                            'El correo y/o contraseña no son correctos.',
+                            'El numero de documento , tipo de documento o contraseña no son correctos.',
                         ),
                     );
             });
-            it('/auth/login (POST) deberia responder con un estado 401 "Unauthorized, El correo y/o contraseña no son correctos." si el usuario no existe', () => {
+            it('/auth/login (POST) deberia responder con un estado 401 "Unauthorized, El numero de documento , tipo de documento o contraseña no son correctos." si el usuario no existe', () => {
                 return request(app.getHttpServer())
                     .post('/auth/login')
                     .send({
-                        emailInstitucional: 'test@misena.edu.co',
+                        numero_documento: 1001277963,
+                        id_tipo_documento: 1,
                         password: '123456',
                     })
                     .expect(401)
                     .then((response) =>
                         expect(response.body.message).toBe(
-                            'El correo y/o contraseña no son correctos.',
+                            'El numero de documento , tipo de documento o contraseña no son correctos.',
                         ),
                     );
             });
@@ -127,7 +130,8 @@ describe('AppController (e2e)', () => {
                 const response = await request(app.getHttpServer())
                     .post('/auth/login')
                     .send({
-                        emailInstitucional: 'cgarcia369@misena.edu.co',
+                        numero_documento: 1001277963,
+                        id_tipo_documento: 1,
                         password: '3d28aeaf-195f-4e2d-baeb-48603e061db5',
                     });
                 token = response.body.token;
@@ -139,7 +143,8 @@ describe('AppController (e2e)', () => {
                     const response = await request(app.getHttpServer())
                         .post('/auth/login')
                         .send({
-                            emailInstitucional: 'agomez@misena.edu.co',
+                            numero_documento: 25252525,
+                            id_tipo_documento: 1,
                             password: 'f4b64c85-062f-4e03-b09b-d825e0575c15',
                         });
                     tokenSinPermisos = response.body.token;
