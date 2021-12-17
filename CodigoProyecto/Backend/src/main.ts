@@ -8,10 +8,10 @@ async function bootstrap() {
     app.enableCors();
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
     const config = new DocumentBuilder()
-        .setTitle('Cats example')
-        .setDescription('The cats API description')
+        .setTitle('Qrlean')
+        .setDescription('Qrlean')
         .setVersion('1.0')
-        .addTag('cats')
+        .addTag('Qrlean')
         .addBearerAuth(
             { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
             'access-token',
