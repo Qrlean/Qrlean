@@ -89,11 +89,11 @@ export class UsuariosService {
         }
         const userExistsEmail = await this.usersRepository.findOne({
             id_usuario: Not(id),
-            emailInstitucional: updateUsuarioDto?.emailInstitucional,
+            emailInstitucional: updateUsuarioDto.emailInstitucional,
         });
         const userExistsNumeroDocumento = await this.usersRepository.findOne({
             id_usuario: Not(id),
-            numero_documento: updateUsuarioDto?.numero_documento,
+            numero_documento: updateUsuarioDto.numero_documento,
         });
 
         if (userExistsEmail || userExistsNumeroDocumento) {
