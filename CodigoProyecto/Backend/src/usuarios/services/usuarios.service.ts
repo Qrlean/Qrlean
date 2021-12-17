@@ -38,7 +38,8 @@ export class UsuariosService {
         }
         const uuidG = uuid();
         await this.correoService.sendEmail(
-            { password: uuidG, ...user },
+            user.emailInstitucional,
+            { emailInstitucional: user, password: uuidG },
             'Creación de cuenta',
             Templates.newUser,
         );
@@ -118,6 +119,14 @@ export class UsuariosService {
     async findOneByProperty(property): Promise<Usuario | undefined> {
         return this.usersRepository.findOne(property, {
             relations: ['tipo_documento', 'rol', 'ciudad'],
+        });
+    }
+    async userPasswordUpdate(
+        id_usuario: number,
+        newPassword: string,
+    ): Promise<void> {
+        await this.usersRepository.update(id_usuario, {
+            password: newPassword,
         });
     }
 }
