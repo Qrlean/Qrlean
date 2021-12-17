@@ -17,5 +17,6 @@ CodigoProyecto/Frontend/.next/
 CodigoProyecto/Frontend/.env
 CodigoProyecto/Backend/.env
 CodigoProyecto/Backend/.scannerwork
+CodigoProyecto/Backend/.vscode
 package-lock.json
 *.db

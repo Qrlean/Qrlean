@@ -9,8 +9,13 @@ import { LocalStrategy } from './services/local.strategy';
 import { AuthController } from './controller/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './services/jwt.strategy';
+import { CorreoService } from '../correo/services/correo.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { JwtBlackList } from './entities/jwtBlackList.entity';
+import { BlackListService } from './services/blacklist.service';
 @Module({
     imports: [
+        TypeOrmModule.forFeature([JwtBlackList]),
         forwardRef(() => UsuariosModule),
         PassportModule,
         JwtModule.register({
@@ -19,7 +24,14 @@ import { JwtStrategy } from './services/jwt.strategy';
         }),
     ],
     controllers: [AuthController],
-    providers: [AuthService, BcryptService, LocalStrategy, JwtStrategy],
-    exports: [BcryptService],
+    providers: [
+        AuthService,
+        BcryptService,
+        LocalStrategy,
+        JwtStrategy,
+        CorreoService,
+        BlackListService,
+    ],
+    exports: [BcryptService, TypeOrmModule],
 })
 export class AuthModule {}
