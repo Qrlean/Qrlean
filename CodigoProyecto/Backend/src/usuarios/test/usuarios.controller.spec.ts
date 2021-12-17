@@ -59,4 +59,10 @@ describe('UsuariosController', () => {
             expect(spyUsuariosService.remove).toBeCalledWith(1);
         });
     });
+    describe('UsuariosController.getSelfInformation', () => {
+        it('Debe llamar al metodo "findOne" del servicio "UsuariosService', async () => {
+            await controller.getSelfInformation({ user: { id_usuario: 1 } });
+            expect(spyUsuariosService.findOne).toHaveBeenCalled();
+        });
+    });
 });

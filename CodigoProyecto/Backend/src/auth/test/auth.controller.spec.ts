@@ -25,15 +25,25 @@ describe('AuthController', () => {
         expect(controller).toBeDefined();
     });
     describe('AuthController.login', () => {
-        it('Retorna un jwt tipo string', async () => {
-            let usuario: LoginUsuario;
-            const output = await controller.login({}, usuario);
-            expect(output).toEqual(expect.any(String));
-        });
         it('Llama el metodo "login" del servicio "authService"', async () => {
             let usuario: LoginUsuario;
             await controller.login({}, usuario);
             expect(spyAuthService.login).toHaveBeenCalled();
+        });
+    });
+    describe('AuthController.passwordChangeRequest', () => {
+        it('LLama el metodo "changePasswordRequest" del servicio "authService"', async () => {
+            await controller.passwordChangeRequest({
+                id_tipo_documento: 0,
+                numero_documento: 0,
+            });
+            expect(spyAuthService.changePasswordRequest).toHaveBeenCalled();
+        });
+    });
+    describe('AuthController.passwordChange', () => {
+        it('LLama el metodo "changePassword" del servicio "authService"', async () => {
+            await controller.passwordChange('test', { password: '123' });
+            expect(spyAuthService.changePassword).toHaveBeenCalled();
         });
     });
 });
