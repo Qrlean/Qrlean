@@ -88,11 +88,17 @@
     "typescript": "^4.3.5"
   },
   "jest": {
-    "reporters": ["default",  ["jest-sonar", {
-      "outputDirectory": "coverage",
-      "outputName": "sonar.xml",
-      "reportedFilePath": "absolute"
-    }]],
+    "reporters": [
+      "default",
+      [
+        "jest-sonar",
+        {
+          "outputDirectory": "coverage",
+          "outputName": "sonar.xml",
+          "reportedFilePath": "absolute"
+        }
+      ]
+    ],
     "moduleFileExtensions": [
       "js",
       "json",
