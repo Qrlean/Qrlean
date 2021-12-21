@@ -8,11 +8,13 @@ import { Repository } from 'typeorm';
 import { useContainer } from 'class-validator';
 import { AppModule } from '../src/app.module';
 import { Ficha } from '../src/fichas/entities/ficha.entity';
+import { JwtBlackList } from '../src/auth/entities/jwtBlackList.entity';
 
 describe('AppController (e2e)', () => {
     let app: INestApplication;
     let UsuariosRepository: Repository<Usuario>;
     let FichasRepository: Repository<Ficha>;
+    let JwtBlackListRepository: Repository<JwtBlackList>;
     beforeAll(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
             imports: [
@@ -39,6 +41,9 @@ describe('AppController (e2e)', () => {
         );
         FichasRepository = moduleFixture.get<Repository<Ficha>>(
             getRepositoryToken(Ficha),
+        );
+        JwtBlackListRepository = moduleFixture.get<Repository<JwtBlackList>>(
+            getRepositoryToken(JwtBlackList),
         );
         app = moduleFixture.createNestApplication();
         app.useGlobalPipes(new ValidationPipe());
@@ -75,52 +80,93 @@ describe('AppController (e2e)', () => {
                 password:
                     '$2b$10$r/ii54LEHxgQTaF4CtLoke57rQDat44TBOYOeaRt0Ag03Nr/c8zmi',
             });
-            await UsuariosRepository.save(usuario);
             await UsuariosRepository.save(usuario2);
+
+            await UsuariosRepository.save(usuario);
         });
         describe('Auth', () => {
-            it('/auth/login (POST) deberia responder con un estado 200 y devolver un jwt Token , si el usuario y contraseña son correctos', () => {
-                return request(app.getHttpServer())
-                    .post('/auth/login')
-                    .send({
-                        numero_documento: 1001277963,
-                        id_tipo_documento: 1,
-                        password: '3d28aeaf-195f-4e2d-baeb-48603e061db5',
-                    })
-                    .expect(201)
-                    .then((response) => {
-                        expect(response.body.token).toEqual(expect.any(String));
-                    });
+            describe('Auth.Login', () => {
+                it('/auth/login (POST) deberia responder con un estado 200 y devolver un jwt Token , si el usuario y contraseña son correctos', () => {
+                    return request(app.getHttpServer())
+                        .post('/auth/login')
+                        .send({
+                            numero_documento: 1001277963,
+                            id_tipo_documento: 1,
+                            password: '3d28aeaf-195f-4e2d-baeb-48603e061db5',
+                        })
+                        .expect(201)
+                        .then((response) => {
+                            expect(response.body.token).toEqual(
+                                expect.any(String),
+                            );
+                        });
+                });
+                it('/auth/login (POST) deberia responder con un estado 401 "Unauthorized, El numero de documento , tipo de documento o contraseña no son correctos. si la contraseña no es correcta', () => {
+                    return request(app.getHttpServer())
+                        .post('/auth/login')
+                        .send({
+                            numero_documento: 1001277963,
+                            id_tipo_documento: 1,
+                            password: '123456',
+                        })
+                        .expect(401)
+                        .then((response) =>
+                            expect(response.body.message).toBe(
+                                'El numero de documento , tipo de documento o contraseña no son correctos.',
+                            ),
+                        );
+                });
             });
-            it('/auth/login (POST) deberia responder con un estado 401 "Unauthorized, El numero de documento , tipo de documento o contraseña no son correctos. si la contraseña no es correcta', () => {
-                return request(app.getHttpServer())
-                    .post('/auth/login')
-                    .send({
-                        numero_documento: 1001277963,
-                        id_tipo_documento: 1,
-                        password: '123456',
-                    })
-                    .expect(401)
-                    .then((response) =>
-                        expect(response.body.message).toBe(
-                            'El numero de documento , tipo de documento o contraseña no son correctos.',
-                        ),
-                    );
+            describe('Auth.PasswordChangeRequest', () => {
+                it('/auth/passwordChangeRequest (POST) deberia responder con un estado de 201 a todas las solicitudes enviadas', () => {
+                    return request(app.getHttpServer())
+                        .post('/auth/passwordChangeRequest')
+                        .send({
+                            numero_documento: 1001277963,
+                            id_tipo_documento: 1,
+                        })
+                        .expect(201);
+                });
             });
-            it('/auth/login (POST) deberia responder con un estado 401 "Unauthorized, El numero de documento , tipo de documento o contraseña no son correctos." si el usuario no existe', () => {
-                return request(app.getHttpServer())
-                    .post('/auth/login')
-                    .send({
-                        numero_documento: 1001277963,
-                        id_tipo_documento: 1,
-                        password: '123456',
-                    })
-                    .expect(401)
-                    .then((response) =>
-                        expect(response.body.message).toBe(
-                            'El numero de documento , tipo de documento o contraseña no son correctos.',
-                        ),
-                    );
+            describe('Auth.PasswordChange', () => {
+                it('/auth/passwordChange (POST) deberia recibir un token y una nueva contraseña, cambiar la contraseña del usuario asociado y responder con 201', () => {
+                    const token =
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJpZF90aXBvX2RvY3VtZW50byI6MSwibnVtZXJvX2RvY3VtZW50byI6IjI1MjUyNTI1IiwidHlwZSI6InBhc3N3b3JkUmVjb3ZlcnkiLCJpYXQiOjE2NDAxMDcwODEsImV4cCI6MTY0MDE0MzA4MX0.hKdk8zuNAWK1iZe-f7cAi2oJnPOsWerDf0oKbA0DdwU';
+                    return request(app.getHttpServer())
+                        .post(`/auth/passwordChange?token=${token}`)
+                        .send({
+                            password: 'f4b64c85-062f-4e03-b09b-d825e0575c15',
+                        })
+                        .expect(201);
+                });
+                it('/auth/passwordChange (POST) deberia responder 400 si el token no se envia', () => {
+                    return request(app.getHttpServer())
+                        .post(`/auth/passwordChange?token=`)
+                        .send({
+                            password: 'f4b64c85-062f-4e03-b09b-d825e0575c15',
+                        })
+                        .expect(400);
+                });
+                it('/auth/passwordChange (POST) deberia responder 400 si el token no es valido', () => {
+                    const token =
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJpZF90aXBvX2RvY3VtZW50byI6MSwibnVtZXJvX2RvY3VtZW50byI6IjI0NTI1MjUyNSIsInR5cGUiOiJwYXNzd29yZFJlY292ZXJ5IiwiaWF0IjoxNjQwMTA3MDgxLCJleHAiOjE2NDAxNDMwODF9.mU7sCA7vRsqu5AToguoAOTo67CYhlMmPnZK_PsPuw4c';
+                    return request(app.getHttpServer())
+                        .post(`/auth/passwordChange?token=${token}`)
+                        .send({
+                            password: 'f4b64c85-062f-4e03-b09b-d825e0575c15',
+                        })
+                        .expect(400);
+                });
+                it('/auth/passwordChange (POST) deberia responder 400 si los datos enviados no cumplen los requisitos', () => {
+                    const token =
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJpZF90aXBvX2RvY3VtZW50byI6MSwibnVtZXJvX2RvY3VtZW50byI6IjI1MjUyNTI1IiwidHlwZSI6InBhc3N3b3JkUmVjb3ZlcnkiLCJpYXQiOjE2NDAxMDcwODEsImV4cCI6MTY0MDE0MzA4MX0.hKdk8zuNAWK1iZe-f7cAi2oJnPOsWerDf0oKbA0DdwU';
+                    return request(app.getHttpServer())
+                        .post(`/auth/passwordChange?token=${token}`)
+                        .send({
+                            password: ' ',
+                        })
+                        .expect(400);
+                });
             });
         });
         describe('Usuarios Fichas', () => {
@@ -546,6 +592,11 @@ describe('AppController (e2e)', () => {
         await FichasRepository.clear();
         await FichasRepository.query(
             "UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='ficha'",
+        );
+
+        await JwtBlackListRepository.clear();
+        await JwtBlackListRepository.query(
+            "UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='jwtBlackList'",
         );
     });
 });
