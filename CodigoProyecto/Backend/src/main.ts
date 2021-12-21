@@ -12,10 +12,7 @@ async function bootstrap() {
         .setDescription('Qrlean')
         .setVersion('1.0')
         .addTag('Qrlean')
-        .addBearerAuth(
-            { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-            'access-token',
-        )
+        .addBearerAuth()
         .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, document);
