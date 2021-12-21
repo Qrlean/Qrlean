@@ -13,4 +13,7 @@ export const userStub: Usuario = plainToClass(Usuario, {
     id_tipo_documento: 2,
     id_tipo_rol: 2,
     id_ciudad: 2,
+    tipo_documento: {
+        nombre_tipo_documento: 'CC',
+    },
 });

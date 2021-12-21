@@ -14,6 +14,7 @@ import { UpdateUsuarioDto } from '../dto/update-usuario.dto';
 import { CorreoService } from '../../correo/services/correo.service';
 
 import { correoServiceMock } from '../../__mocks__/correo.service';
+import { userStub } from './stub/user.stub';
 describe('UsuariosService', () => {
     let service: UsuariosService;
     let spyServiceBcrypt;
@@ -63,7 +64,8 @@ describe('UsuariosService', () => {
             let usuario: CreateUsuarioDto;
             const output = await service.create(usuario);
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toEqual({
+            console.log(output);
+            expect(output).toMatchObject({
                 id_usuario: expect.any(Number),
                 nombres_usuario: expect.any(String),
                 apellidos_usuario: expect.any(String),
@@ -133,7 +135,7 @@ describe('UsuariosService', () => {
 
             output.forEach((usuario) => {
                 expect(usuario).toBeInstanceOf(Usuario);
-                expect(usuario).toEqual({
+                expect(usuario).toMatchObject({
                     id_usuario: expect.any(Number),
                     nombres_usuario: expect.any(String),
                     apellidos_usuario: expect.any(String),
@@ -170,7 +172,7 @@ describe('UsuariosService', () => {
         it('Deberia retornar un usuario', async () => {
             const output = await service.findOne(1);
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toEqual({
+            expect(output).toMatchObject({
                 id_usuario: expect.any(Number),
                 nombres_usuario: expect.any(String),
                 apellidos_usuario: expect.any(String),
@@ -214,13 +216,13 @@ describe('UsuariosService', () => {
             jest.spyOn(spyServiceRepository, 'findOne');
         });
         it('Deberia retornar un usuario', async () => {
-            spyServiceRepository.findOne.mockReturnValueOnce({});
+            spyServiceRepository.findOne.mockReturnValueOnce(userStub);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             const usuario: UpdateUsuarioDto = { nombres_usuario: '' };
             const output = await service.update(1, usuario);
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toEqual({
+            expect(output).toMatchObject({
                 id_usuario: expect.any(Number),
                 nombres_usuario: expect.any(String),
                 apellidos_usuario: expect.any(String),
@@ -293,12 +295,14 @@ describe('UsuariosService', () => {
             );
         });
 
-        it('Deberia llamar a los servicios Repository.update y Repository.findOne', async () => {
-            spyServiceRepository.findOne.mockReturnValueOnce({});
+        it('Deberia llamar a los servicios Repository.update , Repository.findOne , BcryptService.Hash , CorreoService.SendEmail', async () => {
+            spyServiceRepository.findOne.mockReturnValueOnce(userStub);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
             const usuario: UpdateUsuarioDto = { nombres_usuario: '' };
             await service.update(1, usuario);
+            expect(spyServiceBcrypt.hash).toHaveBeenCalled();
+            expect(spyCorreoService.sendEmail).toHaveBeenCalled();
             expect(spyServiceRepository.update).toHaveBeenCalled();
             expect(spyServiceRepository.findOne).toHaveBeenCalled();
         });
@@ -314,7 +318,7 @@ describe('UsuariosService', () => {
         it('Deberia retornar un usuario', async () => {
             const output = await service.remove(1);
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toEqual({
+            expect(output).toMatchObject({
                 id_usuario: expect.any(Number),
                 nombres_usuario: expect.any(String),
                 apellidos_usuario: expect.any(String),
@@ -368,7 +372,7 @@ describe('UsuariosService', () => {
         it('Deberia retornar un usuario que haga "match" con el objecto', async () => {
             const output = await service.findOneByProperty({ id: 1 });
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toEqual({
+            expect(output).toMatchObject({
                 id_usuario: expect.any(Number),
                 nombres_usuario: expect.any(String),
                 apellidos_usuario: expect.any(String),

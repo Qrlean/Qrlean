@@ -37,18 +37,24 @@ export class UsuariosService {
             );
         }
         const uuidG = uuid();
-        await this.correoService.sendEmail(
-            user.emailInstitucional,
-            { emailInstitucional: user, password: uuidG },
-            'Creación de cuenta',
-            Templates.newUser,
-        );
+
         console.log(uuidG);
         user.password = await this.bcryptService.hash(uuidG);
         user = await this.usersRepository.save(user);
-        return this.usersRepository.findOne(user.id_usuario, {
+        user = await this.usersRepository.findOne(user.id_usuario, {
             relations: ['tipo_documento', 'rol', 'ciudad'],
         });
+        await this.correoService.sendEmail(
+            user.emailInstitucional,
+            {
+                numero_documento: user.numero_documento,
+                tipoDeDoc: user.tipo_documento.nombre_tipo_documento,
+                password: uuidG,
+            },
+            'Creación de cuenta',
+            Templates.newUser,
+        );
+        return user;
     }
 
     async findAll(): Promise<Usuario[]> {
@@ -78,7 +84,9 @@ export class UsuariosService {
         id: number,
         updateUsuarioDto: UpdateUsuarioDto,
     ): Promise<Usuario> {
-        const user = await this.usersRepository.findOne(id);
+        const user = await this.usersRepository.findOne(id, {
+            relations: ['tipo_documento', 'rol', 'ciudad'],
+        });
         if (!user) {
             throw new NotFoundException(`El usuario con id ${id} no existe.`);
         }
@@ -101,8 +109,22 @@ export class UsuariosService {
                 'Ya hay un usuario registrado con los parametros enviados (emailInstitucional | numero_documento)',
             );
         }
-
-        await this.usersRepository.update(id, updateUsuarioDto);
+        const password = uuid();
+        const passwordHash = await this.bcryptService.hash(password);
+        await this.correoService.sendEmail(
+            user.emailInstitucional,
+            {
+                numero_documento: user.numero_documento,
+                tipoDeDoc: user.tipo_documento.nombre_tipo_documento,
+                password: password,
+            },
+            'Edicion de tu cuenta',
+            Templates.userEdit,
+        );
+        await this.usersRepository.update(id, {
+            ...updateUsuarioDto,
+            password: passwordHash,
+        });
         return this.usersRepository.findOne(id, {
             relations: ['tipo_documento', 'rol', 'ciudad'],
         });
