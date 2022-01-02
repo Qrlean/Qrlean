@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { FichasModule } from './fichas/fichas.module';
 import { CorreoModule } from './correo/correo.module';
 import { ConfigModule } from '@nestjs/config';
+import { AsignaturasModule } from './asignaturas/asignaturas.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -31,6 +32,7 @@ import { ConfigModule } from '@nestjs/config';
         AuthModule,
         FichasModule,
         CorreoModule,
+        AsignaturasModule,
     ],
     controllers: [],
     providers: [],
