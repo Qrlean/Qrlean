@@ -80,7 +80,6 @@ export class AuthService {
                 'El token proporcionado no es valido ,ya expiro o fue utilizado anteriormente',
             );
         }
-        console.log(newPassword);
         const password = await this.bcryptService.hash(newPassword);
         await this.usuariosService.userPasswordUpdate(
             decoded.id_usuario,
