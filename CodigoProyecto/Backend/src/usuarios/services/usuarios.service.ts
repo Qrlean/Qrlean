@@ -66,6 +66,7 @@ export class UsuariosService {
                 'fichas',
                 'fichas.ficha',
                 'fichas.ficha.programa',
+                'fichas.asignaturas',
             ],
         });
     }
