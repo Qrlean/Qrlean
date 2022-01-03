@@ -55,28 +55,24 @@ export class FichasService {
                     });
                     break;
                 case 2:
-                    console.log('3');
                     ficha = await this.fichasRepository.findOne(id, {
                         relations: ['programa', 'usuarios'],
                     });
+                    break;
                 case 3:
-                    console.log('3');
                     ficha = await this.fichasRepository.findOne(id, {
                         relations: ['programa', 'usuarios'],
                     });
-                case 2:
-                case 3:
-                    console.log('2 y 3', ficha);
-                    if (
-                        !ficha.usuarios.find((x) => x.id_usuario === id_usuario)
-                    ) {
-                        throw new UnauthorizedException(
-                            'El usuario no posee el permiso ver para esta ficha',
-                        );
-                    }
                     break;
                 default:
                     throw new BadRequestException('El rol enviado no existe');
+            }
+            if (id_rol === 2 || id_rol === 3) {
+                if (!ficha.usuarios.find((x) => x.id_usuario === id_usuario)) {
+                    throw new UnauthorizedException(
+                        'El usuario no posee el permiso ver para esta ficha',
+                    );
+                }
             }
         }
         if (!ficha) {

@@ -42,7 +42,7 @@ export class FichasController {
         return this.fichasService.findAll();
     }
 
-    @Roles(Role.Administrador, Role.Administrador, Role.Aprendiz)
+    @Roles(Role.Administrador, Role.Instructor, Role.Aprendiz)
     @Get(':id')
     findOne(@Req() req, @Param('id', ParseIntPipe) id: number) {
         return this.fichasService.findOne(
