@@ -21,7 +21,6 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../auth/guards/roles-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AsociarUsuario } from '../dto/asociar-usuario.dto';
-import { Request } from 'express';
 
 @ApiBearerAuth()
 @UseInterceptors(ClassSerializerInterceptor)
