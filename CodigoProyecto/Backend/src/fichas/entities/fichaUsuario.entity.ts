@@ -7,6 +7,8 @@ import {
 } from 'typeorm';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Ficha } from './ficha.entity';
+import { OneToMany } from 'typeorm';
+import { AsignaturaFicha } from './asignaturaFichas.entity';
 
 @Entity({ name: 'asociacion_usuarios_fichas' })
 export class fichaUsuario {
@@ -26,4 +28,11 @@ export class fichaUsuario {
     @ManyToOne(() => Ficha, (ficha) => ficha.usuarios, { nullable: false })
     @JoinColumn({ name: 'id_ficha' })
     ficha: Ficha;
+
+    @OneToMany(
+        () => AsignaturaFicha,
+        (asignaturaFicha) => asignaturaFicha.instructor,
+        { nullable: false },
+    )
+    asignaturas: AsignaturaFicha[];
 }

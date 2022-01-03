@@ -10,6 +10,7 @@ import {
     ClassSerializerInterceptor,
     ParseIntPipe,
     UseGuards,
+    Req,
 } from '@nestjs/common';
 import { FichasService } from '../services/fichas.service';
 import { CreateFichaDto } from '../dto/create-ficha.dto';
@@ -19,6 +20,8 @@ import { Role } from '../../auth/roles/roles.enum';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../auth/guards/roles-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { AsociarUsuario } from '../dto/asociar-usuario.dto';
+import { Request } from 'express';
 
 @ApiBearerAuth()
 @UseInterceptors(ClassSerializerInterceptor)
@@ -33,7 +36,7 @@ export class FichasController {
         return this.fichasService.create(createFichaDto);
     }
 
-    @Roles(Role.Administrador, Role.Instructor)
+    @Roles(Role.Administrador)
     @Get()
     findAll() {
         return this.fichasService.findAll();
@@ -41,8 +44,12 @@ export class FichasController {
 
     @Roles(Role.Administrador, Role.Administrador, Role.Aprendiz)
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
-        return this.fichasService.findOne(id);
+    findOne(@Req() req, @Param('id', ParseIntPipe) id: number) {
+        return this.fichasService.findOne(
+            id,
+            req.user.id_tipo_rol,
+            req.user.id_usuario,
+        );
     }
 
     @Roles(Role.Administrador)
@@ -58,5 +65,10 @@ export class FichasController {
     @Delete(':id')
     remove(@Param('id', ParseIntPipe) id: number) {
         return this.fichasService.remove(+id);
+    }
+
+    @Post('/asociarUsuario')
+    asociarUsuario(@Body() asociarUsuarioDto: AsociarUsuario) {
+        return this.fichasService.asociarUsuario(asociarUsuarioDto);
     }
 }

@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Programa } from './programas.entity';
 import { fichaUsuario } from './fichaUsuario.entity';
+import { AsignaturaFicha } from './asignaturaFichas.entity';
 
 @Entity()
 export class Ficha {
@@ -25,4 +26,7 @@ export class Ficha {
 
     @OneToMany(() => fichaUsuario, (ficha) => ficha.ficha)
     usuarios: fichaUsuario[];
+
+    @OneToMany(() => AsignaturaFicha, (ficha) => ficha.ficha)
+    asignaturas: AsignaturaFicha;
 }
