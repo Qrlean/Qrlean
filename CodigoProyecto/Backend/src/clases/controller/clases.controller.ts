@@ -3,7 +3,6 @@ import {
     Get,
     Post,
     Body,
-    Patch,
     Param,
     Delete,
     Req,
@@ -11,8 +10,6 @@ import {
 } from '@nestjs/common';
 import { ClasesService } from '../services/clases.service';
 import { CreateClaseDto } from '../dto/create-clase.dto';
-import { UpdateClaseDto } from '../dto/update-clase.dto';
-
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';

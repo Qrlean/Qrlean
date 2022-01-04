@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateClaseDto } from '../dto/create-clase.dto';
-import { UpdateClaseDto } from '../dto/update-clase.dto';
 import { Clase } from '../entities/clase.entity';
 import { Repository } from 'typeorm';
 import { AsignaturaFicha } from '../../fichas/entities/asignaturaFichas.entity';
