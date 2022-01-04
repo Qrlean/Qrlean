@@ -9,6 +9,8 @@ import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Ficha } from './ficha.entity';
 import { fichaUsuario } from './fichaUsuario.entity';
 import { Asignatura } from '../../asignaturas/entities/asignatura.entity';
+import { Clase } from 'src/clases/entities/clase.entity';
+import { OneToMany } from 'typeorm';
 
 @Entity({ name: 'asociacion_asignatura_fichas' })
 export class AsignaturaFicha {
@@ -39,4 +41,7 @@ export class AsignaturaFicha {
     })
     @JoinColumn({ name: 'id_asignatura' })
     asignatura: Asignatura;
+
+    @OneToMany(() => Clase, (clase) => clase.asignatura)
+    clases: Clase[];
 }

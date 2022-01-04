@@ -67,7 +67,7 @@ export class FichasService {
                 default:
                     throw new BadRequestException('El rol enviado no existe');
             }
-            if (id_rol === 2 || id_rol === 3) {
+            if ((ficha && id_rol === 2) || id_rol === 3) {
                 if (!ficha.usuarios.find((x) => x.id_usuario === id_usuario)) {
                     throw new UnauthorizedException(
                         'El usuario no posee el permiso ver para esta ficha',

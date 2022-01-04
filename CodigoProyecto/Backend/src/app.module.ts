@@ -6,6 +6,9 @@ import { FichasModule } from './fichas/fichas.module';
 import { CorreoModule } from './correo/correo.module';
 import { ConfigModule } from '@nestjs/config';
 import { AsignaturasModule } from './asignaturas/asignaturas.module';
+import { ClasesModule } from './clases/clases.module';
+import { TimeModule } from './time/time.module';
+import { AsistenciasModule } from './asistencias/asistencias.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -33,6 +36,9 @@ import { AsignaturasModule } from './asignaturas/asignaturas.module';
         FichasModule,
         CorreoModule,
         AsignaturasModule,
+        ClasesModule,
+        TimeModule,
+        AsistenciasModule,
     ],
     controllers: [],
     providers: [],
