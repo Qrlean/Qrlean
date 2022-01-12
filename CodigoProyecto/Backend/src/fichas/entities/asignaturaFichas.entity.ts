@@ -26,18 +26,23 @@ export class AsignaturaFicha {
     @Column()
     id_asignatura: number;
 
-    @ManyToOne(() => Ficha, (ficha) => ficha.asignaturas, { nullable: false })
+    @ManyToOne(() => Ficha, (ficha) => ficha.asignaturas, {
+        nullable: false,
+        onDelete: 'CASCADE',
+    })
     @JoinColumn({ name: 'id_ficha' })
     ficha: Ficha;
 
     @ManyToOne(() => FichaUsuario, (usuario) => usuario.asignaturas, {
         nullable: false,
+        onDelete: 'CASCADE',
     })
     @JoinColumn({ name: 'id_instructor' })
     instructor: Usuario;
 
     @ManyToOne(() => Asignatura, (asigntura) => asigntura.fichas, {
         nullable: false,
+        onDelete: 'CASCADE',
     })
     @JoinColumn({ name: 'id_asignatura' })
     asignatura: Asignatura;

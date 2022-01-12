@@ -1,11 +1,11 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { UsuariosService } from './services/usuarios.service';
 import { UsuariosController } from './controller/usuarios.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Usuario } from './entities/usuario.entity';
 import { Departamentos } from './entities/departamentos.entity';
 import { Ciudades } from './entities/ciudades.entity';
-import { Tipo_roles } from './entities/tipo-roles.entity';
+import { TipoToles } from './entities/tipo-roles.entity';
 import { Tipo_documento } from './entities/tipo-documento.entity';
 import { IsUserAlreadyExistConstraint } from '../decorators/UserExists';
 import { AuthModule } from '../auth/auth.module';
@@ -18,7 +18,7 @@ import { FichaUsuario } from '../fichas/entities/fichaUsuario.entity';
             Usuario,
             Departamentos,
             Ciudades,
-            Tipo_roles,
+            TipoToles,
             Tipo_documento,
             FichaUsuario,
         ]),

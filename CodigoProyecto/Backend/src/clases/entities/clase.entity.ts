@@ -36,6 +36,7 @@ export class Clase {
         () => AsignaturaFicha,
         (asignaturaFicha) => asignaturaFicha.clases,
         {
+            onDelete: 'CASCADE',
             nullable: false,
         },
     )

@@ -26,18 +26,25 @@ export class Asistencia {
     @Column()
     id_aprendiz: number;
 
-    @ManyToOne(() => Clase, (clase) => clase.asistencias)
+    @ManyToOne(() => Clase, (clase) => clase.asistencias, {
+        onDelete: 'CASCADE',
+        nullable: false,
+    })
     @JoinColumn({ name: 'id_clase' })
     clase: Clase;
 
     @ManyToOne(
         () => TipoAsistencia,
         (tipoAsistencia) => tipoAsistencia.asistencias,
+        { onDelete: 'CASCADE', nullable: false },
     )
     @JoinColumn({ name: 'id_tipo_asistencia' })
     tipoAsistencia: TipoAsistencia;
 
-    @ManyToOne(() => FichaUsuario, (fichaUsuario) => fichaUsuario.asistencias)
+    @ManyToOne(() => FichaUsuario, (fichaUsuario) => fichaUsuario.asistencias, {
+        onDelete: 'CASCADE',
+        nullable: false,
+    })
     @JoinColumn({ name: 'id_aprendiz' })
     aprendiz: FichaUsuario;
 }
