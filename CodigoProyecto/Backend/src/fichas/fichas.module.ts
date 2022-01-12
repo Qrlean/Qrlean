@@ -4,7 +4,7 @@ import { FichasController } from './controller/fichas.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Ficha } from './entities/ficha.entity';
 import { Programa } from './entities/programas.entity';
-import { fichaUsuario } from './entities/fichaUsuario.entity';
+import { FichaUsuario } from './entities/fichaUsuario.entity';
 import { Usuario } from '../usuarios/entities/usuario.entity';
 import { UsuariosModule } from 'src/usuarios/usuarios.module';
 import { AsignaturasModule } from '../asignaturas/asignaturas.module';
@@ -15,7 +15,7 @@ import { AsignaturaFicha } from './entities/asignaturaFichas.entity';
         TypeOrmModule.forFeature([
             Ficha,
             Programa,
-            fichaUsuario,
+            FichaUsuario,
             Usuario,
             AsignaturaFicha,
         ]),

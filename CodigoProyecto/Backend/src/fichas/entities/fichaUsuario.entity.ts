@@ -11,7 +11,7 @@ import { OneToMany } from 'typeorm';
 import { AsignaturaFicha } from './asignaturaFichas.entity';
 
 @Entity({ name: 'asociacion_usuarios_fichas' })
-export class fichaUsuario {
+export class FichaUsuario {
     @PrimaryGeneratedColumn()
     id_asociacion_usuario_ficha: number;
 

@@ -11,7 +11,7 @@ import { Exclude } from 'class-transformer';
 import { Tipo_documento } from './tipo-documento.entity';
 import { Tipo_roles } from './tipo-roles.entity';
 import { Ciudades } from './ciudades.entity';
-import { fichaUsuario } from '../../fichas/entities/fichaUsuario.entity';
+import { FichaUsuario } from '../../fichas/entities/fichaUsuario.entity';
 
 @Entity()
 export class Usuario {
@@ -64,6 +64,6 @@ export class Usuario {
     @JoinColumn({ name: 'id_ciudad' })
     ciudad: Ciudades;
 
-    @OneToMany(() => fichaUsuario, (ficha) => ficha.usuario)
-    fichas: fichaUsuario[];
+    @OneToMany(() => FichaUsuario, (ficha) => ficha.usuario)
+    fichas: FichaUsuario[];
 }

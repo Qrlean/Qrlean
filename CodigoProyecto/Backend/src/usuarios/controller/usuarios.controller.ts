@@ -1,16 +1,16 @@
 import {
-    Controller,
-    Get,
-    Post,
     Body,
-    Patch,
-    Param,
-    Delete,
-    ParseIntPipe,
-    UseInterceptors,
     ClassSerializerInterceptor,
-    UseGuards,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    ParseIntPipe,
+    Patch,
+    Post,
     Req,
+    UseGuards,
+    UseInterceptors,
 } from '@nestjs/common';
 import { UsuariosService } from '../services/usuarios.service';
 import { CreateUsuarioDto } from '../dto/create-usuario.dto';
@@ -43,6 +43,7 @@ export class UsuariosController {
     async getSelfInformation(@Req() req) {
         return this.usuariosService.findOne(parseInt(req.user.id_usuario));
     }
+
     @Get(':id')
     async findOne(@Param('id', ParseIntPipe) id: number) {
         return this.usuariosService.findOne(+id);

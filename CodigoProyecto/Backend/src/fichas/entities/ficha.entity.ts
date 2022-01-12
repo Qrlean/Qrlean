@@ -7,7 +7,7 @@ import {
     OneToMany,
 } from 'typeorm';
 import { Programa } from './programas.entity';
-import { fichaUsuario } from './fichaUsuario.entity';
+import { FichaUsuario } from './fichaUsuario.entity';
 import { AsignaturaFicha } from './asignaturaFichas.entity';
 
 @Entity()
@@ -24,8 +24,8 @@ export class Ficha {
     @JoinColumn({ name: 'id_programa' })
     programa: Programa;
 
-    @OneToMany(() => fichaUsuario, (ficha) => ficha.ficha)
-    usuarios: fichaUsuario[];
+    @OneToMany(() => FichaUsuario, (ficha) => ficha.ficha)
+    usuarios: FichaUsuario[];
 
     @OneToMany(() => AsignaturaFicha, (ficha) => ficha.ficha)
     asignaturas: AsignaturaFicha;

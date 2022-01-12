@@ -11,7 +11,7 @@ import { Ficha } from '../entities/ficha.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsuariosService } from '../../usuarios/services/usuarios.service';
 import { AsignaturasService } from '../../asignaturas/services/asignaturas.service';
-import { fichaUsuario } from '../entities/fichaUsuario.entity';
+import { FichaUsuario } from '../entities/fichaUsuario.entity';
 import { AsociarUsuario } from '../dto/asociar-usuario.dto';
 import { AsignaturaFicha } from '../entities/asignaturaFichas.entity';
 
@@ -22,8 +22,8 @@ export class FichasService {
         private fichasRepository: Repository<Ficha>,
         private usuariosService: UsuariosService,
         private asignaturasService: AsignaturasService,
-        @InjectRepository(fichaUsuario)
-        private fichasUsuariosRepository: Repository<fichaUsuario>,
+        @InjectRepository(FichaUsuario)
+        private fichasUsuariosRepository: Repository<FichaUsuario>,
         @InjectRepository(AsignaturaFicha)
         private asignaturaFichaRepository: Repository<AsignaturaFicha>,
     ) {}

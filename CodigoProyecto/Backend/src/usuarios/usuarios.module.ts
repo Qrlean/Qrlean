@@ -10,7 +10,7 @@ import { Tipo_documento } from './entities/tipo-documento.entity';
 import { IsUserAlreadyExistConstraint } from '../decorators/UserExists';
 import { AuthModule } from '../auth/auth.module';
 import { CorreoModule } from '../correo/correo.module';
-import { fichaUsuario } from '../fichas/entities/fichaUsuario.entity';
+import { FichaUsuario } from '../fichas/entities/fichaUsuario.entity';
 
 @Module({
     imports: [
@@ -20,7 +20,7 @@ import { fichaUsuario } from '../fichas/entities/fichaUsuario.entity';
             Ciudades,
             Tipo_roles,
             Tipo_documento,
-            fichaUsuario,
+            FichaUsuario,
         ]),
         forwardRef(() => AuthModule),
         CorreoModule,
