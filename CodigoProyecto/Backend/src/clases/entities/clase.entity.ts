@@ -1,8 +1,10 @@
+import { Asistencia } from '../../asistencias/entities/asistencia.entity';
 import {
     Column,
     Entity,
     JoinColumn,
     ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { AsignaturaFicha } from '../../fichas/entities/asignaturaFichas.entity';
@@ -39,4 +41,7 @@ export class Clase {
     )
     @JoinColumn({ name: 'id_asociacion_asignatura_ficha' })
     asignatura: AsignaturaFicha;
+
+    @OneToMany(() => Asistencia, (asistencia) => asistencia.clase)
+    asistencias: Asistencia[];
 }

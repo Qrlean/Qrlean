@@ -1,16 +1,16 @@
 import {
     Column,
     Entity,
-    PrimaryGeneratedColumn,
-    ManyToOne,
     JoinColumn,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Ficha } from './ficha.entity';
 import { FichaUsuario } from './fichaUsuario.entity';
 import { Asignatura } from '../../asignaturas/entities/asignatura.entity';
-import { Clase } from 'src/clases/entities/clase.entity';
-import { OneToMany } from 'typeorm';
+import { Clase } from '../../clases/entities/clase.entity';
 
 @Entity({ name: 'asociacion_asignatura_fichas' })
 export class AsignaturaFicha {
