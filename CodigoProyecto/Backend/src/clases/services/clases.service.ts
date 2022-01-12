@@ -89,7 +89,10 @@ export class ClasesService {
                 'Ya posee una clase en el rango de horas elegido , por favor escoja un rango de horas diferente',
             );
         }
-        const newClase = this.clasesRepository.create(createClaseDto);
+        const newClase = this.clasesRepository.create({
+            ...createClaseDto,
+            id_asociacion_asignatura_ficha: id_asociacion_asignatura_ficha,
+        });
         let claseSaved = await this.clasesRepository.save(newClase);
         claseSaved = await this.clasesRepository.findOne(claseSaved.id_clase, {
             relations: [

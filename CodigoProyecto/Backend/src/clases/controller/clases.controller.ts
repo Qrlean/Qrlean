@@ -1,10 +1,10 @@
 import {
-    Controller,
-    Get,
-    Post,
     Body,
-    Param,
+    Controller,
     Delete,
+    Get,
+    Param,
+    Post,
     Req,
     UseGuards,
 } from '@nestjs/common';
@@ -23,10 +23,11 @@ import { Role } from '../../auth/roles/roles.enum';
 export class ClasesController {
     constructor(private readonly clasesService: ClasesService) {}
 
-    @Post(':id')
+    @Post(':id_asociacion_asignatura_ficha')
     create(
         @Req() req,
-        @Param('id') id_asociacion_asignatura_ficha: number,
+        @Param('id_asociacion_asignatura_ficha')
+        id_asociacion_asignatura_ficha: number,
         @Body() createClaseDto: CreateClaseDto,
     ) {
         return this.clasesService.create(

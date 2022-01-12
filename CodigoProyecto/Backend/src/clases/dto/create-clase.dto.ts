@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsISO8601, IsMilitaryTime, IsNumber, IsString } from 'class-validator';
+import { IsISO8601, IsMilitaryTime, IsString } from 'class-validator';
 
 export class CreateClaseDto {
     @ApiProperty()
