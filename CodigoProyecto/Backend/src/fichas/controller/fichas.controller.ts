@@ -1,16 +1,16 @@
 import {
-    Controller,
-    Get,
-    Post,
     Body,
-    Patch,
-    Param,
-    Delete,
-    UseInterceptors,
     ClassSerializerInterceptor,
+    Controller,
+    Delete,
+    Get,
+    Param,
     ParseIntPipe,
-    UseGuards,
+    Patch,
+    Post,
     Req,
+    UseGuards,
+    UseInterceptors,
 } from '@nestjs/common';
 import { FichasService } from '../services/fichas.service';
 import { CreateFichaDto } from '../dto/create-ficha.dto';
@@ -69,5 +69,14 @@ export class FichasController {
     @Post('/asociarUsuario')
     asociarUsuario(@Body() asociarUsuarioDto: AsociarUsuario) {
         return this.fichasService.asociarUsuario(asociarUsuarioDto);
+    }
+
+    @Delete('/desasociarUsuario/usuario/:id_usuario/ficha/:id_ficha')
+    // @ApiParam({ name: 'identifier', required: true })
+    desasociarUsuario(
+        @Param('id_ficha', ParseIntPipe) id_ficha: number,
+        @Param('id_usuario', ParseIntPipe) id_usuario: number,
+    ) {
+        return this.fichasService.desasociarUsuario(id_ficha, id_usuario);
     }
 }

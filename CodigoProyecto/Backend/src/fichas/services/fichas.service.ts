@@ -125,6 +125,17 @@ export class FichasService {
                 'Solo los instructores pueden tener una asignatura asociada',
             );
         }
+        const existeAsociacion = await this.fichasUsuariosRepository.findOne({
+            where: {
+                id_usuario: asociarUsuarioDto.id_usuario,
+                id_ficha: asociarUsuarioDto.id_ficha,
+            },
+        });
+        if (existeAsociacion) {
+            throw new BadRequestException(
+                'El usuario ya se encuentra asociado a la ficha',
+            );
+        }
         let asociacion = this.fichasUsuariosRepository.create({
             id_ficha: ficha.id_ficha,
             id_usuario: usuario.id_usuario,
@@ -139,5 +150,19 @@ export class FichasService {
             await this.asignaturaFichaRepository.save(asignturaFicha);
         }
         return;
+    }
+
+    async desasociarUsuario(id_ficha, id_usuario): Promise<void> {
+        await this.usuariosService.findOne(id_usuario);
+        await this.findOne(id_ficha);
+        const usuarioFicha = await this.fichasUsuariosRepository.findOne({
+            where: { id_usuario, id_ficha },
+        });
+        if (!usuarioFicha) {
+            throw new BadRequestException(
+                `El usuario con id ${id_usuario} no se encuentra asociado a la ficha con id ${id_ficha}`,
+            );
+        }
+        await this.fichasUsuariosRepository.remove(usuarioFicha);
     }
 }
