@@ -17,8 +17,4 @@ export class CreateClaseDto {
     @ApiProperty()
     @IsMilitaryTime()
     hora_final: string;
-
-    @ApiProperty()
-    @IsNumber()
-    id_asociacion_asignatura_ficha: number;
 }

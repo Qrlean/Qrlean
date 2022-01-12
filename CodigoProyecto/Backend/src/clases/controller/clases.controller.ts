@@ -23,9 +23,17 @@ import { Role } from '../../auth/roles/roles.enum';
 export class ClasesController {
     constructor(private readonly clasesService: ClasesService) {}
 
-    @Post()
-    create(@Req() req, @Body() createClaseDto: CreateClaseDto) {
-        return this.clasesService.create(createClaseDto, req.user.id_usuario);
+    @Post(':id')
+    create(
+        @Req() req,
+        @Param('id') id_asociacion_asignatura_ficha: number,
+        @Body() createClaseDto: CreateClaseDto,
+    ) {
+        return this.clasesService.create(
+            createClaseDto,
+            id_asociacion_asignatura_ficha,
+            req.user.id_usuario,
+        );
     }
 
     @Get('/allByAsignaturaId/:id')
