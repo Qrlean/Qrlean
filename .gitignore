@@ -20,3 +20,4 @@ CodigoProyecto/Backend/.scannerwork
 CodigoProyecto/Backend/.vscode
 package-lock.json
 *.db
+.idea
