@@ -1,6 +1,7 @@
 import {
-    Injectable,
     BadRequestException,
+    Injectable,
+    NotFoundException,
     UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,7 +14,6 @@ import { SchedulerRegistry } from '@nestjs/schedule';
 import { CorreoService } from '../../correo/services/correo.service';
 import { CronJob } from 'cron';
 import { Templates } from '../../correo/enum/templates.enum';
-import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class ClasesService {
@@ -25,12 +25,14 @@ export class ClasesService {
         private schedulerRegistry: SchedulerRegistry,
         private correoService: CorreoService,
     ) {}
+
     async create(
         createClaseDto: CreateClaseDto,
+        id_asociacion_asignatura_ficha: number,
         id_instructor: number,
     ): Promise<Clase> {
         const asignaturaFicha = await this.asignaturaFichaRepository.findOne(
-            createClaseDto.id_asociacion_asignatura_ficha,
+            id_asociacion_asignatura_ficha,
             {
                 relations: ['instructor'],
             },
@@ -79,7 +81,7 @@ export class ClasesService {
                 createClaseDto.dia,
                 createClaseDto.hora_inicio,
                 createClaseDto.hora_final,
-                createClaseDto.id_asociacion_asignatura_ficha,
+                id_asociacion_asignatura_ficha,
             ],
         );
         if (exitsClassWithTheSameHour.length !== 0) {
@@ -113,7 +115,7 @@ export class ClasesService {
         });
 
         //Se le avisa a los alumnos de la clase nueva (via email)
-        claseSaved.asignatura.ficha.usuarios.forEach(async (user) => {
+        for (const user of claseSaved.asignatura.ficha.usuarios) {
             if (user.usuario.id_tipo_rol === 3) {
                 await this.correoService.sendEmail(
                     user.usuario.emailInstitucional,
@@ -133,7 +135,7 @@ export class ClasesService {
                     Templates.newClass,
                 );
             }
-        });
+        }
         this.schedulerRegistry.addCronJob(
             `${claseSaved.id_clase}-sysAdvice`,
             jobFiveMinutesLess,
@@ -191,6 +193,9 @@ export class ClasesService {
         const clase = await this.clasesRepository.findOne(id, {
             relations: ['asignatura', 'asignatura.asignatura'],
         });
+        if (!clase) {
+            throw new NotFoundException(`La clase con el id ${id} no existe`);
+        }
         if (
             id_instructor &&
             !claseWUsers.asignatura.ficha.usuarios.find(
