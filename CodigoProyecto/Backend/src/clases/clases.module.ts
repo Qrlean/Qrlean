@@ -17,5 +17,6 @@ import { CorreoModule } from 'src/correo/correo.module';
     ],
     controllers: [ClasesController],
     providers: [ClasesService],
+    exports: [ClasesService],
 })
 export class ClasesModule {}

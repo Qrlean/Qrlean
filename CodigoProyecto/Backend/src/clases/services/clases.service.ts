@@ -184,7 +184,11 @@ export class ClasesService {
         return clases;
     }
 
-    async findOne(id: number, id_instructor?: number): Promise<Clase> {
+    async findOne(
+        id: number,
+        id_instructor?: number,
+        relations?: string[],
+    ): Promise<Clase> {
         const claseWUsers = await this.clasesRepository.findOne(id, {
             relations: [
                 'asignatura',
@@ -193,8 +197,14 @@ export class ClasesService {
                 'asignatura.ficha.usuarios.usuario',
             ],
         });
+        console.log(relations);
         const clase = await this.clasesRepository.findOne(id, {
-            relations: ['asignatura', 'asignatura.asignatura'],
+            relations: [
+                'asignatura',
+                'asignatura.asignatura',
+                'asistencias',
+                ...(relations && [...relations]),
+            ],
         });
         if (!clase) {
             throw new NotFoundException(`La clase con el id ${id} no existe`);
