@@ -14,6 +14,7 @@ import SearchButton from '../../../../components/utils/SearchButton';
 
 import { NextSeo } from 'next-seo';
 import WithAuth from '../../../../components/utils/WithAuth';
+import ArrowBack from '../../../../components/utils/ArrowBack';
 // import { motion } from 'framer-motion';
 
 // const infoVariants = {
@@ -59,17 +60,9 @@ const Fichas = () => {
                     <DashboardAdminHelp className="transform rotate-90 sm:rotate-0"></DashboardAdminHelp>
                 </Modal>
                 <div className="h-2/12 relative w-full bg-gray-300 shadow-lg flex flex-row justify-center items-center">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        onClick={() => router.push('/dashboard/admin')}
-                        className="xl:ml-28 ml-4 h-6/12  fill-current text-gray-800"
-                        viewBox="0 0 16 16"
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-                        />
-                    </svg>
+                    <ArrowBack
+                        onClick={() => router.push('/dashboard/admin/')}
+                    />
                     {/* <svg xmlns="http://www.w3.org/2000/svg" className="ml-6  px-2 h-8/12 w-10 fill-current text-gray-800 bg-white rounded rounded-r-none" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
                         <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>

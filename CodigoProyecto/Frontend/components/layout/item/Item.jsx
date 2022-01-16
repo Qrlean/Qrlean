@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import ItemIndex from './ItemIndex';
 
+export function fetchFromObject(obj, prop) {
+    if (typeof obj === 'undefined') return false;
+    const _index = prop.indexOf('.');
+    if (_index > -1) {
+        return fetchFromObject(
+            obj[prop.substring(0, _index)],
+            prop.substr(_index + 1),
+        );
+    }
+    return obj[prop];
+}
+
 const Item = ({
     list,
     openPropierties,
@@ -11,7 +23,7 @@ const Item = ({
     trashIcon = true,
     routerDir,
     routerQuery,
-    idPropertie,
+    idProperty,
     modalText,
     modalTitle,
 }) => {
@@ -21,7 +33,7 @@ const Item = ({
             {list.map((i) => (
                 <ItemIndex
                     data={i}
-                    key={i._id}
+                    key={i[idProperty]}
                     item={item}
                     setItem={setItem}
                     openPropierties={openPropierties}
@@ -30,7 +42,7 @@ const Item = ({
                     iconExpand={iconExpand}
                     routerDir={routerDir}
                     routerQuery={routerQuery}
-                    idPropertie={idPropertie}
+                    idProperty={idProperty}
                     modalText={modalText}
                     modalTitle={modalTitle}
                     editIcon={editIcon}

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import Modal from '../../utils/Modal';
 
 import Warning from '../../../svg/warning-signs-svgrepo-com.svg';
+import { fetchFromObject } from './Item';
 
 const ItemOpen = ({
     data,
@@ -14,7 +15,7 @@ const ItemOpen = ({
     openTitle,
     iconExpand,
     routerDir,
-    idPropertie,
+    idProperty,
     modalText,
     modalTitle,
     editIcon,
@@ -59,7 +60,7 @@ const ItemOpen = ({
                 className="flex justify-center items-center h-screen w-screen bg-black opacity-75 fixed  inset-0"
                 onClick={() => closeItem()}
                 style={{ zIndex: 99999999 }}
-            ></div>
+            />
             <motion.div
                 layoutId="item-expandible"
                 className="bg-white rounded-lg lg:h-3/5 lg:w-3/5 m-auto inset-0 fixed overflow-hidden max-w-full flex flex-col justify-center items-center"
@@ -93,7 +94,7 @@ const ItemOpen = ({
                         >
                             {openTitle}
                         </motion.h1>
-                        {/* 
+                        {/*
                         [{
                             key:"nombre",
                             text:"Tu nombre:",
@@ -109,7 +110,7 @@ const ItemOpen = ({
                                         : 'text-xs md:text-base text-left text-gray-800'
                                 }
                             >
-                                {p.text} : {data[p.key]}
+                                {p.text} : {fetchFromObject(data, p.key)}
                             </motion.h2>
                         ))}
                     </motion.div>
@@ -123,7 +124,7 @@ const ItemOpen = ({
                             <svg
                                 onClick={() =>
                                     router.push(
-                                        `${routerDir}/editar/${data[idPropertie]}`,
+                                        `${routerDir}/editar/${data[idProperty]}`,
                                     )
                                 }
                                 viewBox="0 0 16 16"

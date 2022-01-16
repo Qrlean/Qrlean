@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { fetchFromObject } from './Item';
 
 const ItemClose = ({ data, openItem, closePropierties }) => {
     return (
@@ -34,7 +35,7 @@ const ItemClose = ({ data, openItem, closePropierties }) => {
                                         : 'text-xs md:text-base text-left text-gray-800'
                                 }
                             >
-                                {p.text} : {data[p.key]}
+                                {p.text} : {fetchFromObject(data, p.key)}
                             </motion.h2>
                         ))}
                     </motion.div>

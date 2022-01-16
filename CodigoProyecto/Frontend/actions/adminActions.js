@@ -1,7 +1,7 @@
 import {
-    CREAR_USUARIO,
     CREAR_USUARIO_ERROR,
     CREAR_USUARIO_EXITO,
+    CREAR_USUARIO_INIT,
     EDITAR_USUARIO,
     EDITAR_USUARIO_ERROR,
     EDITAR_USUARIO_EXITO,
@@ -11,23 +11,21 @@ import {
     GET_USUARIO_EDITAR,
     GET_USUARIO_EDITAR_ERROR,
     GET_USUARIO_EDITAR_EXITO,
-    GET_USUARIOS,
     GET_USUARIOS_ERROR,
     GET_USUARIOS_EXITO,
+    GET_USUARIOS_INIT,
 } from '../types';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Router from 'next/router';
+import { client } from '../config/axios';
 
 export const getUsuarios = () => {
     return async (dispatch) => {
         try {
             dispatch(getUsuariosFn());
-            const res = await axios.get(`${uri}/usuarios`);
-            await setTimeout(
-                () => dispatch(getUsuariosFnExito(res.data.data.usuarios)),
-                1000,
-            );
+            const res = await client.get('/usuarios');
+            dispatch(getUsuariosFnExito(res.data));
         } catch (e) {
             toast.error(e.response.data.message);
             dispatch(getUsuariosFnError(e.response.data.message));
@@ -36,7 +34,7 @@ export const getUsuarios = () => {
 };
 
 const getUsuariosFn = () => ({
-    type: GET_USUARIOS,
+    type: GET_USUARIOS_INIT,
 });
 const getUsuariosFnExito = (payload) => ({
     type: GET_USUARIOS_EXITO,
@@ -48,48 +46,29 @@ const getUsuariosFnError = (payload) => ({
 });
 
 export const crearUsuario = (payload) => {
-    if (
-        payload.telefono_movil === undefined ||
-        payload.telefono_movil === null ||
-        payload.telefono_movil === 0 ||
-        payload.telefono_movil.trim() === ''
-    ) {
-        delete payload.telefono_movil;
-    }
-    if (
-        payload.direccion_residencial === undefined ||
-        payload.direccion_residencial === null ||
-        payload.direccion_residencial === 0 ||
-        payload.direccion_residencial.trim() === ''
-    ) {
-        delete payload.direccion_residencial;
-    }
     return async (dispatch) => {
         try {
+            payload.telefono_movil = parseInt(payload.telefono_movil);
+            payload.numero_documento = parseInt(payload.numero_documento);
+            payload.id_tipo_rol = parseInt(payload.id_tipo_rol);
+            payload.id_ciudad = parseInt(payload.id_ciudad);
+            payload.id_tipo_documento = parseInt(payload.id_tipo_documento);
             dispatch(crearUsuarioFn());
-            const res = await axios.post(`${uri}/usuarios/registrar`, payload);
-            await setTimeout(
-                () => dispatch(crearUsuarioFnExito(res.data.data.usuario)),
-                1000,
-            );
-
-            Router.push('/dashboard/admin/personas');
+            await client.post('/usuarios', payload);
+            dispatch(crearUsuarioFnExito());
+            await Router.push('/dashboard/admin/personas');
         } catch (e) {
-            if (e.response) {
-                console.log(e.response.data);
-                toast.error(e.response.data.message);
-                dispatch(crearUsuarioFnError(e.response.data.message));
-            }
+            toast.error(e.response.data.message);
+            dispatch(crearUsuarioFnError(e.response.data.message));
         }
     };
 };
 
 const crearUsuarioFn = () => ({
-    type: CREAR_USUARIO,
+    type: CREAR_USUARIO_INIT,
 });
 const crearUsuarioFnExito = (payload) => ({
     type: CREAR_USUARIO_EXITO,
-    payload,
 });
 const crearUsuarioFnError = (payload) => ({
     type: CREAR_USUARIO_ERROR,

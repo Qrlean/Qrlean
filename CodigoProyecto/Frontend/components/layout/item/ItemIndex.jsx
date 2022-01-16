@@ -14,7 +14,7 @@ const ItemIndex = ({
     iconExpand,
     routerDir,
     routerQuery,
-    idPropertie,
+    idProperty,
     modalText,
     modalTitle,
     editIcon,
@@ -23,15 +23,15 @@ const ItemIndex = ({
     const router = useRouter();
 
     const openItem = () => {
-        setItem(data[idPropertie]);
+        setItem(data[idProperty]);
         router.push(
             `${routerDir}/?${routerQuery}=[${routerQuery}]`,
-            `${routerDir}/?${routerQuery}=${data[idPropertie]}`,
+            `${routerDir}/?${routerQuery}=${data[idProperty]}`,
             { shallow: true },
         );
     };
     const closeItem = () => {
-        if (item === data[idPropertie]) {
+        if (item === data[idProperty]) {
             setItem(null);
         }
         router.push(`${routerDir}/`, undefined, { shallow: true });
@@ -47,7 +47,7 @@ const ItemIndex = ({
 
     return (
         <AnimateSharedLayout type="crossfade" className="relative">
-            {item === data[idPropertie] ? (
+            {item === data[idProperty] ? (
                 <ItemOpen
                     data={data}
                     closeItem={closeItem}
@@ -55,7 +55,7 @@ const ItemIndex = ({
                     openTitle={openTitle}
                     iconExpand={iconExpand}
                     routerDir={routerDir}
-                    idPropertie={idPropertie}
+                    idProperty={idProperty}
                     modalText={modalText}
                     modalTitle={modalTitle}
                     editIcon={editIcon}
