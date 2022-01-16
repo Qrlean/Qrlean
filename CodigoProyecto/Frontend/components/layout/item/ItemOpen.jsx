@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import Modal from '../../utils/Modal';
 
 import Warning from '../../../svg/warning-signs-svgrepo-com.svg';
+
 const ItemOpen = ({
     data,
     closeItem,

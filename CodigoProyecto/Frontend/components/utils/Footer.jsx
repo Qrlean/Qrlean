@@ -3,6 +3,7 @@ import LogoWhite from '../../svg/2.svg';
 import Link from 'next/link';
 import Modal from './Modal';
 import Tyc from '../layout/index/Tyc';
+
 const Footer = () => {
     const [modal, setModal] = useState(false);
     return (

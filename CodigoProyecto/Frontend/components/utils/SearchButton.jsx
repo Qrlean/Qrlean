@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
 const SearchButton = ({ className }) => {
     const [search, setSearch] = useState(false);
     const inputVariants = {

@@ -2,6 +2,7 @@ import React from 'react';
 import PrincipalPath from './principalPath';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+
 const Jumbotron = ({ divRef }) => {
     return (
         <motion.div

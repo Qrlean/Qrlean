@@ -1,6 +1,7 @@
 import React from 'react';
 import Plx from 'react-plx';
 import { motion } from 'framer-motion';
+
 const Features = ({ children, ...rest }) => {
     return (
         <Plx {...rest} className="relative w-full lg:w-1/4 m-12 ">

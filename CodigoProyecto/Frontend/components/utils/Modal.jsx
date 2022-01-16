@@ -1,4 +1,5 @@
 import React from 'react';
+
 const Modal = ({ children, state, setState, titulo }) => {
     return (
         <>

@@ -14,7 +14,7 @@ const Loader = () => {
     return (
         <>
             <div
-                className="left-0 top-0 w-screen h-screen fixed overflow-hidden flex flex-col justify-center items-center bg-black bg-opacity-80"
+                className="left-0 top-0 w-screen h-screen fixed overflow-hidden flex flex-col justify-center items-center bg-white"
                 style={{ zIndex: 9999 }}
             >
                 <motion.svg
