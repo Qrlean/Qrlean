@@ -1,18 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
-
 import { useRouter } from 'next/router';
-
-import Loader from '../components/utils/Loader';
 import Logo from '../svg/1.svg';
-
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { motion, AnimatePresence } from 'framer-motion';
-
+import { AnimatePresence, motion } from 'framer-motion';
 import { login } from '../actions/appActions';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from 'react-loader-spinner';
+import WithRedirect from '../components/utils/WithRedirect';
 
-import { useDispatch } from 'react-redux';
 const errorVariants = {
     initial: {
         height: '0px',
@@ -64,7 +61,7 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const loader = false;
+    const loginIsLoading = useSelector((store) => store.app.auth.loginLoading);
 
     const formik = useFormik({
         initialValues: {
@@ -95,7 +92,6 @@ const Login = () => {
                     style={{ height: '95%' }}
                 >
                     <div className="flex flex-col justify-center w-10/12 mx-auto h-full overflow-y-scroll md:overflow-y-hidden ">
-                        {loader && <Loader />}
                         <>
                             <Link href="/">
                                 <svg
@@ -197,11 +193,25 @@ const Login = () => {
                                     formik.values.numero_documento !== '' &&
                                     formik.values.id_tipo_documento !== '' &&
                                     formik.values.password !== ''
-                                        ? 'bg-orange-500 outline-none p-3 text-white text-base font-extrabold my-2 '
+                                        ? 'bg-orange-500 outline-none p-3 text-white text-base font-extrabold my-2 flex flex-row justify-center items-center'
                                         : 'bg-gray-600 outline-none p-3 text-white text-base font-extrabold my-2 cursor-not-allowed'
                                 }
                             >
-                                Ingresar
+                                {loginIsLoading ? (
+                                    <>
+                                        Cargando
+                                        <div className="flex flex-col justify-center items-center my-auto mx-2">
+                                            <Loader
+                                                type="Circles"
+                                                color="#FFFFFF"
+                                                height={15}
+                                                width={15}
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    'Ingresar'
+                                )}
                             </button>
                             <p
                                 className="text-gray-800 text-base text-right "
@@ -217,4 +227,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default WithRedirect(Login);

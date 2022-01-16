@@ -1,10 +1,19 @@
-import React from 'react';
-import Loader from './Loader';
+import React, { useEffect } from 'react';
+import { firstCall } from '../../actions/appActions';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../utils/Loader';
+
 const Father = ({ children }) => {
-    const loader = false;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(firstCall());
+    }, []);
+    const firtCallIsLoading = useSelector(
+        (store) => store.app.auth.firstCallLoading,
+    );
     return (
         <>
-            {loader && <Loader />}
+            {firtCallIsLoading ? <Loader /> : null}
             {children}
         </>
     );

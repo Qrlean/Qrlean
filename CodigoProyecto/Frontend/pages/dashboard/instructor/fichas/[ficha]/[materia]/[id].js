@@ -4,6 +4,8 @@ import ItemAprendiz from '../../../../../../components/layout/firmarAsistencia/I
 // import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
+import WithAuth from '../../../../../../components/utils/WithAuth';
+
 const FirmarClase = () => {
     const router = useRouter();
     const formik = useFormik({
@@ -54,4 +56,4 @@ const FirmarClase = () => {
     );
 };
 
-export default FirmarClase;
+export default WithAuth({ rol: [2] })(FirmarClase);

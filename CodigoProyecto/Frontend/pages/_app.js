@@ -6,6 +6,7 @@ import store from '../store';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function MyApp({ Component, pageProps }) {
     return (
         <>
@@ -13,7 +14,17 @@ function MyApp({ Component, pageProps }) {
                 <Head>
                     <title>QrLean</title>
                 </Head>
-                <ToastContainer />
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
                 <Father>
                     <Component {...pageProps} />
                 </Father>

@@ -1,11 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 import Header from '../components/utils/Header';
 import Footer from '../components/utils/Footer';
+
 const _404 = () => {
     return (
         <div className="overflow-x-hidden">
-            <Header forceBackground={true} />
+            <Header forceBackground={true}/>
             <div className="w-4/5 mx-auto p-4 m-4 flex flex-col justify-center items-center mt-32">
                 <h1 className="text-center text-xl sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl font-extrabold text-gray-800 my-4">
                     {' '}
@@ -66,9 +67,9 @@ const _404 = () => {
                             </g>
                         </g>
                         <motion.path
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 2, yoyo: Infinity }}
+                            initial={{opacity: 0}}
+                            animate={{opacity: 1}}
+                            transition={{duration: 2, yoyo: Infinity}}
                             id="Lampara"
                             fill-rule="evenodd"
                             clip-rule="evenodd"
@@ -76,9 +77,9 @@ const _404 = () => {
                             fill="#FFEECD"
                         />
                         <motion.g
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 2, yoyo: Infinity }}
+                            initial={{opacity: 0}}
+                            animate={{opacity: 1}}
+                            transition={{duration: 2, yoyo: Infinity}}
                             id="Luz"
                         >
                             <mask
@@ -284,7 +285,7 @@ const _404 = () => {
                     </g>
                 </svg>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 };

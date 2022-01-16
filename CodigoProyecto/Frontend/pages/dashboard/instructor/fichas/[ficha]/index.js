@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { useRouter } from 'next/router';
-
-import { motion } from 'framer-motion';
 import ItemPersonaAsistencia from '../../../../../components/layout/fichas/ItemPersonaAsistencia';
 import Dashboard from '../../../../../components/utils/Dashboard';
 import ItemLista from '../../../../../components/layout/fichas/ItemLista';
@@ -10,6 +8,7 @@ import ItemMaterias from '../../../../../components/layout/fichas/ItemMaterias';
 import { ResponsivePie } from '@nivo/pie';
 // import { ResponsiveAreaBump } from '@nivo/bump'
 import { ResponsiveBar } from '@nivo/bar';
+import WithAuth from '../../../../../components/utils/WithAuth';
 
 const Ficha = () => {
     const router = useRouter();
@@ -189,4 +188,4 @@ const Ficha = () => {
     );
 };
 
-export default Ficha;
+export default WithAuth({ rol: [2] })(Ficha);

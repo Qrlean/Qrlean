@@ -8,12 +8,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useRouter } from 'next/router';
 
 import Dashboard from '../../../../../../../components/utils/Dashboard';
 import * as Dateformat from 'dateformat';
+import WithAuth from '../../../../../../../components/utils/WithAuth';
+
 const errorVariants = {
     initial: {
         height: '0px',
@@ -283,4 +285,4 @@ const EditarClase = () => {
     );
 };
 
-export default EditarClase;
+export default WithAuth({ rol: [2] })(EditarClase);

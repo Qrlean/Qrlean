@@ -10,6 +10,7 @@ import ItemMaterias from '../../../../../components/layout/fichas/ItemMaterias';
 import { ResponsivePie } from '@nivo/pie';
 // import { ResponsiveAreaBump } from '@nivo/bump'
 import { ResponsiveBar } from '@nivo/bar';
+import WithAuth from '../../../../../components/utils/WithAuth';
 
 const Ficha = () => {
     const router = useRouter();
@@ -164,4 +165,4 @@ const Ficha = () => {
     );
 };
 
-export default Ficha;
+export default WithAuth({ rol: [1] })(Ficha);

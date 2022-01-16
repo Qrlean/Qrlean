@@ -13,6 +13,7 @@ import Loader from 'react-loader-spinner';
 import SearchButton from '../../../../components/utils/SearchButton';
 
 import { NextSeo } from 'next-seo';
+import WithAuth from '../../../../components/utils/WithAuth';
 // import { motion } from 'framer-motion';
 
 // const infoVariants = {
@@ -184,4 +185,4 @@ const Fichas = () => {
     );
 };
 
-export default Fichas;
+export default WithAuth({ rol: [1] })(Fichas);

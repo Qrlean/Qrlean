@@ -13,6 +13,8 @@ import Teacher from '../../../svg/teacher2.svg';
 import Cursos from '../../../svg/cursos.svg';
 import DashboardAdminHelp from '../../../svg/dashboardAdminHelp.svg';
 
+import WithAuth from '../../../components/utils/WithAuth';
+
 // const infoVariants = {
 //     hover: {
 //         rotate: -10,
@@ -25,7 +27,7 @@ const InicioAdmin = () => {
     return (
         <Dashboard>
             <Modal state={help} setState={setHelp} titulo="Ayuda">
-                <DashboardAdminHelp className="transform rotate-90 sm:rotate-0"></DashboardAdminHelp>
+                <DashboardAdminHelp className="transform rotate-90 sm:rotate-0" />
             </Modal>
             <PerfectScrollbar className="h-full grid grid-cols-2 relative">
                 {/* <motion.svg  whileHover="hover" variants={infoVariants} viewBox="0 0 16 16" className="left-0 top-0 absolute w-10 h-10 fill-current text-gray-700 m-4" xmlns="http://www.w3.org/2000/svg" onClick={()=>setHelp(true)} style={{zIndex:99}}>
@@ -36,7 +38,7 @@ const InicioAdmin = () => {
                 <div className="flex flex-col justify-center items-center  bg-deeppink-200 col-span-2 sm:col-span-2 lg:col-span-1 h-screen lg:h-auto relative">
                     <div className="flex flex-col justify-center items-center">
                         <div className="rounded-full ring-2 ring-gray-800 ring-offset-2 bg-darkorchid-400 m-6">
-                            <Teacher className="w-64 h-64"></Teacher>
+                            <Teacher className="w-64 h-64" />
                         </div>
                         <button
                             onClick={() =>
@@ -54,7 +56,7 @@ const InicioAdmin = () => {
                     <div className="flex flex-col justify-center items-center ">
                         <div className="rounded-full ring-2 ring-gray-800 ring-offset-2 bg-red-400 m-6">
                             {' '}
-                            <Cursos className="w-64 h-64"></Cursos>
+                            <Cursos className="w-64 h-64" />
                         </div>
                         <button
                             onClick={() =>
@@ -72,4 +74,4 @@ const InicioAdmin = () => {
     );
 };
 
-export default InicioAdmin;
+export default WithAuth({ rol: [1] })(InicioAdmin);

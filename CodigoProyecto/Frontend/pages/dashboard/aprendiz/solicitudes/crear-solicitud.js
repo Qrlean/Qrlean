@@ -5,12 +5,14 @@ import Loader from 'react-loader-spinner';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useRouter } from 'next/router';
 
 import Dashboard from '../../../../components/utils/Dashboard';
 import { Editor } from '@tinymce/tinymce-react';
+import WithAuth from '../../../../components/utils/WithAuth';
+
 const errorVariants = {
     initial: {
         height: '0px',
@@ -232,4 +234,4 @@ const CrearSolicitud = () => {
     );
 };
 
-export default CrearSolicitud;
+export default WithAuth({ rol: [2] })(CrearSolicitud);

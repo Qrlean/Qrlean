@@ -1,11 +1,11 @@
-export const FIRST_CALL = 'FIRST_CALL';
+export const FIRST_CALL_INIT = 'FIRST_CALL_INIT';
 export const FIRST_CALL_EXITO = 'FIRST_CALL_EXITO';
 export const FIRST_CALL_ERROR = 'FIRST_CALL_ERROR';
-export const LOGIN = 'LOGIN';
+export const LOGIN_INIT = 'LOGIN_INIT';
 export const LOGIN_EXITO = 'LOGIN_EXITO';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
-export const LOGOUT_EXITO = 'LOGOUT_EXITO';
+export const LOGOUT_INIT = 'LOGOUT_INIT';
 export const GET_USUARIOS = 'GET_USUARIOS';
 export const GET_USUARIOS_EXITO = 'GET_USUARIOS_EXITO';
 export const GET_USUARIOS_ERROR = 'GET_USUARIOS_ERROR';

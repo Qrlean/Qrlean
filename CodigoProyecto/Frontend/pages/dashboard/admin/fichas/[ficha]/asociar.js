@@ -6,6 +6,8 @@ import AsociarAprendiz from '../../../../../components/layout/fichas/AsociarApre
 import AsociarInstructor from '../../../../../components/layout/fichas/AsociarInstructor';
 import Teacher from '../../../../../svg/teacher2.svg';
 import Cursos from '../../../../../svg/cursos.svg';
+import WithAuth from '../../../../../components/utils/WithAuth';
+
 const Asociar = () => {
     const router = useRouter();
     console.log(router.query);
@@ -67,4 +69,4 @@ const Asociar = () => {
     );
 };
 
-export default Asociar;
+export default WithAuth({ rol: [1] })(Asociar);

@@ -9,6 +9,7 @@ import DashboardAdminHelp from '../../../../svg/dashboardAdminHelp.svg';
 import Item from '../../../../components/layout/item/Item';
 
 import Loader from 'react-loader-spinner';
+import WithAuth from '../../../../components/utils/WithAuth';
 
 const ManagerUsuarios = () => {
     const instructores = [
@@ -198,4 +199,4 @@ const ManagerUsuarios = () => {
     );
 };
 
-export default ManagerUsuarios;
+export default WithAuth({ rol: [1] })(ManagerUsuarios);

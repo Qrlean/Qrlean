@@ -8,6 +8,7 @@ import Dashboard from '../../../../../../components/utils/Dashboard';
 import DashboardAdminHelp from '../../../../../../svg/dashboardAdminHelp.svg';
 
 import Loader from 'react-loader-spinner';
+import WithAuth from '../../../../../../components/utils/WithAuth';
 
 // import { motion } from 'framer-motion';
 
@@ -159,4 +160,4 @@ const Materia = () => {
     );
 };
 
-export default Materia;
+export default WithAuth({ rol: [2] })(Materia);

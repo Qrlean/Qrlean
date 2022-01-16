@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 // import { useRouter } from 'next/router';
-
 import Dashboard from '../../../../components/utils/Dashboard';
 
 import Item from '../../../../components/layout/item/Item';
@@ -9,6 +8,7 @@ import Modal from '../../../../components/utils/Modal';
 import DashboardAdminHelp from '../../../../svg/dashboardAdminHelp.svg';
 
 import Loader from 'react-loader-spinner';
+import WithAuth from '../../../../components/utils/WithAuth';
 
 // import { motion } from 'framer-motion';
 
@@ -113,4 +113,4 @@ const InstructorDashboard = () => {
     );
 };
 
-export default InstructorDashboard;
+export default WithAuth({ rol: [2] })(InstructorDashboard);

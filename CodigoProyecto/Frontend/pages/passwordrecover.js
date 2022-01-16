@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/utils/Header';
+import WithRedirect from '../components/utils/WithRedirect';
 
 const RecuperarContraseña = () => {
     return (
@@ -24,4 +25,4 @@ const RecuperarContraseña = () => {
     );
 };
 
-export default RecuperarContraseña;
+export default WithRedirect(RecuperarContraseña);

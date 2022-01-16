@@ -1,11 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 import { ResponsiveCalendar } from '@nivo/calendar';
 import { ResponsivePie } from '@nivo/pie';
 
 import Dashboard from '../../../components/utils/Dashboard';
 import { useRouter } from 'next/router';
+import WithAuth from '../../../components/utils/WithAuth';
+
 const infoVariants = {
     hover: {
         rotate: -10,
@@ -142,4 +143,4 @@ const Aprendiz = () => {
     );
 };
 
-export default Aprendiz;
+export default WithAuth({ rol: [3] })(Aprendiz);

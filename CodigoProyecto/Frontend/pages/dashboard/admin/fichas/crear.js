@@ -5,11 +5,12 @@ import Loader from 'react-loader-spinner';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useRouter } from 'next/router';
 
 import Dashboard from '../../../../components/utils/Dashboard';
+import WithAuth from '../../../../components/utils/WithAuth';
 
 const errorVariants = {
     initial: {
@@ -189,4 +190,4 @@ const CrearFicha = () => {
     );
 };
 
-export default CrearFicha;
+export default WithAuth({ rol: [1] })(CrearFicha);

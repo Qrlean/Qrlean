@@ -3,12 +3,13 @@ import React from 'react';
 import Dashboard from '../../../../../components/utils/Dashboard';
 
 import Loader from 'react-loader-spinner';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
 import { useRouter } from 'next/router';
+import WithAuth from '../../../../../components/utils/WithAuth';
 
 const errorVariants = {
     initial: {
@@ -496,4 +497,4 @@ const EditarPersona = () => {
     );
 };
 
-export default EditarPersona;
+export default WithAuth({ rol: [1] })(EditarPersona);

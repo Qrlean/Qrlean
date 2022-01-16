@@ -6,8 +6,8 @@ import Dashboard from '../../../../components/utils/Dashboard';
 
 import Item from '../../../../components/layout/item/Item';
 // import Modal from '../../../../components/utils/Modal';
-
 import Loader from 'react-loader-spinner';
+import WithAuth from '../../../../components/utils/WithAuth';
 
 // import { motion } from 'framer-motion';
 
@@ -173,4 +173,4 @@ const SolicitudesAprendiz = () => {
     );
 };
 
-export default SolicitudesAprendiz;
+export default WithAuth({ rol: [3] })(SolicitudesAprendiz);
