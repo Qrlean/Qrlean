@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
-import Loader from './Loader';
-
 export const WithAuth = (props) => (WrappedComponent) => () => {
     const user = useSelector((store) => store.app.auth.user);
     const state = useSelector((store) => store.app.auth.state);
@@ -41,7 +39,7 @@ export const WithAuth = (props) => (WrappedComponent) => () => {
         }
     }, [state, user]);
     if (loading) {
-        return <Loader />;
+        return null;
     }
     return <WrappedComponent></WrappedComponent>;
 };

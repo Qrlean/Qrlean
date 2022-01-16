@@ -1,52 +1,18 @@
 import React from 'react';
 
-import Loader from 'react-loader-spinner';
-
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-
-import { AnimatePresence, motion } from 'framer-motion';
 
 import { useRouter } from 'next/router';
 
 import Dashboard from '../../../../components/utils/Dashboard';
 import WithAuth from '../../../../components/utils/WithAuth';
 import FormArrowBack from '../../../../components/utils/FormArrowBack';
+import CustomSelect from '../../../../components/utils/CustomSelect';
+import SubmitButton from '../../../../components/utils/SubmitButton';
 
-const errorVariants = {
-    initial: {
-        height: '0px',
-        display: 'none',
-    },
-    animate: {
-        height: 'auto',
-        transition: {
-            duration: 0.5,
-        },
-    },
-    unshow: {
-        height: '0px',
-        transition: {
-            duration: 0.5,
-        },
-    },
-};
-// const infoVariants = {
-//     hover: {
-//         rotate: -10,
-//         scale: 1,
-//     },
-// };
 const validationSchema = Yup.object().shape({
-    numero: Yup.string()
-        .matches(
-            /^[0-9]*$/,
-            'El numero de ficha solo debería tener caracteres numéricos.',
-        )
-        .min(4, 'El numero debería tener mínimo 4 caracteres.')
-        .max(100, 'El numero debería tener máximo 100 caracteres.')
-        .required('El campo numero es requerido.'),
-    programa: Yup.string()
+    id_programa: Yup.string()
         .matches(
             /^[0-9]*$/,
             'El programa solo debería tener caracteres numéricos (Elige una opción).',
@@ -57,11 +23,9 @@ const validationSchema = Yup.object().shape({
 });
 const CrearFicha = () => {
     const router = useRouter();
-    const loader = false;
     const formik = useFormik({
         initialValues: {
-            numero: '',
-            programa: '',
+            id_programa: '',
         },
         onSubmit: (values) => {
             console.log(values);
@@ -87,99 +51,26 @@ const CrearFicha = () => {
                     <h1 className="text-3xl text-gray-800 text-center w-full my-4 ">
                         Crear ficha.
                     </h1>
-                    <label
-                        className="text-gray-800 text-xl mx-auto mt-4 w-11/12"
-                        htmlFor="numero"
-                    >
-                        Numero
-                    </label>
-                    <AnimatePresence>
-                        {formik.errors.numero && formik.touched.numero ? (
-                            <motion.p
-                                initial="initial"
-                                animate="animate"
-                                exit="unshow"
-                                variants={errorVariants}
-                                className="rounded-lg overflow-hidden text-center  text-red-600 text-base"
-                            >
-                                {formik.errors.numero}
-                            </motion.p>
-                        ) : null}
-                    </AnimatePresence>
-                    <input
-                        className="text-gray-800 shadow-xl w-11/12 mx-auto outline-none p-2 text-base rounded-t focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent border-b-4 border-orange-500 mb-4 "
-                        type="text"
-                        id="numero"
-                        name="numero"
-                        placeholder="Ingrese un numero."
-                        onChange={formik.handleChange}
-                        value={formik.values.numero}
+                    <CustomSelect
+                        formik={formik}
+                        keyName="id_programa"
+                        title={'Programa'}
+                        options={[
+                            {
+                                value: '0',
+                                name: 'Seleccione un programa',
+                            },
+                            {
+                                value: '1',
+                                name: 'Programacion',
+                            },
+                        ]}
                     />
-
-                    <label
-                        className="text-gray-800 text-xl mx-auto mt-4 w-11/12"
-                        htmlFor="programa"
-                    >
-                        Programa.
-                    </label>
-                    <AnimatePresence>
-                        {formik.errors.programa && formik.touched.programa ? (
-                            <motion.p
-                                initial="initial"
-                                animate="animate"
-                                exit="unshow"
-                                variants={errorVariants}
-                                className="rounded-lg overflow-hidden text-center  text-red-600 text-base"
-                            >
-                                {formik.errors.programa}
-                            </motion.p>
-                        ) : null}
-                    </AnimatePresence>
-                    <select
-                        id="programa"
-                        className="bg-white  text-gray-800 w-11/12 mx-auto outline-none p-1 text-base rounded-t focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent border-b-4 border-orange-500 mb-4"
-                        name="programa"
-                        onChange={formik.handleChange}
-                        value={formik.values.programa}
-                    >
-                        <option value="" selected>
-                            -Seleccione una opción-
-                        </option>
-                        <option value="111111">
-                            Administración de empresas.
-                        </option>
-                        <option value="222222">
-                            Programación de software.
-                        </option>
-                        <option value="333333">Cocina.</option>
-                        <option value="444444">Turismo y hostelería.</option>
-                    </select>
-
-                    <button
-                        className={
-                            formik.isValid &&
-                            formik.values.numero !== '' &&
-                            formik.values.programa !== ''
-                                ? 'bg-red-500 rounded w-11/12 outline-none p-3 text-white text-base font-extrabold mx-auto my-6 '
-                                : 'bg-red-300 rounded w-11/12 mx-auto outline-none p-3 text-white text-base font-extrabold my-6 cursor-not-allowed'
-                        }
-                        type={formik.isValid && 'submit'}
-                    >
-                        {loader ? (
-                            <div className="flex flex-row justify-center items-center">
-                                <Loader
-                                    type="Circles"
-                                    color="#FFFFFF"
-                                    height={24}
-                                    width={24}
-                                    className="mx-2"
-                                />
-                                Cargando...
-                            </div>
-                        ) : (
-                            'Crear'
-                        )}
-                    </button>
+                    <SubmitButton
+                        title={'Crear'}
+                        formik={formik}
+                        isLoading={false}
+                    />
                 </form>
             </div>
         </Dashboard>

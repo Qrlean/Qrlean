@@ -158,7 +158,7 @@ const Fichas = () => {
                                 iconExpand={false}
                                 routerDir="/dashboard/admin/fichas"
                                 routerQuery="ficha"
-                                idPropertie="_id"
+                                idProperty="_id"
                                 modalText="Eliminar ficha"
                                 modalTitle="Eliminar ficha"
                             />
