@@ -3,7 +3,7 @@ import { FichasService } from './services/fichas.service';
 import { FichasController } from './controller/fichas.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Ficha } from './entities/ficha.entity';
-import { Programa } from './entities/programas.entity';
+import { Programa } from '../programas/entities/programas.entity';
 import { FichaUsuario } from './entities/fichaUsuario.entity';
 import { Usuario } from '../usuarios/entities/usuario.entity';
 import { UsuariosModule } from 'src/usuarios/usuarios.module';

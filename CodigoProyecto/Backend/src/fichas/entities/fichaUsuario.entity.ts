@@ -22,7 +22,10 @@ export class FichaUsuario {
     @Column()
     id_usuario: number;
 
-    @ManyToOne(() => Usuario, (usuario) => usuario.fichas, { nullable: false })
+    @ManyToOne(() => Usuario, (usuario) => usuario.fichas, {
+        nullable: false,
+        onDelete: 'CASCADE',
+    })
     @JoinColumn({ name: 'id_usuario' })
     usuario: Usuario;
 

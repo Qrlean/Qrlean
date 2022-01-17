@@ -1,6 +1,6 @@
 import { Factory, Seeder } from 'typeorm-seeding';
 import { Connection } from 'typeorm';
-import { Programa } from '../../fichas/entities/programas.entity';
+import { Programa } from '../../programas/entities/programas.entity';
 
 export default class ProgramasSeeder implements Seeder {
     public async run(factory: Factory, connection: Connection): Promise<any> {

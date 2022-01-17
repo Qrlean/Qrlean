@@ -9,6 +9,7 @@ import { AsignaturasModule } from './asignaturas/asignaturas.module';
 import { ClasesModule } from './clases/clases.module';
 import { TimeModule } from './time/time.module';
 import { AsistenciasModule } from './asistencias/asistencias.module';
+import { ProgramasModule } from './programas/programas.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -39,6 +40,7 @@ import { AsistenciasModule } from './asistencias/asistencias.module';
         ClasesModule,
         TimeModule,
         AsistenciasModule,
+        ProgramasModule,
     ],
     controllers: [],
     providers: [],

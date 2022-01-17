@@ -39,6 +39,7 @@ export class UsuariosController {
         return this.usuariosService.findAll();
     }
 
+    @Roles(Role.Administrador, Role.Aprendiz, Role.Instructor)
     @Get('/getSelfInformation')
     async getSelfInformation(@Req() req) {
         return this.usuariosService.findOne(parseInt(req.user.id_usuario));

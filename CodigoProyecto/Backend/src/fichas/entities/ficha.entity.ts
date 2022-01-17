@@ -6,7 +6,7 @@ import {
     Column,
     OneToMany,
 } from 'typeorm';
-import { Programa } from './programas.entity';
+import { Programa } from '../../programas/entities/programas.entity';
 import { FichaUsuario } from './fichaUsuario.entity';
 import { AsignaturaFicha } from './asignaturaFichas.entity';
 

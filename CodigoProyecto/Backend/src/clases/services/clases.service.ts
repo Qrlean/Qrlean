@@ -197,7 +197,6 @@ export class ClasesService {
                 'asignatura.ficha.usuarios.usuario',
             ],
         });
-        console.log(relations);
         const clase = await this.clasesRepository.findOne(id, {
             relations: [
                 'asignatura',
