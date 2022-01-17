@@ -35,7 +35,7 @@ const CrearFicha = () => {
     );
     const formik = useFormik({
         initialValues: {
-            id_programa: '0',
+            id_programa: '',
         },
         onSubmit: (values) => {
             dispatch(crearFicha(values));

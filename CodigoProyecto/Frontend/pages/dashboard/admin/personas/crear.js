@@ -74,8 +74,8 @@ const CrearUsuario = () => {
             emailInstitucional: '',
             direccion_residencial: '',
             telefono_movil: '',
-            id_tipo_documento: '0',
-            id_ciudad: '0',
+            id_tipo_documento: '',
+            id_ciudad: '',
             id_tipo_rol: '3',
         },
         onSubmit: (values) => {

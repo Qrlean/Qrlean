@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Dashboard from '../../../../../components/layout/shared/Dashboard';
 
@@ -10,6 +10,13 @@ import WithAuth from '../../../../../components/utils/WithAuth';
 import FormArrowBack from '../../../../../components/layout/shared/FormArrowBack';
 import CustomSelect from '../../../../../components/layout/shared/CustomSelect';
 import SubmitButton from '../../../../../components/layout/shared/SubmitButton';
+import WithEdit from '../../../../../components/utils/WithEdit';
+import {
+    editarFicha,
+    getFichaById,
+    getProgramas,
+} from '../../../../../actions/adminActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
     id_programa: Yup.string()
@@ -21,18 +28,26 @@ const validationSchema = Yup.object().shape({
         .max(20, 'El programa debería tener máximo 20 caracteres.')
         .required('El campo programa es requerido.'),
 });
-const EditarFicha = () => {
+const EditarFicha = ({ data }) => {
     const router = useRouter();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getProgramas());
+    }, []);
+    const programas = useSelector((store) => store.admin.programas.data);
     const formik = useFormik({
         initialValues: {
-            id_ficha: '',
-            id_programa: '',
+            id_ficha: data.id_ficha,
+            id_programa: data.id_programa,
         },
         onSubmit: (values) => {
-            router.push('/dashboard/admin/fichas');
+            dispatch(editarFicha(values));
         },
         validationSchema,
     });
+    const fichaEditIsLoading = useSelector(
+        (store) => store.admin.fichas.editFicha.editingLoading,
+    );
     return (
         <Dashboard>
             <div className="h-full w-full overflow-y-scroll bg-gray-300 flex flex-col py-6">
@@ -51,26 +66,27 @@ const EditarFicha = () => {
                         formik={formik}
                         keyName="id_programa"
                         title={'Programa'}
-                        options={[
-                            {
-                                value: '0',
-                                name: 'Seleccione un programa',
-                            },
-                            {
-                                value: '1',
-                                name: 'Programacion',
-                            },
-                        ]}
+                        options={programas.map((x) => ({
+                            value: x.id_programa.toString(),
+                            name: x.nombre_programa,
+                        }))}
                     />
                     <SubmitButton
-                        title={'Crear'}
+                        title={'Editar'}
                         formik={formik}
-                        isLoading={false}
+                        isLoading={fichaEditIsLoading}
                     />
                 </form>
             </div>
         </Dashboard>
     );
 };
-
-export default WithAuth({ rol: [1] })(EditarFicha);
+export default WithAuth({ rol: [1] })(
+    WithEdit(
+        EditarFicha,
+        getFichaById,
+        '/dashboard/admin/fichas',
+        (store) => store.admin.fichas.editFicha.state,
+        (store) => store.admin.fichas.editFicha.data,
+    ),
+);

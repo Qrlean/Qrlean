@@ -21,7 +21,7 @@ const CustomSelect = ({ title, formik, keyName, options }) => {
                 onChange={formik.handleChange}
                 value={formik.values[keyName]}
             >
-                <option value="0">Seleccione su opcion</option>
+                <option value="">Seleccione su opcion</option>
                 {options.map((x) => (
                     <option key={x.value} value={x.value}>
                         {x.name}

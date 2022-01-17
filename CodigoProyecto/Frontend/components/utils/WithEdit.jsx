@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,14 +14,16 @@ const WithEdit = (
     const router = useRouter();
     const state = useSelector(fnSelectorState);
     const data = useSelector(fnSelectorData);
+    const [hasBeenStarted, setHasBeenStarted] = useState(false);
     useEffect(() => {
         dispatch(fnDispatch(router.query.id));
+        setHasBeenStarted(true);
     }, []);
     useEffect(() => {
-        if (state === 'error') {
+        if (hasBeenStarted && state === 'error') {
             router.push(path);
         }
-    }, [state]);
+    }, [state, hasBeenStarted]);
     if (state !== 'success') {
         return null;
     }

@@ -5,12 +5,18 @@ import {
     CREAR_USUARIO_ERROR,
     CREAR_USUARIO_EXITO,
     CREAR_USUARIO_INIT,
+    EDITAR_FICHA_ERROR,
+    EDITAR_FICHA_EXITO,
+    EDITAR_FICHA_INIT,
     EDITAR_USUARIO_ERROR,
     EDITAR_USUARIO_EXITO,
     EDITAR_USUARIO_INIT,
     ELIMINAR_USUARIO_ERROR,
     ELIMINAR_USUARIO_EXITO,
     ELIMINAR_USUARIO_INIT,
+    GET_FICHA_EDITAR_ERROR,
+    GET_FICHA_EDITAR_EXITO,
+    GET_FICHA_EDITAR_INIT,
     GET_FICHAS_ERROR,
     GET_FICHAS_EXITO,
     GET_FICHAS_INIT,
@@ -54,6 +60,12 @@ const initialState = {
         createFicha: {
             state: null,
             loading: null,
+        },
+        editFicha: {
+            state: null,
+            loading: null,
+            data: {},
+            editingLoading: null,
         },
     },
     programas: {
@@ -174,6 +186,31 @@ export default function adminReducer(state = initialState, action) {
         case CREAR_FICHA_ERROR:
             state.fichas.createFicha.state = 'error';
             state.fichas.createFicha.loading = false;
+            return state;
+        case GET_FICHA_EDITAR_INIT:
+            state.fichas.editFicha.state = 'loading';
+            state.fichas.editFicha.loading = true;
+            return state;
+        case GET_FICHA_EDITAR_EXITO:
+            state.fichas.editFicha.state = 'success';
+            state.fichas.editFicha.loading = false;
+            state.fichas.editFicha.data = action.payload;
+            return state;
+        case GET_FICHA_EDITAR_ERROR:
+            state.fichas.editFicha.state = 'error';
+            state.fichas.editFicha.loading = false;
+            return state;
+        case EDITAR_FICHA_INIT:
+            state.fichas.editFicha.editingLoading = true;
+            return state;
+        case EDITAR_FICHA_EXITO:
+            state.fichas.editFicha.state = null;
+            state.fichas.editFicha.loading = null;
+            state.fichas.editFicha.data = null;
+            state.fichas.editFicha.editingLoading = false;
+            return state;
+        case EDITAR_FICHA_ERROR:
+            state.fichas.editFicha.editingLoading = false;
             return state;
         default:
             return state;

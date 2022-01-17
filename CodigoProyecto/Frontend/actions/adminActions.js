@@ -5,12 +5,18 @@ import {
     CREAR_USUARIO_ERROR,
     CREAR_USUARIO_EXITO,
     CREAR_USUARIO_INIT,
+    EDITAR_FICHA_ERROR,
+    EDITAR_FICHA_EXITO,
+    EDITAR_FICHA_INIT,
     EDITAR_USUARIO_ERROR,
     EDITAR_USUARIO_EXITO,
     EDITAR_USUARIO_INIT,
     ELIMINAR_USUARIO_ERROR,
     ELIMINAR_USUARIO_EXITO,
     ELIMINAR_USUARIO_INIT,
+    GET_FICHA_EDITAR_ERROR,
+    GET_FICHA_EDITAR_EXITO,
+    GET_FICHA_EDITAR_INIT,
     GET_FICHAS_ERROR,
     GET_FICHAS_EXITO,
     GET_FICHAS_INIT,
@@ -246,7 +252,6 @@ const getProgramasFnError = () => ({
 
 export const crearFicha = (payload) => {
     return async (dispatch) => {
-        console.log(payload);
         try {
             payload.id_programa = parseInt(payload.id_programa);
             dispatch(crearFichaFn());
@@ -255,13 +260,12 @@ export const crearFicha = (payload) => {
             await Router.push('/dashboard/admin/fichas');
             toast.success('Ficha creada con exito.');
         } catch (e) {
-            console.log(e);
-            // toast.error(
-            //     Array.isArray(e.response.data.message)
-            //         ? e.response.data.message[0]
-            //         : e.response.data.message,
-            // );
-            // dispatch(crearFichaFnError(e.response.data.message));
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(crearFichaFnError(e.response.data.message));
         }
     };
 };
@@ -274,5 +278,67 @@ const crearFichaFnExito = (payload) => ({
 });
 const crearFichaFnError = (payload) => ({
     type: CREAR_FICHA_ERROR,
+    payload,
+});
+
+export const getFichaById = (payload) => {
+    return async (dispatch) => {
+        try {
+            dispatch(getFichaEditFn());
+            const res = await client.get(`/fichas/${payload}`);
+            dispatch(getFichaEditFnExito(res.data));
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(getFichaEditFnError(e.response.data.message));
+        }
+    };
+};
+
+const getFichaEditFn = () => ({
+    type: GET_FICHA_EDITAR_INIT,
+});
+
+const getFichaEditFnExito = (payload) => ({
+    type: GET_FICHA_EDITAR_EXITO,
+    payload,
+});
+const getFichaEditFnError = (payload) => ({
+    type: GET_FICHA_EDITAR_ERROR,
+    payload,
+});
+
+export const editarFicha = (payload) => {
+    return async (dispatch) => {
+        payload.id_programa = parseInt(payload.id_programa);
+        console.log(payload);
+        try {
+            dispatch(editarFichaFn());
+            await client.patch(`/fichas/${payload.id_ficha}`, payload);
+            dispatch(editarFichaFnExito());
+            await Router.push('/dashboard/admin/fichas');
+            toast.success('Ficha editada con exito.');
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(editarFichaFnError(payload));
+        }
+    };
+};
+const editarFichaFn = () => ({
+    type: EDITAR_FICHA_INIT,
+});
+const editarFichaFnExito = (payload) => ({
+    type: EDITAR_FICHA_EXITO,
+    payload,
+});
+const editarFichaFnError = (payload) => ({
+    type: EDITAR_FICHA_ERROR,
     payload,
 });
