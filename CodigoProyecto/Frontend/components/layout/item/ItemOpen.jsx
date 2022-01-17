@@ -7,6 +7,9 @@ import Modal from '../shared/Modal';
 
 import Warning from '../../../svg/warning-signs-svgrepo-com.svg';
 import { fetchFromObject } from './Item';
+import SubmitButton from '../shared/SubmitButton';
+import { useSelector } from 'react-redux';
+import SubmitWithLoader from '../shared/SubmitWithLoader';
 
 const ItemOpen = ({
     data,
@@ -24,6 +27,9 @@ const ItemOpen = ({
 }) => {
     const router = useRouter();
     const [modal, setModal] = useState(false);
+    const deleteIsLoading = useSelector(
+        (store) => store.admin.users.deleteUser.loading,
+    );
     const handleDelete = () => {
         onDelete(data[idProperty]);
         setModal(false);
@@ -51,12 +57,13 @@ const ItemOpen = ({
                             >
                                 No,cancelar operación.
                             </button>
-                            <button
-                                className="bg-orange-300 text-gray-800 text-base mx-4 p-3 rounded-lg outline-none"
+                            <SubmitWithLoader
+                                title="Si,realizar operación"
+                                loading={deleteIsLoading}
                                 onClick={handleDelete}
-                            >
-                                Si,realizar operación.
-                            </button>
+                                type="button"
+                                className="bg-orange-300 text-gray-800 text-base mx-4 p-3 rounded-lg outline-none"
+                            />
                         </div>
                     </div>
                 </Modal>

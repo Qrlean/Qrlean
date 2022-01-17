@@ -64,7 +64,7 @@ const CrearUsuario = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const createIsLoading = useSelector(
-        (store) => store.admin.users.createLoading,
+        (store) => store.admin.users.createUser.loading,
     );
     const formik = useFormik({
         initialValues: {

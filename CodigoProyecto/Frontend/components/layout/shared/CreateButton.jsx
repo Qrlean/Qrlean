@@ -6,7 +6,7 @@ const CreateButton = ({ path, title }) => {
     return (
         <button
             onClick={() => router.push(path)}
-            className="outline-none bg-orange-300 rounded-lg text-xl text-gray-800 px-2 shadow-lg font-bold"
+            className="capitalize outline-none bg-orange-300 rounded-lg text-xl text-gray-800 px-4 shadow-lg"
         >
             {title}
         </button>

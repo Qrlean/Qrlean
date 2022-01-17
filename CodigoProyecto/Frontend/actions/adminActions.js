@@ -56,6 +56,7 @@ export const crearUsuario = (payload) => {
             await client.post('/usuarios', payload);
             dispatch(crearUsuarioFnExito());
             await Router.push('/dashboard/admin/personas');
+            toast.success('Usuario creado con exito.');
         } catch (e) {
             toast.error(e.response.data.message[0] || e.response.data.message);
             dispatch(crearUsuarioFnError(e.response.data.message));
@@ -111,6 +112,7 @@ export const editarUsuario = (payload) => {
             await client.patch(`/usuarios/${payload.id_usuario}`, payload);
             dispatch(editarUsuarioFnExito());
             await Router.push('/dashboard/admin/personas');
+            toast.success('Usuario editado con exito.');
         } catch (e) {
             toast.error(e.response.data.message[0] || e.response.data.message);
             dispatch(editarUsuarioFnError(payload));
@@ -130,17 +132,17 @@ const editarUsuarioFnError = (payload) => ({
 });
 
 export const eliminarUsuario = (payload) => {
-    console.log(payload);
-    // return async (dispatch) => {
-    //     try {
-    //         dispatch(eliminarUsuarioFn());
-    //         await axios.delete(`${uri}/usuarios/eliminar/${payload}`);
-    //         dispatch(eliminarUsuarioFnExito(payload));
-    //     } catch (e) {
-    //         toast.error(e.response.data.message);
-    //         dispatch(eliminarUsuarioFnError(e.response.data.message));
-    //     }
-    // };
+    return async (dispatch) => {
+        try {
+            dispatch(eliminarUsuarioFn());
+            await client.delete(`/usuarios/${payload}`);
+            dispatch(eliminarUsuarioFnExito(payload));
+            toast.success('Usuario eliminado con exito.');
+        } catch (e) {
+            toast.error(e.response.data.message);
+            dispatch(eliminarUsuarioFnError(e.response.data.message));
+        }
+    };
 };
 
 const eliminarUsuarioFn = () => ({
