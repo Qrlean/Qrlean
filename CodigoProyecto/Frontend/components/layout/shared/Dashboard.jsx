@@ -52,7 +52,7 @@ const Dashboard = (props) => {
                         className={`${bgColor} text-white overflow-hidden h-screen top-0 left-0  flex flex-col justify-center items-center fixed `}
                         style={{ zIndex: 9999 }}
                     >
-                        <LogoWhite className="w-16 h-16  cursor-pointer mt-24"></LogoWhite>
+                        <LogoWhite className="w-16 h-16  cursor-pointer mt-24" />
                         <h1 className="text-white text-center text-3xl m-2">
                             QrLean
                         </h1>

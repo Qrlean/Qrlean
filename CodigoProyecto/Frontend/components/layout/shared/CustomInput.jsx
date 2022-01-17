@@ -19,7 +19,7 @@ const CustomInput = ({ title, formik, keyName }) => {
                 type="text"
                 id={keyName}
                 name={keyName}
-                placeholder={`Ingrese el valor al campo ${title}`}
+                placeholder={`Ingrese el valor al campo ${title.toLowerCase()}`}
                 onChange={formik.handleChange}
                 value={formik.values[keyName]}
             />
