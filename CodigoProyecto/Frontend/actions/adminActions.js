@@ -26,7 +26,11 @@ export const getUsuarios = () => {
             const res = await client.get('/usuarios');
             dispatch(getUsuariosFnExito(res.data));
         } catch (e) {
-            toast.error(e.response.data.message[0] || e.response.data.message);
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
             dispatch(getUsuariosFnError(e.response.data.message));
         }
     };
@@ -58,7 +62,11 @@ export const crearUsuario = (payload) => {
             await Router.push('/dashboard/admin/personas');
             toast.success('Usuario creado con exito.');
         } catch (e) {
-            toast.error(e.response.data.message[0] || e.response.data.message);
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
             dispatch(crearUsuarioFnError(e.response.data.message));
         }
     };
@@ -82,7 +90,11 @@ export const getUsuarioById = (payload) => {
             const res = await client.get(`/usuarios/${payload}`);
             dispatch(getUsuarioEditFnExito(res.data));
         } catch (e) {
-            toast.error(e.response.data.message[0] || e.response.data.message);
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
             dispatch(getUsuarioEditFnError(e.response.data.message));
         }
     };
@@ -114,7 +126,11 @@ export const editarUsuario = (payload) => {
             await Router.push('/dashboard/admin/personas');
             toast.success('Usuario editado con exito.');
         } catch (e) {
-            toast.error(e.response.data.message[0] || e.response.data.message);
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
             dispatch(editarUsuarioFnError(payload));
         }
     };
@@ -139,7 +155,11 @@ export const eliminarUsuario = (payload) => {
             dispatch(eliminarUsuarioFnExito(payload));
             toast.success('Usuario eliminado con exito.');
         } catch (e) {
-            toast.error(e.response.data.message);
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
             dispatch(eliminarUsuarioFnError(e.response.data.message));
         }
     };
