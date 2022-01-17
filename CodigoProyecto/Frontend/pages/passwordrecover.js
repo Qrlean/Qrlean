@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/utils/Header';
+import Header from '../components/layout/shared/Header';
 import WithRedirect from '../components/utils/WithRedirect';
 
 const RecuperarContraseña = () => {

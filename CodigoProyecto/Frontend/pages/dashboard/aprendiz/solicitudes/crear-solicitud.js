@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { useRouter } from 'next/router';
 
-import Dashboard from '../../../../components/utils/Dashboard';
+import Dashboard from '../../../../components/layout/shared/Dashboard';
 import { Editor } from '@tinymce/tinymce-react';
 import WithAuth from '../../../../components/utils/WithAuth';
 

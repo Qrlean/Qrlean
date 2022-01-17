@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import Dashboard from '../../../components/utils/Dashboard';
-import Modal from '../../../components/utils/Modal';
+import Dashboard from '../../../components/layout/shared/Dashboard';
+import Modal from '../../../components/layout/shared/Modal';
 
 // import { motion } from 'framer-motion';
 import PerfectScrollbar from 'react-perfect-scrollbar';

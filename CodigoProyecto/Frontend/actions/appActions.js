@@ -24,7 +24,6 @@ export const firstCall = () => {
             toast.success(`Bienvenido ${res.data.nombres_usuario}`);
         } catch (e) {
             dispatch(firstCallError());
-            await Router.push('/login');
         }
     };
 };

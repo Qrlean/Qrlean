@@ -12,7 +12,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { useRouter } from 'next/router';
 
-import Dashboard from '../../../../../../../components/utils/Dashboard';
+import Dashboard from '../../../../../../../components/layout/shared/Dashboard';
 import * as Dateformat from 'dateformat';
 import WithAuth from '../../../../../../../components/utils/WithAuth';
 

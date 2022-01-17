@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import Dashboard from '../../../../../../components/utils/Dashboard';
+import Dashboard from '../../../../../../components/layout/shared/Dashboard';
 
 import Item from '../../../../../../components/layout/item/Item';
 // import Modal from '../../../../components/utils/Modal'

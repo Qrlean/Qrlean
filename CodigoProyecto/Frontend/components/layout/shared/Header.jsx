@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 import HeaderList from './HeaderList';
-import LogoBlack from '../../svg/2.svg';
+import LogoBlack from '../../../svg/2.svg';
 
 import { useRouter } from 'next/router';
 

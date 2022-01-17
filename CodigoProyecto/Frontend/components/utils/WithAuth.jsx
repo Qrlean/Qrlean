@@ -22,7 +22,6 @@ export const WithAuth = (props) => (WrappedComponent) => () => {
             }
             setLoading(false);
         };
-        console.log(state, user);
         if (state !== 'loading') {
             if (state === 'unauth') {
                 router.push('/login');

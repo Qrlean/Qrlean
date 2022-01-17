@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Hamburger from 'hamburger-react';
-import LogoWhite from '../../svg/2S.svg';
+import LogoWhite from '../../../svg/2S.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import DashboardOptions from './DashboardOptions';
 import { DashboardProfileOptions } from './DashboardProfileOptions';

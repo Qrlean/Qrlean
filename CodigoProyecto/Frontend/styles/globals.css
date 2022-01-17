@@ -6,3 +6,9 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.dashboard-index-nav{
+    height: 95px;
+}
+.dashboard-index-body{
+    height: calc(100% - 95px);
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-import Dashboard from '../../../../../components/utils/Dashboard';
+import Dashboard from '../../../../../components/layout/shared/Dashboard';
 import AsociarAprendiz from '../../../../../components/layout/fichas/AsociarAprendiz';
 import AsociarInstructor from '../../../../../components/layout/fichas/AsociarInstructor';
 import Teacher from '../../../../../svg/teacher2.svg';

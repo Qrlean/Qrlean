@@ -26,6 +26,7 @@ const Item = ({
     idProperty,
     modalText,
     modalTitle,
+    onDelete,
 }) => {
     const [item, setItem] = useState(null);
     return (
@@ -47,6 +48,7 @@ const Item = ({
                     modalTitle={modalTitle}
                     editIcon={editIcon}
                     trashIcon={trashIcon}
+                    onDelete={onDelete}
                 />
             ))}
         </>

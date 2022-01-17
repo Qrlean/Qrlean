@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import Modal from '../../../../components/utils/Modal';
-import Dashboard from '../../../../components/utils/Dashboard';
+import Modal from '../../../../components/layout/shared/Modal';
+import Dashboard from '../../../../components/layout/shared/Dashboard';
 import DashboardAdminHelp from '../../../../svg/dashboardAdminHelp.svg';
 
 import Item from '../../../../components/layout/item/Item';
@@ -11,8 +11,9 @@ import Item from '../../../../components/layout/item/Item';
 import Loader from 'react-loader-spinner';
 import WithAuth from '../../../../components/utils/WithAuth';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsuarios } from '../../../../actions/adminActions';
-import ArrowBack from '../../../../components/utils/ArrowBack';
+import { eliminarUsuario, getUsuarios } from '../../../../actions/adminActions';
+import ArrowBack from '../../../../components/layout/shared/ArrowBack';
+import CreateButton from '../../../../components/layout/shared/CreateButton';
 
 const ManagerUsuarios = () => {
     const dispatch = useDispatch();
@@ -30,13 +31,8 @@ const ManagerUsuarios = () => {
             <Modal state={help} setState={setHelp} titulo="Ayuda">
                 <DashboardAdminHelp className="transform rotate-90 sm:rotate-0" />
             </Modal>
-            <div className="h-2/12 relative w-full bg-gray-300 shadow-lg flex flex-row justify-center items-center">
+            <div className="dashboard-index-nav relative w-full bg-gray-300 shadow-lg flex flex-row justify-center items-center">
                 <ArrowBack onClick={() => router.push('/dashboard/admin/')} />
-                {/* <svg xmlns="http://www.w3.org/2000/svg" className="ml-6  px-2 h-8/12 w-10 fill-current text-gray-800 bg-white rounded rounded-r-none" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                    </svg>
-                    <input type="text" className="text-gray-800 text-xl rounded rounded-l-none p-2 outline-none h-8/12 mr-4 md:w-80 w-40" placeholder="Buscar"/> */}
                 <div className="flex-1 h-8/12 flex flex-row justify-end xl:mx-28 mx-4 rounded">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -48,17 +44,13 @@ const ManagerUsuarios = () => {
                             d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"
                         />
                     </svg>
-                    <button
-                        onClick={() =>
-                            router.push('/dashboard/admin/personas/crear')
-                        }
-                        className="outline-none bg-orange-300 rounded-lg text-xl text-gray-800 px-2 shadow-lg"
-                    >
-                        Registrar nueva persona.
-                    </button>
+                    <CreateButton
+                        title="Registrar nueva persona"
+                        path="/dashboard/admin/personas/crear"
+                    />
                 </div>
             </div>
-            <div className="h-10/12 w-full overflow-x-hidden bg-gray-300 flex justify-center items-center flex-row flex-wrap relative">
+            <div className="dashboard-index-body w-full overflow-x-hidden bg-gray-300 flex justify-center items-center flex-row flex-wrap relative">
                 {peopleIsLoading ? (
                     <div className="flex flex-row justify-center items-center">
                         <Loader
@@ -134,6 +126,7 @@ const ManagerUsuarios = () => {
                             idProperty="id_usuario"
                             modalText="Eliminar persona"
                             modalTitle="Eliminar persona"
+                            onDelete={(id) => dispatch(eliminarUsuario(id))}
                         />
                     </>
                 )}

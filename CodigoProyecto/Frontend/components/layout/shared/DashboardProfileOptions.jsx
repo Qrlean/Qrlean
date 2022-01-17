@@ -1,6 +1,6 @@
 import Avatar from 'react-avatar';
 import { AnimatePresence, motion } from 'framer-motion';
-import { logoutFn } from '../../actions/appActions';
+import { logoutFn } from '../../../actions/appActions';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 

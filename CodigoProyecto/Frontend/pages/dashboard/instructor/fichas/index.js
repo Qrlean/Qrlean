@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 // import { useRouter } from 'next/router';
-import Dashboard from '../../../../components/utils/Dashboard';
+import Dashboard from '../../../../components/layout/shared/Dashboard';
 
 import Item from '../../../../components/layout/item/Item';
-import Modal from '../../../../components/utils/Modal';
+import Modal from '../../../../components/layout/shared/Modal';
 import DashboardAdminHelp from '../../../../svg/dashboardAdminHelp.svg';
 
 import Loader from 'react-loader-spinner';

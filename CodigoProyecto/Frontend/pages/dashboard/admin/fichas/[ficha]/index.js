@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 // import { motion } from 'framer-motion';
 import ItemPersonaAsistencia from '../../../../../components/layout/fichas/ItemPersonaAsistencia';
-import Dashboard from '../../../../../components/utils/Dashboard';
+import Dashboard from '../../../../../components/layout/shared/Dashboard';
 import ItemListaAdmin from '../../../../../components/layout/fichas/ItemListaAdmin';
 import ItemMaterias from '../../../../../components/layout/fichas/ItemMaterias';
 import { ResponsivePie } from '@nivo/pie';

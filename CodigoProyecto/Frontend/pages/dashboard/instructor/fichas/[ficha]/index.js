@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 import ItemPersonaAsistencia from '../../../../../components/layout/fichas/ItemPersonaAsistencia';
-import Dashboard from '../../../../../components/utils/Dashboard';
+import Dashboard from '../../../../../components/layout/shared/Dashboard';
 import ItemLista from '../../../../../components/layout/fichas/ItemLista';
 import ItemMaterias from '../../../../../components/layout/fichas/ItemMaterias';
 import { ResponsivePie } from '@nivo/pie';

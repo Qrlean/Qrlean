@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import Modal from '../../../../components/utils/Modal';
-import Dashboard from '../../../../components/utils/Dashboard';
+import Modal from '../../../../components/layout/shared/Modal';
+import Dashboard from '../../../../components/layout/shared/Dashboard';
 import DashboardAdminHelp from '../../../../svg/dashboardAdminHelp.svg';
 
 import Item from '../../../../components/layout/item/Item';
 
 import Loader from 'react-loader-spinner';
 
-import SearchButton from '../../../../components/utils/SearchButton';
+import SearchButton from '../../../../components/layout/shared/SearchButton';
 
 import { NextSeo } from 'next-seo';
 import WithAuth from '../../../../components/utils/WithAuth';
-import ArrowBack from '../../../../components/utils/ArrowBack';
+import ArrowBack from '../../../../components/layout/shared/ArrowBack';
 // import { motion } from 'framer-motion';
 
 // const infoVariants = {

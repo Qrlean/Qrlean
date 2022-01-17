@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import LogoWhite from '../../svg/2.svg';
+import LogoWhite from '../../../svg/2.svg';
 import Link from 'next/link';
 import Modal from './Modal';
-import Tyc from '../layout/index/Tyc';
+import Tyc from '../index/Tyc';
 
 const Footer = () => {
     const [modal, setModal] = useState(false);

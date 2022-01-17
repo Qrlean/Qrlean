@@ -3,7 +3,7 @@ import React from 'react';
 import { ResponsiveCalendar } from '@nivo/calendar';
 import { ResponsivePie } from '@nivo/pie';
 
-import Dashboard from '../../../components/utils/Dashboard';
+import Dashboard from '../../../components/layout/shared/Dashboard';
 import { useRouter } from 'next/router';
 import WithAuth from '../../../components/utils/WithAuth';
 

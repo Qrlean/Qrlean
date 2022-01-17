@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import Loader from './Loader';
+import Loader from '../layout/shared/Loader';
 
 const WithRedirect = (WrappedComponent) => () => {
     const user = useSelector((store) => store.app.auth.user);

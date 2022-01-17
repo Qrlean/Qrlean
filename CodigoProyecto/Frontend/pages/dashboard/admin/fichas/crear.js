@@ -5,11 +5,11 @@ import { useFormik } from 'formik';
 
 import { useRouter } from 'next/router';
 
-import Dashboard from '../../../../components/utils/Dashboard';
+import Dashboard from '../../../../components/layout/shared/Dashboard';
 import WithAuth from '../../../../components/utils/WithAuth';
-import FormArrowBack from '../../../../components/utils/FormArrowBack';
-import CustomSelect from '../../../../components/utils/CustomSelect';
-import SubmitButton from '../../../../components/utils/SubmitButton';
+import FormArrowBack from '../../../../components/layout/shared/FormArrowBack';
+import CustomSelect from '../../../../components/layout/shared/CustomSelect';
+import SubmitButton from '../../../../components/layout/shared/SubmitButton';
 
 const validationSchema = Yup.object().shape({
     id_programa: Yup.string()

@@ -19,6 +19,7 @@ const ItemIndex = ({
     modalTitle,
     editIcon,
     trashIcon,
+    onDelete,
 }) => {
     const router = useRouter();
 
@@ -60,6 +61,7 @@ const ItemIndex = ({
                     modalTitle={modalTitle}
                     editIcon={editIcon}
                     trashIcon={trashIcon}
+                    onDelete={onDelete}
                 />
             ) : (
                 <ItemClose

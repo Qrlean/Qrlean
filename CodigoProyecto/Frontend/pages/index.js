@@ -1,13 +1,13 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 import ReactPlayer from 'react-player';
 import Plx from 'react-plx';
 import Features from '../components/layout/index/Features';
 
-import Header from '../components/utils/Header';
+import Header from '../components/layout/shared/Header';
 import Jumbotron from '../components/layout/index/Jumbotron';
-import Footer from '../components/utils/Footer';
+import Footer from '../components/layout/shared/Footer';
 
 import Facil from '../svg/undraw_building_websites_i78t.svg';
 import Seguro from '../svg/undraw_Security_on_ff2u.svg';
@@ -156,21 +156,21 @@ const IndexContent = () => {
     return (
         <div className="bg-gray-100">
             {/* Header */}
-            <Header/>
+            <Header />
 
             {/* VIEWPORT PAGE */}
             <motion.div
                 className="jumbotron-image overflow-x-hidden"
-                style={{height: '100vh'}}
+                style={{ height: '100vh' }}
             >
                 <motion.div
                     className="bg-black bg-opacity-90 overflow-x-hidden"
-                    style={{height: '100vh'}}
+                    style={{ height: '100vh' }}
                 >
                     <div className="h-screen flex flex-col justify-center">
                         {/* CONTENIDO DE PRESENTACION */}
                         {/* Jumbotron */}
-                        <Jumbotron divRef={divRef}/>
+                        <Jumbotron divRef={divRef} />
 
                         {/* CONTENIDO DE PRESENTACION */}
                     </div>
@@ -199,8 +199,7 @@ const IndexContent = () => {
                                         fillRule="evenodd"
                                         d="M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
                                     />
-                                    <path
-                                        d="M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z"/>
+                                    <path d="M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z" />
                                 </svg>
                             </div>
                             <h1 className="text-gray-800 text-4xl text-center w-full font-semibold">
@@ -210,14 +209,14 @@ const IndexContent = () => {
 
                         <div
                             className="bg-red-500 w-24 my-4 mx-auto"
-                            style={{minHeight: '2px', height: '2px'}}
+                            style={{ minHeight: '2px', height: '2px' }}
                         ></div>
                     </div>
                 </Plx>
 
                 <div className="flex flex-row justify-center items-center w-full flex-1 flex-wrap my-4">
                     <Features parallaxData={parallaxItemLeft}>
-                        <Facil className="h-64 w-64 mx-4 my-8"/>
+                        <Facil className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Fácil
                         </h1>
@@ -226,7 +225,7 @@ const IndexContent = () => {
                         </p>
                     </Features>
                     <Features parallaxData={parallaxItemCenter}>
-                        <Seguro className="h-64 w-64 mx-4 my-8"/>
+                        <Seguro className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Seguro
                         </h1>
@@ -236,7 +235,7 @@ const IndexContent = () => {
                         </p>
                     </Features>
                     <Features parallaxData={parallaxItemRight}>
-                        <Intuitivo className="h-64 w-64 mx-4 my-8"/>
+                        <Intuitivo className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Intuitivo
                         </h1>
@@ -247,7 +246,7 @@ const IndexContent = () => {
                     </Features>
 
                     <Features parallaxData={parallaxItemLeft}>
-                        <Flexible className="h-64 w-64 mx-4 my-8"/>
+                        <Flexible className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Flexible
                         </h1>
@@ -256,7 +255,7 @@ const IndexContent = () => {
                         </p>
                     </Features>
                     <Features parallaxData={parallaxItemCenter}>
-                        <Qr className="h-64 w-64 mx-4 my-8"/>
+                        <Qr className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Método QR
                         </h1>
@@ -265,7 +264,7 @@ const IndexContent = () => {
                         </p>
                     </Features>
                     <Features parallaxData={parallaxItemRight}>
-                        <Plan className="h-64 w-64 mx-4 my-8"/>
+                        <Plan className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Método manual
                         </h1>
@@ -276,7 +275,7 @@ const IndexContent = () => {
                     </Features>
 
                     <Features parallaxData={parallaxItemLeft}>
-                        <Analytics className="h-64 w-64 mx-4 my-8"/>
+                        <Analytics className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Util
                         </h1>
@@ -286,7 +285,7 @@ const IndexContent = () => {
                         </p>
                     </Features>
                     <Features parallaxData={parallaxItemCenter}>
-                        <Review className="h-64 w-64 mx-4 my-8"/>
+                        <Review className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Notificaciones
                         </h1>
@@ -295,7 +294,7 @@ const IndexContent = () => {
                         </p>
                     </Features>
                     <Features parallaxData={parallaxItemRight}>
-                        <Newsletter className="h-64 w-64 mx-4 my-8"/>
+                        <Newsletter className="h-64 w-64 mx-4 my-8" />
                         <h1 className="text-2xl text-gray-800 font-extrabold">
                             Envía Solicitudes
                         </h1>
@@ -329,7 +328,7 @@ const IndexContent = () => {
                     <div
                         className="bg-red-500 w-24 mt-4 mb-8"
                         ref={divRef}
-                        style={{minHeight: '2px', height: '2px'}}
+                        style={{ minHeight: '2px', height: '2px' }}
                     ></div>
                     <ReactPlayer
                         url="https://www.youtube.com/watch?v=YO8DCG95Fp4&ab_channel=FernandoHerrera"
@@ -341,7 +340,7 @@ const IndexContent = () => {
 
             {/* FOOTER */}
 
-            <Footer/>
+            <Footer />
         </div>
     );
 };

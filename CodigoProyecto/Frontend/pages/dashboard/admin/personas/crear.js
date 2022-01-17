@@ -5,14 +5,14 @@ import { useFormik } from 'formik';
 
 import { useRouter } from 'next/router';
 
-import Dashboard from '../../../../components/utils/Dashboard';
+import Dashboard from '../../../../components/layout/shared/Dashboard';
 import WithAuth from '../../../../components/utils/WithAuth';
-import FormArrowBack from '../../../../components/utils/FormArrowBack';
-import CustomInput from '../../../../components/utils/CustomInput';
-import CustomSelect from '../../../../components/utils/CustomSelect';
+import FormArrowBack from '../../../../components/layout/shared/FormArrowBack';
+import CustomInput from '../../../../components/layout/shared/CustomInput';
+import CustomSelect from '../../../../components/layout/shared/CustomSelect';
 import { crearUsuario } from '../../../../actions/adminActions';
 import { useDispatch, useSelector } from 'react-redux';
-import SubmitButton from '../../../../components/utils/SubmitButton';
+import SubmitButton from '../../../../components/layout/shared/SubmitButton';
 
 const validationSchema = Yup.object().shape({
     nombres_usuario: Yup.string()

@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import Item from '../../../../../../components/layout/item/Item';
-import Modal from '../../../../../../components/utils/Modal';
-import Dashboard from '../../../../../../components/utils/Dashboard';
+import Modal from '../../../../../../components/layout/shared/Modal';
+import Dashboard from '../../../../../../components/layout/shared/Dashboard';
 import DashboardAdminHelp from '../../../../../../svg/dashboardAdminHelp.svg';
 
 import Loader from 'react-loader-spinner';

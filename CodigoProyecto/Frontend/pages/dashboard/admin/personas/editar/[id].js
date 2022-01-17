@@ -1,16 +1,22 @@
 import React from 'react';
 
-import Dashboard from '../../../../../components/utils/Dashboard';
+import Dashboard from '../../../../../components/layout/shared/Dashboard';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
 import { useRouter } from 'next/router';
 import WithAuth from '../../../../../components/utils/WithAuth';
-import FormArrowBack from '../../../../../components/utils/FormArrowBack';
-import CustomInput from '../../../../../components/utils/CustomInput';
-import CustomSelect from '../../../../../components/utils/CustomSelect';
-import SubmitButton from '../../../../../components/utils/SubmitButton';
+import FormArrowBack from '../../../../../components/layout/shared/FormArrowBack';
+import CustomInput from '../../../../../components/layout/shared/CustomInput';
+import CustomSelect from '../../../../../components/layout/shared/CustomSelect';
+import SubmitButton from '../../../../../components/layout/shared/SubmitButton';
+import WithEdit from '../../../../../components/utils/WithEdit';
+import {
+    editarUsuario,
+    getUsuarioById,
+} from '../../../../../actions/adminActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
     nombres_usuario: Yup.string()
@@ -58,24 +64,27 @@ const validationSchema = Yup.object().shape({
         .min(1, 'Seleccione algun documento.')
         .required('El campo tipo de rol es requerido.'),
 });
-const EditarPersona = () => {
+const EditarPersona = ({ data }) => {
+    const dispatch = useDispatch();
     const router = useRouter();
-    const loader = false;
+    const editUserIsLoading = useSelector(
+        (store) => store.admin.users.editUser.editingLoading,
+    );
     const formik = useFormik({
         initialValues: {
-            id_usuario: '',
-            nombres_usuario: '',
-            apellidos_usuario: '',
-            numero_documento: '',
-            emailInstitucional: '',
-            direccion_residencial: '',
-            telefono_movil: '',
-            id_tipo_documento: '',
-            id_ciudad: '',
-            id_tipo_rol: '3',
+            id_usuario: data.id_usuario,
+            nombres_usuario: data.nombres_usuario,
+            apellidos_usuario: data.apellidos_usuario,
+            numero_documento: data.numero_documento.toString(),
+            emailInstitucional: data.emailInstitucional,
+            direccion_residencial: data.direccion_residencial,
+            telefono_movil: data.telefono_movil.toString(),
+            id_tipo_documento: data.id_tipo_documento.toString(),
+            id_ciudad: data.id_ciudad.toString(),
+            id_tipo_rol: data.id_tipo_rol.toString(),
         },
         onSubmit: (values) => {
-            router.push('/dasboard/admin/personas');
+            dispatch(editarUsuario(values));
         },
         validationSchema,
     });
@@ -184,7 +193,7 @@ const EditarPersona = () => {
                         ]}
                     />
                     <SubmitButton
-                        isLoading={loader}
+                        isLoading={editUserIsLoading}
                         title="Editar"
                         formik={formik}
                     />
@@ -194,4 +203,12 @@ const EditarPersona = () => {
     );
 };
 
-export default WithAuth({ rol: [1] })(EditarPersona);
+export default WithAuth({ rol: [1] })(
+    WithEdit(
+        EditarPersona,
+        getUsuarioById,
+        '/dashboard/admin/personas',
+        (store) => store.admin.users.editUser.state,
+        (store) => store.admin.users.editUser.data,
+    ),
+);

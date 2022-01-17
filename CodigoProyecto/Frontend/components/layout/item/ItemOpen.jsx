@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 
-import Modal from '../../utils/Modal';
+import Modal from '../shared/Modal';
 
 import Warning from '../../../svg/warning-signs-svgrepo-com.svg';
 import { fetchFromObject } from './Item';
@@ -20,9 +20,14 @@ const ItemOpen = ({
     modalTitle,
     editIcon,
     trashIcon,
+    onDelete,
 }) => {
     const router = useRouter();
     const [modal, setModal] = useState(false);
+    const handleDelete = () => {
+        onDelete(data[idProperty]);
+        setModal(false);
+    };
     return (
         <>
             {trashIcon && (
@@ -48,7 +53,7 @@ const ItemOpen = ({
                             </button>
                             <button
                                 className="bg-orange-300 text-gray-800 text-base mx-4 p-3 rounded-lg outline-none"
-                                onClick={() => setModal(false)}
+                                onClick={handleDelete}
                             >
                                 Si,realizar operación.
                             </button>

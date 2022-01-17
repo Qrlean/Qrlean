@@ -1,5 +1,5 @@
 import React from 'react';
-import Dashboard from '../../../../../../components/utils/Dashboard';
+import Dashboard from '../../../../../../components/layout/shared/Dashboard';
 import ItemAprendiz from '../../../../../../components/layout/firmarAsistencia/ItemAprendiz';
 // import * as Yup from 'yup';
 import { useFormik } from 'formik';
