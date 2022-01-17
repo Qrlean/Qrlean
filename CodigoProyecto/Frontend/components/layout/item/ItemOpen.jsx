@@ -7,7 +7,6 @@ import Modal from '../shared/Modal';
 
 import Warning from '../../../svg/warning-signs-svgrepo-com.svg';
 import { fetchFromObject } from './Item';
-import SubmitButton from '../shared/SubmitButton';
 import { useSelector } from 'react-redux';
 import SubmitWithLoader from '../shared/SubmitWithLoader';
 
