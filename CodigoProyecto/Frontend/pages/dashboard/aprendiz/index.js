@@ -7,12 +7,6 @@ import Dashboard from '../../../components/layout/shared/Dashboard';
 import { useRouter } from 'next/router';
 import WithAuth from '../../../components/utils/WithAuth';
 
-const infoVariants = {
-    hover: {
-        rotate: -10,
-        scale: 1,
-    },
-};
 const Aprendiz = () => {
     const router = useRouter();
     const data = [

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -10,6 +10,8 @@ import WithAuth from '../../../../components/utils/WithAuth';
 import FormArrowBack from '../../../../components/layout/shared/FormArrowBack';
 import CustomSelect from '../../../../components/layout/shared/CustomSelect';
 import SubmitButton from '../../../../components/layout/shared/SubmitButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { crearFicha, getProgramas } from '../../../../actions/adminActions';
 
 const validationSchema = Yup.object().shape({
     id_programa: Yup.string()
@@ -23,16 +25,24 @@ const validationSchema = Yup.object().shape({
 });
 const CrearFicha = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getProgramas());
+    }, []);
+    const programas = useSelector((store) => store.admin.programas.data);
+    const createIsLoading = useSelector(
+        (store) => store.admin.fichas.createFicha.loading,
+    );
     const formik = useFormik({
         initialValues: {
-            id_programa: '',
+            id_programa: '0',
         },
         onSubmit: (values) => {
-            console.log(values);
-            router.push('/dashboard/admin/fichas');
+            dispatch(crearFicha(values));
         },
         validationSchema,
     });
+
     return (
         <Dashboard>
             <div className="h-full w-full overflow-y-scroll bg-gray-300 flex flex-col py-6">
@@ -41,10 +51,6 @@ const CrearFicha = () => {
                     className="flex flex-col justify-center w-full lg:w-2/6 mx-auto rounded relative shadow-xl bg-white border-t-4 border-orange-600"
                     autoComplete="off"
                 >
-                    {/* <motion.svg  whileHover="hover" variants={infoVariants} viewBox="0 0 16 16" className="cursor-pointer shadow-xl bg-orange-300 rounded top-0 right-0 absolute  w-10 h-10 fill-current text-gray-800 m-4" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
-                            <circle cx="8" cy="4.5" r="1"/>
-                    </motion.svg> */}
                     <FormArrowBack
                         onClick={() => router.push('/dashboard/admin/fichas')}
                     />
@@ -55,21 +61,15 @@ const CrearFicha = () => {
                         formik={formik}
                         keyName="id_programa"
                         title={'Programa'}
-                        options={[
-                            {
-                                value: '0',
-                                name: 'Seleccione un programa',
-                            },
-                            {
-                                value: '1',
-                                name: 'Programacion',
-                            },
-                        ]}
+                        options={programas.map((x) => ({
+                            value: x.id_programa.toString(),
+                            name: x.nombre_programa,
+                        }))}
                     />
                     <SubmitButton
                         title={'Crear'}
                         formik={formik}
-                        isLoading={false}
+                        isLoading={createIsLoading}
                     />
                 </form>
             </div>

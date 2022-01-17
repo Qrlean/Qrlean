@@ -25,12 +25,10 @@ const ManagerUsuarios = () => {
         <Dashboard>
             <div className="dashboard-index-nav relative w-full bg-gray-300 shadow-lg flex flex-row justify-center items-center">
                 <ArrowBack onClick={() => router.push('/dashboard/admin/')} />
-                <div className="flex-1 h-8/12 flex flex-row justify-end xl:mx-28 mx-4 rounded">
-                    <CreateButton
-                        title="Registrar nueva persona"
-                        path="/dashboard/admin/personas/crear"
-                    />
-                </div>
+                <CreateButton
+                    title="Registrar nueva persona"
+                    path="/dashboard/admin/personas/crear"
+                />
             </div>
             <div className="dashboard-index-body w-full overflow-x-hidden bg-gray-300 flex justify-center items-center flex-row flex-wrap relative">
                 {peopleIsLoading ? (

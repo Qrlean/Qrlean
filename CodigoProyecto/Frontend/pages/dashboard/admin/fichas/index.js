@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 import Dashboard from '../../../../components/layout/shared/Dashboard';
@@ -12,28 +12,16 @@ import SearchButton from '../../../../components/layout/shared/SearchButton';
 import { NextSeo } from 'next-seo';
 import WithAuth from '../../../../components/utils/WithAuth';
 import ArrowBack from '../../../../components/layout/shared/ArrowBack';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFichas } from '../../../../actions/adminActions';
+import CreateButton from '../../../../components/layout/shared/CreateButton';
 
 const Fichas = () => {
-    const fichas = [
-        {
-            _id: 1,
-            numero: '2141041',
-            personas: ['1', '2', '3'],
-            programa: '123123123 Programacion',
-        },
-        {
-            _id: 2,
-            numero: '2141041',
-            personas: ['1', '2', '3'],
-            programa: '123123123 Programacion',
-        },
-        {
-            _id: 3,
-            numero: '2141041',
-            personas: ['1', '2', '3'],
-            programa: '123123123 Programacion',
-        },
-    ];
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getFichas());
+    }, []);
+    const data = useSelector((store) => store.admin.fichas.data);
     const error = false;
     const loader = false;
     const router = useRouter();
@@ -48,17 +36,11 @@ const Fichas = () => {
                     <ArrowBack
                         onClick={() => router.push('/dashboard/admin/')}
                     />
-                    <SearchButton className="lg:flex hidden " />
-                    <div className="flex-1 h-8/12 flex flex-row items-center justify-end xl:mx-28 mx-4 rounded">
-                        <button
-                            onClick={() =>
-                                router.push('/dashboard/admin/fichas/crear')
-                            }
-                            className="h-5/6 outline-none bg-orange-300 rounded-lg text-base text-gray-800 px-4 shadow-lg border-black border border-double"
-                        >
-                            Nueva ficha.
-                        </button>
-                    </div>
+                    {/* <SearchButton className="lg:flex hidden " /> */}
+                    <CreateButton
+                        title="Nueva ficha"
+                        path="/dashboard/admin/fichas/crear"
+                    />
                 </div>
                 <div className="dashboard-index-body w-full overflow-x-hidden bg-gray-300 flex justify-center items-center flex-row flex-wrap relative">
                     {loader ? (
@@ -82,24 +64,24 @@ const Fichas = () => {
                                 Fichas
                             </h1>
                             <Item
-                                list={fichas}
+                                list={data}
                                 openPropierties={[
                                     {
-                                        key: 'numero',
+                                        key: 'id_ficha',
                                         text: 'Numero de ficha',
                                     },
                                     {
-                                        key: 'programa',
+                                        key: 'programa.nombre_programa',
                                         text: 'Programa',
                                     },
                                 ]}
                                 closePropierties={[
                                     {
-                                        key: 'numero',
+                                        key: 'id_ficha',
                                         text: 'Numero de ficha',
                                     },
                                     {
-                                        key: 'programa',
+                                        key: 'programa.nombre_programa',
                                         text: 'Programa',
                                     },
                                 ]}
@@ -107,9 +89,10 @@ const Fichas = () => {
                                 iconExpand={false}
                                 routerDir="/dashboard/admin/fichas"
                                 routerQuery="ficha"
-                                idProperty="_id"
+                                idProperty="id_ficha"
                                 modalText="Eliminar ficha"
                                 modalTitle="Eliminar ficha"
+                                onDelete={console.log}
                             />
                         </>
                     )}

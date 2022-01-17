@@ -138,10 +138,6 @@ const EditarPersona = ({ data }) => {
                         keyName={'id_tipo_documento'}
                         options={[
                             {
-                                value: '0',
-                                name: 'Seleccione su tipo de documento',
-                            },
-                            {
                                 value: '1',
                                 name: 'CC Cedula de ciudadanía.',
                             },
@@ -155,10 +151,6 @@ const EditarPersona = ({ data }) => {
                         formik={formik}
                         keyName={'id_ciudad'}
                         options={[
-                            {
-                                value: '0',
-                                name: 'Seleccione una ciudad',
-                            },
                             {
                                 value: '1',
                                 name: 'Bogota',
@@ -174,10 +166,6 @@ const EditarPersona = ({ data }) => {
                         formik={formik}
                         keyName={'id_tipo_rol'}
                         options={[
-                            {
-                                value: '0',
-                                name: 'Seleccione un rol',
-                            },
                             {
                                 value: '1',
                                 name: 'Administrador',
