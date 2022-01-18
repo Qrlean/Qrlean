@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -10,7 +10,7 @@ import WithAuth from '../../../../components/utils/WithAuth';
 import FormArrowBack from '../../../../components/layout/shared/FormArrowBack';
 import CustomInput from '../../../../components/layout/shared/CustomInput';
 import CustomSelect from '../../../../components/layout/shared/CustomSelect';
-import { crearUsuario } from '../../../../actions/adminActions';
+import { crearUsuario, getCiudades } from '../../../../actions/adminActions';
 import { useDispatch, useSelector } from 'react-redux';
 import SubmitButton from '../../../../components/layout/shared/SubmitButton';
 
@@ -62,6 +62,10 @@ const validationSchema = Yup.object().shape({
 });
 const CrearUsuario = () => {
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getCiudades());
+    }, []);
+    const ciudades = useSelector((store) => store.admin.ciudades.data);
     const router = useRouter();
     const createIsLoading = useSelector(
         (store) => store.admin.users.createUser.loading,
@@ -146,16 +150,10 @@ const CrearUsuario = () => {
                         title="Ciudad"
                         formik={formik}
                         keyName={'id_ciudad'}
-                        options={[
-                            {
-                                value: '1',
-                                name: 'Bogota',
-                            },
-                            {
-                                value: '2',
-                                name: 'Medellin',
-                            },
-                        ]}
+                        options={ciudades.map((x) => ({
+                            value: x.id_ciudad.toString(),
+                            name: x.nombre_ciudad,
+                        }))}
                     />
                     <CustomSelect
                         title="Rol"
