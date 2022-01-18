@@ -27,6 +27,7 @@ const Item = ({
     modalText,
     modalTitle,
     onDelete,
+    fnSelectorLoading,
 }) => {
     const [item, setItem] = useState(null);
     return (
@@ -49,6 +50,7 @@ const Item = ({
                     editIcon={editIcon}
                     trashIcon={trashIcon}
                     onDelete={onDelete}
+                    fnSelectorLoading={fnSelectorLoading}
                 />
             ))}
         </>

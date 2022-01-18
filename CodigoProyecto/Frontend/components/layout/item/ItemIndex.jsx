@@ -20,6 +20,7 @@ const ItemIndex = ({
     editIcon,
     trashIcon,
     onDelete,
+    fnSelectorLoading,
 }) => {
     const router = useRouter();
 
@@ -62,6 +63,7 @@ const ItemIndex = ({
                     editIcon={editIcon}
                     trashIcon={trashIcon}
                     onDelete={onDelete}
+                    fnSelectorLoading={fnSelectorLoading}
                 />
             ) : (
                 <ItemClose

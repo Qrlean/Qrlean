@@ -23,12 +23,11 @@ const ItemOpen = ({
     editIcon,
     trashIcon,
     onDelete,
+    fnSelectorLoading,
 }) => {
     const router = useRouter();
     const [modal, setModal] = useState(false);
-    const deleteIsLoading = useSelector(
-        (store) => store.admin.users.deleteUser.loading,
-    );
+    const deleteIsLoading = useSelector(fnSelectorLoading);
     const handleDelete = () => {
         onDelete(data[idProperty]);
         setModal(false);
@@ -169,7 +168,9 @@ const ItemOpen = ({
                                 className="cursor-pointer fill-current h-8 w-8 sm:h-12 sm:w-12 my-8 text-gray-800 "
                                 viewBox="0 0 16 16"
                                 onClick={() =>
-                                    router.push(`${routerDir}/1234/`)
+                                    router.push(
+                                        `${routerDir}/${data[idProperty]}/`,
+                                    )
                                 }
                             >
                                 <path

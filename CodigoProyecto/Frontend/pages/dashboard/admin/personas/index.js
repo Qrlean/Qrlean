@@ -103,6 +103,9 @@ const ManagerUsuarios = () => {
                             modalText="Eliminar persona"
                             modalTitle="Eliminar persona"
                             onDelete={(id) => dispatch(eliminarUsuario(id))}
+                            fnSelectorLoading={(store) =>
+                                store.admin.users.deleteUser.loading
+                            }
                         />
                     </>
                 )}
