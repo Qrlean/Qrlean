@@ -5,7 +5,7 @@ import {
     OneToMany,
     PrimaryColumn,
 } from 'typeorm';
-import { Ciudades } from './ciudades.entity';
+import { Ciudades } from '../../ciudades/entities/ciudades.entity';
 @Entity()
 export class Departamentos {
     @PrimaryGeneratedColumn({ type: 'smallint' })

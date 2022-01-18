@@ -10,7 +10,7 @@ import {
 import { Exclude } from 'class-transformer';
 import { Tipo_documento } from './tipo-documento.entity';
 import { TipoToles } from './tipo-roles.entity';
-import { Ciudades } from './ciudades.entity';
+import { Ciudades } from '../../ciudades/entities/ciudades.entity';
 import { FichaUsuario } from '../../fichas/entities/fichaUsuario.entity';
 
 @Entity()

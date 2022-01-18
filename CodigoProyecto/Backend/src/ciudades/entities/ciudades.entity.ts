@@ -7,8 +7,8 @@ import {
     PrimaryColumn,
     JoinColumn,
 } from 'typeorm';
-import { Usuario } from './usuario.entity';
-import { Departamentos } from './departamentos.entity';
+import { Usuario } from '../../usuarios/entities/usuario.entity';
+import { Departamentos } from '../../usuarios/entities/departamentos.entity';
 @Entity()
 export class Ciudades {
     @PrimaryGeneratedColumn({ type: 'smallint' })

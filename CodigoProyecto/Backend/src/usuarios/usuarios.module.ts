@@ -4,7 +4,7 @@ import { UsuariosController } from './controller/usuarios.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Usuario } from './entities/usuario.entity';
 import { Departamentos } from './entities/departamentos.entity';
-import { Ciudades } from './entities/ciudades.entity';
+import { Ciudades } from '../ciudades/entities/ciudades.entity';
 import { TipoToles } from './entities/tipo-roles.entity';
 import { Tipo_documento } from './entities/tipo-documento.entity';
 import { IsUserAlreadyExistConstraint } from '../decorators/UserExists';
