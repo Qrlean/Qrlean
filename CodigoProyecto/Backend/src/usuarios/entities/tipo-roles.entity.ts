@@ -8,7 +8,7 @@ import {
 import { Usuario } from './usuario.entity';
 
 @Entity()
-export class TipoToles {
+export class TipoRoles {
     @PrimaryGeneratedColumn({ type: 'smallint' })
     @PrimaryColumn()
     id_tipo_rol: number;

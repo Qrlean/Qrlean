@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Tipo_documento } from './tipo-documento.entity';
-import { TipoToles } from './tipo-roles.entity';
+import { TipoRoles } from './tipo-roles.entity';
 import { Ciudades } from '../../ciudades/entities/ciudades.entity';
 import { FichaUsuario } from '../../fichas/entities/fichaUsuario.entity';
 
@@ -54,9 +54,9 @@ export class Usuario {
     @JoinColumn({ name: 'id_tipo_documento' })
     tipo_documento: Tipo_documento;
 
-    @ManyToOne(() => TipoToles, (roles) => roles.usuarios, { nullable: false })
+    @ManyToOne(() => TipoRoles, (roles) => roles.usuarios, { nullable: false })
     @JoinColumn({ name: 'id_tipo_rol' })
-    rol: TipoToles;
+    rol: TipoRoles;
 
     @ManyToOne(() => Ciudades, (ciudades) => ciudades.usuarios, {
         nullable: false,
