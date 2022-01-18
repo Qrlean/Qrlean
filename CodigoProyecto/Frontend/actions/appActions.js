@@ -49,7 +49,7 @@ export const login = (payload) => {
                 localStorage.setItem('token', res.data.token);
                 switch (res.data.user.id_tipo_rol) {
                     case 1:
-                        await Router.push('/dashboard/admin/personas');
+                        await Router.push('/dashboard/admin/');
                         break;
                     case 2:
                         await Router.push('/dashboard/instructor/fichas');

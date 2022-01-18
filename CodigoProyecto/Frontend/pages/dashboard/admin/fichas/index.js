@@ -13,7 +13,7 @@ import { NextSeo } from 'next-seo';
 import WithAuth from '../../../../components/utils/WithAuth';
 import ArrowBack from '../../../../components/layout/shared/ArrowBack';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFichas } from '../../../../actions/adminActions';
+import { eliminarFicha, getFichas } from '../../../../actions/adminActions';
 import CreateButton from '../../../../components/layout/shared/CreateButton';
 
 const Fichas = () => {
@@ -86,13 +86,16 @@ const Fichas = () => {
                                     },
                                 ]}
                                 openTitle="Información de ficha"
-                                iconExpand={false}
+                                iconExpand={true}
                                 routerDir="/dashboard/admin/fichas"
                                 routerQuery="ficha"
                                 idProperty="id_ficha"
                                 modalText="Eliminar ficha"
                                 modalTitle="Eliminar ficha"
-                                onDelete={console.log}
+                                onDelete={(e) => dispatch(eliminarFicha(e))}
+                                fnSelectorLoading={(store) =>
+                                    store.admin.fichas.deleteFicha.loading
+                                }
                             />
                         </>
                     )}

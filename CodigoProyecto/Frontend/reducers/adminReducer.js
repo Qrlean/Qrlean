@@ -11,9 +11,15 @@ import {
     EDITAR_USUARIO_ERROR,
     EDITAR_USUARIO_EXITO,
     EDITAR_USUARIO_INIT,
+    ELIMINAR_FICHA_ERROR,
+    ELIMINAR_FICHA_EXITO,
+    ELIMINAR_FICHA_INIT,
     ELIMINAR_USUARIO_ERROR,
     ELIMINAR_USUARIO_EXITO,
     ELIMINAR_USUARIO_INIT,
+    GET_CIUDADES_ERROR,
+    GET_CIUDADES_EXITO,
+    GET_CIUDADES_INIT,
     GET_FICHA_EDITAR_ERROR,
     GET_FICHA_EDITAR_EXITO,
     GET_FICHA_EDITAR_INIT,
@@ -67,8 +73,17 @@ const initialState = {
             data: {},
             editingLoading: null,
         },
+        deleteFicha: {
+            state: null,
+            loading: null,
+        },
     },
     programas: {
+        state: null,
+        loading: null,
+        data: [],
+    },
+    ciudades: {
         state: null,
         loading: null,
         data: [],
@@ -92,6 +107,20 @@ export default function adminReducer(state = initialState, action) {
             state.users.state = 'error';
             state.users.error = action.payload;
             state.users.data = [];
+            return state;
+        case GET_CIUDADES_INIT:
+            state.ciudades.state = 'loading';
+            state.ciudades.loading = true;
+            return state;
+        case GET_CIUDADES_EXITO:
+            state.ciudades.state = 'success';
+            state.ciudades.loading = false;
+            state.ciudades.data = action.payload;
+            return state;
+        case GET_CIUDADES_ERROR:
+            state.ciudades.state = 'error';
+            state.ciudades.data = [];
+            state.ciudades.loading = false;
             return state;
         case CREAR_USUARIO_INIT:
             state.users.createUser.state = 'loading';
@@ -211,6 +240,21 @@ export default function adminReducer(state = initialState, action) {
             return state;
         case EDITAR_FICHA_ERROR:
             state.fichas.editFicha.editingLoading = false;
+            return state;
+        case ELIMINAR_FICHA_INIT:
+            state.fichas.deleteFicha.state = 'loading';
+            state.fichas.deleteFicha.loading = true;
+            return state;
+        case ELIMINAR_FICHA_ERROR:
+            state.fichas.deleteFicha.state = 'success';
+            state.fichas.deleteFicha.loading = false;
+            return state;
+        case ELIMINAR_FICHA_EXITO:
+            state.fichas.data = state.fichas.data.filter(
+                (x) => x.id_ficha !== action.payload,
+            );
+            state.fichas.deleteFicha.state = 'error';
+            state.fichas.deleteFicha.loading = false;
             return state;
         default:
             return state;

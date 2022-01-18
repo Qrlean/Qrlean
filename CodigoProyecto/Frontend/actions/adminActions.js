@@ -11,9 +11,15 @@ import {
     EDITAR_USUARIO_ERROR,
     EDITAR_USUARIO_EXITO,
     EDITAR_USUARIO_INIT,
+    ELIMINAR_FICHA_ERROR,
+    ELIMINAR_FICHA_EXITO,
+    ELIMINAR_FICHA_INIT,
     ELIMINAR_USUARIO_ERROR,
     ELIMINAR_USUARIO_EXITO,
     ELIMINAR_USUARIO_INIT,
+    GET_CIUDADES_ERROR,
+    GET_CIUDADES_EXITO,
+    GET_CIUDADES_INIT,
     GET_FICHA_EDITAR_ERROR,
     GET_FICHA_EDITAR_EXITO,
     GET_FICHA_EDITAR_INIT,
@@ -62,7 +68,33 @@ const getUsuariosFnError = (payload) => ({
     type: GET_USUARIOS_ERROR,
     payload,
 });
+export const getCiudades = () => {
+    return async (dispatch) => {
+        try {
+            dispatch(getCiudadesFn());
+            const res = await client.get('/ciudades');
+            dispatch(getCiudadesFnExito(res.data));
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(getCiudadesFnError());
+        }
+    };
+};
 
+const getCiudadesFn = () => ({
+    type: GET_CIUDADES_INIT,
+});
+const getCiudadesFnExito = (payload) => ({
+    type: GET_CIUDADES_EXITO,
+    payload,
+});
+const getCiudadesFnError = () => ({
+    type: GET_CIUDADES_ERROR,
+});
 export const crearUsuario = (payload) => {
     return async (dispatch) => {
         try {
@@ -90,7 +122,7 @@ export const crearUsuario = (payload) => {
 const crearUsuarioFn = () => ({
     type: CREAR_USUARIO_INIT,
 });
-const crearUsuarioFnExito = (payload) => ({
+const crearUsuarioFnExito = () => ({
     type: CREAR_USUARIO_EXITO,
 });
 const crearUsuarioFnError = (payload) => ({
@@ -273,12 +305,11 @@ export const crearFicha = (payload) => {
 const crearFichaFn = () => ({
     type: CREAR_FICHA_INIT,
 });
-const crearFichaFnExito = (payload) => ({
+const crearFichaFnExito = () => ({
     type: CREAR_FICHA_EXITO,
 });
-const crearFichaFnError = (payload) => ({
+const crearFichaFnError = () => ({
     type: CREAR_FICHA_ERROR,
-    payload,
 });
 
 export const getFichaById = (payload) => {
@@ -314,7 +345,6 @@ const getFichaEditFnError = (payload) => ({
 export const editarFicha = (payload) => {
     return async (dispatch) => {
         payload.id_programa = parseInt(payload.id_programa);
-        console.log(payload);
         try {
             dispatch(editarFichaFn());
             await client.patch(`/fichas/${payload.id_ficha}`, payload);
@@ -334,11 +364,39 @@ export const editarFicha = (payload) => {
 const editarFichaFn = () => ({
     type: EDITAR_FICHA_INIT,
 });
-const editarFichaFnExito = (payload) => ({
+const editarFichaFnExito = () => ({
     type: EDITAR_FICHA_EXITO,
+});
+const editarFichaFnError = () => ({
+    type: EDITAR_FICHA_ERROR,
+});
+
+export const eliminarFicha = (payload) => {
+    return async (dispatch) => {
+        try {
+            dispatch(eliminarFichaFn());
+            await client.delete(`/fichas/${payload}`);
+            dispatch(eliminarFichaFnExito(payload));
+            toast.success('Ficha eliminada con exito.');
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(eliminarFichaFnError(e.response.data.message));
+        }
+    };
+};
+
+const eliminarFichaFn = () => ({
+    type: ELIMINAR_FICHA_INIT,
+});
+const eliminarFichaFnExito = (payload) => ({
+    type: ELIMINAR_FICHA_EXITO,
     payload,
 });
-const editarFichaFnError = (payload) => ({
-    type: EDITAR_FICHA_ERROR,
+const eliminarFichaFnError = (payload) => ({
+    type: ELIMINAR_FICHA_ERROR,
     payload,
 });
