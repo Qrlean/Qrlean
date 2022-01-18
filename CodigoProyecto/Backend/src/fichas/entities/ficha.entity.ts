@@ -28,5 +28,5 @@ export class Ficha {
     usuarios: FichaUsuario[];
 
     @OneToMany(() => AsignaturaFicha, (ficha) => ficha.ficha)
-    asignaturas: AsignaturaFicha;
+    asignaturas: AsignaturaFicha[];
 }
