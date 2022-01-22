@@ -1,4 +1,7 @@
 import {
+    CREAR_ASOCIACION_ERROR,
+    CREAR_ASOCIACION_EXITO,
+    CREAR_ASOCIACION_INIT,
     CREAR_FICHA_ERROR,
     CREAR_FICHA_EXITO,
     CREAR_FICHA_INIT,
@@ -17,6 +20,9 @@ import {
     ELIMINAR_USUARIO_ERROR,
     ELIMINAR_USUARIO_EXITO,
     ELIMINAR_USUARIO_INIT,
+    GET_ASIGNATURAS_ERROR,
+    GET_ASIGNATURAS_EXITO,
+    GET_ASIGNATURAS_INIT,
     GET_CIUDADES_ERROR,
     GET_CIUDADES_EXITO,
     GET_CIUDADES_INIT,
@@ -68,17 +74,28 @@ const initialState = {
             loading: null,
         },
         editFicha: {
-            state: null,
-            loading: null,
-            data: {},
             editingLoading: null,
         },
         deleteFicha: {
             state: null,
             loading: null,
         },
+        asociarUsuario: {
+            state: null,
+            loading: null,
+        },
+    },
+    fichaById: {
+        state: null,
+        loading: null,
+        data: {},
     },
     programas: {
+        state: null,
+        loading: null,
+        data: [],
+    },
+    asignaturas: {
         state: null,
         loading: null,
         data: [],
@@ -217,25 +234,26 @@ export default function adminReducer(state = initialState, action) {
             state.fichas.createFicha.loading = false;
             return state;
         case GET_FICHA_EDITAR_INIT:
-            state.fichas.editFicha.state = 'loading';
-            state.fichas.editFicha.loading = true;
+            state.fichaById.state = 'loading';
+            state.fichaById.loading = true;
+            state.fichaById.data = {};
             return state;
         case GET_FICHA_EDITAR_EXITO:
-            state.fichas.editFicha.state = 'success';
-            state.fichas.editFicha.loading = false;
-            state.fichas.editFicha.data = action.payload;
+            state.fichaById.state = 'success';
+            state.fichaById.loading = false;
+            state.fichaById.data = action.payload;
             return state;
         case GET_FICHA_EDITAR_ERROR:
-            state.fichas.editFicha.state = 'error';
-            state.fichas.editFicha.loading = false;
+            state.fichaById.state = 'error';
+            state.fichaById.loading = false;
             return state;
         case EDITAR_FICHA_INIT:
             state.fichas.editFicha.editingLoading = true;
             return state;
         case EDITAR_FICHA_EXITO:
-            state.fichas.editFicha.state = null;
-            state.fichas.editFicha.loading = null;
-            state.fichas.editFicha.data = null;
+            state.fichaById.state = null;
+            state.fichaById.loading = null;
+            state.fichaById.data = null;
             state.fichas.editFicha.editingLoading = false;
             return state;
         case EDITAR_FICHA_ERROR:
@@ -255,6 +273,32 @@ export default function adminReducer(state = initialState, action) {
             );
             state.fichas.deleteFicha.state = 'error';
             state.fichas.deleteFicha.loading = false;
+            return state;
+        case GET_ASIGNATURAS_INIT:
+            state.asignaturas.state = 'loading';
+            state.asignaturas.loading = true;
+            return state;
+        case GET_ASIGNATURAS_EXITO:
+            state.asignaturas.state = 'success';
+            state.asignaturas.loading = false;
+            state.asignaturas.data = action.payload;
+            return state;
+        case GET_ASIGNATURAS_ERROR:
+            state.asignaturas.state = 'error';
+            state.asignaturas.data = [];
+            state.asignaturas.loading = false;
+            return state;
+        case CREAR_ASOCIACION_INIT:
+            state.fichas.asociarUsuario.state = 'loading';
+            state.fichas.asociarUsuario.loading = true;
+            return state;
+        case CREAR_ASOCIACION_EXITO:
+            state.fichas.asociarUsuario.state = 'success';
+            state.fichas.asociarUsuario.loading = false;
+            return state;
+        case CREAR_ASOCIACION_ERROR:
+            state.fichas.asociarUsuario.state = 'error';
+            state.fichas.asociarUsuario.loading = false;
             return state;
         default:
             return state;

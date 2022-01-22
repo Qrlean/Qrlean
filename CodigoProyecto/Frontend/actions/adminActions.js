@@ -35,16 +35,26 @@ import {
     GET_USUARIOS_ERROR,
     GET_USUARIOS_EXITO,
     GET_USUARIOS_INIT,
+    GET_ASIGNATURAS_INIT,
+    GET_ASIGNATURAS_EXITO,
+    GET_ASIGNATURAS_ERROR,
+    CREAR_ASOCIACION_INIT,
+    CREAR_ASOCIACION_EXITO,
+    CREAR_ASOCIACION_ERROR,
 } from '../types';
 import { toast } from 'react-toastify';
 import Router from 'next/router';
 import { client } from '../config/axios';
 
-export const getUsuarios = () => {
+export const getUsuarios = (idTipoRol) => {
     return async (dispatch) => {
         try {
             dispatch(getUsuariosFn());
-            const res = await client.get('/usuarios');
+            const res = await client.get(
+                `/usuarios${
+                    idTipoRol !== undefined ? '?byTipoRol=' + idTipoRol : ''
+                }`,
+            );
             dispatch(getUsuariosFnExito(res.data));
         } catch (e) {
             toast.error(
@@ -398,5 +408,67 @@ const eliminarFichaFnExito = (payload) => ({
 });
 const eliminarFichaFnError = (payload) => ({
     type: ELIMINAR_FICHA_ERROR,
+    payload,
+});
+
+export const getAsignaturas = () => {
+    return async (dispatch) => {
+        try {
+            dispatch(getAsignaturasFn());
+            const res = await client.get('/asignaturas');
+            dispatch(getAsignaturasFnExito(res.data));
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(getAsignaturasFnError());
+        }
+    };
+};
+
+const getAsignaturasFn = () => ({
+    type: GET_ASIGNATURAS_INIT,
+});
+const getAsignaturasFnExito = (payload) => ({
+    type: GET_ASIGNATURAS_EXITO,
+    payload,
+});
+const getAsignaturasFnError = () => ({
+    type: GET_ASIGNATURAS_ERROR,
+});
+
+export const crearAsociacion = (payload) => {
+    return async (dispatch) => {
+        try {
+            payload.id_usuario = parseInt(payload.id_usuario);
+            if (payload.id_asignatura) {
+                payload.id_asignatura = parseInt(payload.id_asignatura);
+            }
+            dispatch(crearAsociacionFn());
+            await client.post('/fichas/asociarUsuario', payload);
+            dispatch(crearAsociacionFnExito());
+            await Router.push(`/dashboard/admin/fichas/${payload.id_ficha}`);
+            toast.success('Usuario asociado con exito.');
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(crearAsociacionFnError(e.response.data.message));
+        }
+    };
+};
+
+const crearAsociacionFn = () => ({
+    type: CREAR_ASOCIACION_INIT,
+});
+const crearAsociacionFnExito = () => ({
+    type: CREAR_ASOCIACION_EXITO,
+});
+const crearAsociacionFnError = (payload) => ({
+    type: CREAR_ASOCIACION_ERROR,
     payload,
 });

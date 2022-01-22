@@ -11,6 +11,8 @@ import { ResponsivePie } from '@nivo/pie';
 // import { ResponsiveAreaBump } from '@nivo/bump'
 import { ResponsiveBar } from '@nivo/bar';
 import WithAuth from '../../../../../components/utils/WithAuth';
+import WithEdit from '../../../../../components/utils/WithEdit';
+import { getFichaById } from '../../../../../actions/adminActions';
 
 const Ficha = () => {
     const router = useRouter();
@@ -45,8 +47,8 @@ const Ficha = () => {
                     <svg
                         onClick={() =>
                             router.push(
-                                '/dashboard/admin/fichas/[ficha]/asociar',
-                                `/dashboard/admin/fichas/${router.query.ficha}/asociar`,
+                                '/dashboard/admin/fichas/[id]/asociar',
+                                `/dashboard/admin/fichas/${router.query.id}/asociar`,
                             )
                         }
                         xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +137,7 @@ const Ficha = () => {
                                 titulo={`${value}`}
                                 width="w-11/12"
                                 clases={['1.Programacion', '2.Diagramas']}
-                            ></ItemMaterias>
+                            />
                         ))}
                     </div>
                     <div className="flex flex-col justify-center items-center w-11/12 ">
@@ -144,9 +146,7 @@ const Ficha = () => {
                         </h1>
                         <div className="flex flex-row items-center justify-center flex-wrap w-full">
                             {[1, 2, 3, 4, 5].map((e) => (
-                                <ItemPersonaAsistencia
-                                    key={e}
-                                ></ItemPersonaAsistencia>
+                                <ItemPersonaAsistencia key={e} />
                             ))}
                         </div>
                     </div>
@@ -165,4 +165,12 @@ const Ficha = () => {
     );
 };
 
-export default WithAuth({ rol: [1] })(Ficha);
+export default WithAuth({ rol: [1] })(
+    WithEdit(
+        Ficha,
+        getFichaById,
+        '/dashboard/admin/fichas',
+        (store) => store.admin.fichaById.state,
+        (store) => store.admin.fichaById.data,
+    ),
+);
