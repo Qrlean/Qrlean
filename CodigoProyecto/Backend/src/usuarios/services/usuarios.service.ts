@@ -57,7 +57,24 @@ export class UsuariosService {
         return user;
     }
 
-    async findAll(): Promise<Usuario[]> {
+    async findAll(byTipoRol?: number): Promise<Usuario[]> {
+        console.log(byTipoRol);
+        if (byTipoRol) {
+            return this.usersRepository.find({
+                relations: [
+                    'tipo_documento',
+                    'rol',
+                    'ciudad',
+                    'fichas',
+                    'fichas.ficha',
+                    'fichas.ficha.programa',
+                    'fichas.asignaturas',
+                ],
+                where: {
+                    id_tipo_rol: byTipoRol,
+                },
+            });
+        }
         return this.usersRepository.find({
             relations: [
                 'tipo_documento',

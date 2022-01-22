@@ -8,6 +8,7 @@ import {
     ParseIntPipe,
     Patch,
     Post,
+    Query,
     Req,
     UseGuards,
     UseInterceptors,
@@ -20,6 +21,7 @@ import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '../../auth/roles/roles.enum';
 import { RolesGuard } from '../../auth/guards/roles-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import QueryUsers from '../dto/query-users.dto';
 
 @ApiBearerAuth()
 @UseInterceptors(ClassSerializerInterceptor)
@@ -35,8 +37,9 @@ export class UsuariosController {
     }
 
     @Get()
-    async findAll() {
-        return this.usuariosService.findAll();
+    async findAll(@Query() queryParams: QueryUsers) {
+        console.log(queryParams);
+        return this.usuariosService.findAll(queryParams.byTipoRol);
     }
 
     @Roles(Role.Administrador, Role.Aprendiz, Role.Instructor)
