@@ -2,12 +2,8 @@ import React, { useEffect } from 'react';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-
-import { useRouter } from 'next/router';
-
 import Dashboard from '../../../../components/layout/shared/Dashboard';
 import WithAuth from '../../../../components/utils/WithAuth';
-import FormArrowBack from '../../../../components/layout/shared/FormArrowBack';
 import CustomInput from '../../../../components/layout/shared/CustomInput';
 import CustomSelect from '../../../../components/layout/shared/CustomSelect';
 import { crearUsuario, getCiudades } from '../../../../actions/adminActions';
@@ -168,6 +164,7 @@ const CrearUsuario = () => {
                     ]}
                 />
                 <SubmitButton
+                    validationSchema={validationSchema}
                     isLoading={createIsLoading}
                     title="Crear"
                     formik={formik}

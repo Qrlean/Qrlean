@@ -2,12 +2,8 @@ import React, { useEffect } from 'react';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-
-import { useRouter } from 'next/router';
-
 import Dashboard from '../../../../components/layout/shared/Dashboard';
 import WithAuth from '../../../../components/utils/WithAuth';
-import FormArrowBack from '../../../../components/layout/shared/FormArrowBack';
 import CustomSelect from '../../../../components/layout/shared/CustomSelect';
 import SubmitButton from '../../../../components/layout/shared/SubmitButton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +21,6 @@ const validationSchema = Yup.object().shape({
         .required('El campo programa es requerido.'),
 });
 const CrearFicha = () => {
-    const router = useRouter();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getProgramas());
@@ -60,6 +55,7 @@ const CrearFicha = () => {
                     }))}
                 />
                 <SubmitButton
+                    validationSchema={validationSchema}
                     title={'Crear'}
                     formik={formik}
                     isLoading={createIsLoading}

@@ -5,9 +5,7 @@ import Dashboard from '../../../../../components/layout/shared/Dashboard';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
-import { useRouter } from 'next/router';
 import WithAuth from '../../../../../components/utils/WithAuth';
-import FormArrowBack from '../../../../../components/layout/shared/FormArrowBack';
 import CustomInput from '../../../../../components/layout/shared/CustomInput';
 import CustomSelect from '../../../../../components/layout/shared/CustomSelect';
 import SubmitButton from '../../../../../components/layout/shared/SubmitButton';
@@ -173,6 +171,7 @@ const EditarPersona = ({ data }) => {
                     ]}
                 />
                 <SubmitButton
+                    validationSchema={validationSchema}
                     isLoading={editUserIsLoading}
                     title="Editar"
                     formik={formik}

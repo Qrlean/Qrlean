@@ -4,10 +4,7 @@ import Dashboard from '../../../../../components/layout/shared/Dashboard';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-
-import { useRouter } from 'next/router';
 import WithAuth from '../../../../../components/utils/WithAuth';
-import FormArrowBack from '../../../../../components/layout/shared/FormArrowBack';
 import CustomSelect from '../../../../../components/layout/shared/CustomSelect';
 import SubmitButton from '../../../../../components/layout/shared/SubmitButton';
 import WithEdit from '../../../../../components/utils/WithEdit';
@@ -30,7 +27,6 @@ const validationSchema = Yup.object().shape({
         .required('El campo programa es requerido.'),
 });
 const EditarFicha = ({ data }) => {
-    const router = useRouter();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getProgramas());
@@ -67,6 +63,7 @@ const EditarFicha = ({ data }) => {
                     }))}
                 />
                 <SubmitButton
+                    validationSchema={validationSchema}
                     title={'Editar'}
                     formik={formik}
                     isLoading={fichaEditIsLoading}
