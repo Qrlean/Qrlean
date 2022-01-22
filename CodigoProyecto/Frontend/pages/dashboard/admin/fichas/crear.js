@@ -12,6 +12,7 @@ import CustomSelect from '../../../../components/layout/shared/CustomSelect';
 import SubmitButton from '../../../../components/layout/shared/SubmitButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { crearFicha, getProgramas } from '../../../../actions/adminActions';
+import CustomForm from '../../../../components/layout/shared/CustomForm';
 
 const validationSchema = Yup.object().shape({
     id_programa: Yup.string()
@@ -42,37 +43,28 @@ const CrearFicha = () => {
         },
         validationSchema,
     });
-
     return (
         <Dashboard>
-            <div className="h-full w-full overflow-y-scroll bg-gray-300 flex flex-col py-6">
-                <form
-                    onSubmit={formik.handleSubmit}
-                    className="flex flex-col justify-center w-full lg:w-2/6 mx-auto rounded relative shadow-xl bg-white border-t-4 border-orange-600"
-                    autoComplete="off"
-                >
-                    <FormArrowBack
-                        onClick={() => router.push('/dashboard/admin/fichas')}
-                    />
-                    <h1 className="text-3xl text-gray-800 text-center w-full my-4 ">
-                        Crear ficha.
-                    </h1>
-                    <CustomSelect
-                        formik={formik}
-                        keyName="id_programa"
-                        title={'Programa'}
-                        options={programas.map((x) => ({
-                            value: x.id_programa.toString(),
-                            name: x.nombre_programa,
-                        }))}
-                    />
-                    <SubmitButton
-                        title={'Crear'}
-                        formik={formik}
-                        isLoading={createIsLoading}
-                    />
-                </form>
-            </div>
+            <CustomForm
+                pathToBack="/dashboard/admin/fichas"
+                formik={formik}
+                title="Crear ficha"
+            >
+                <CustomSelect
+                    formik={formik}
+                    keyName="id_programa"
+                    title={'Programa'}
+                    options={programas.map((x) => ({
+                        value: x.id_programa.toString(),
+                        name: x.nombre_programa,
+                    }))}
+                />
+                <SubmitButton
+                    title={'Crear'}
+                    formik={formik}
+                    isLoading={createIsLoading}
+                />
+            </CustomForm>
         </Dashboard>
     );
 };

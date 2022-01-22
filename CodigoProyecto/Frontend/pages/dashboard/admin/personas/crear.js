@@ -13,6 +13,7 @@ import CustomSelect from '../../../../components/layout/shared/CustomSelect';
 import { crearUsuario, getCiudades } from '../../../../actions/adminActions';
 import { useDispatch, useSelector } from 'react-redux';
 import SubmitButton from '../../../../components/layout/shared/SubmitButton';
+import CustomForm from '../../../../components/layout/shared/CustomForm';
 
 const validationSchema = Yup.object().shape({
     nombres_usuario: Yup.string()
@@ -66,7 +67,6 @@ const CrearUsuario = () => {
         dispatch(getCiudades());
     }, []);
     const ciudades = useSelector((store) => store.admin.ciudades.data);
-    const router = useRouter();
     const createIsLoading = useSelector(
         (store) => store.admin.users.createUser.loading,
     );
@@ -90,97 +90,89 @@ const CrearUsuario = () => {
     console.log(formik);
     return (
         <Dashboard>
-            <div className="h-full w-full overflow-y-scroll bg-gray-300 flex flex-col py-6">
-                <form
-                    onSubmit={formik.handleSubmit}
-                    className="flex flex-col justify-center w-full lg:w-2/6 mx-auto rounded relative shadow-xl bg-white border-t-4 border-orange-600"
-                    autoComplete="off"
-                >
-                    <FormArrowBack
-                        onClick={() => router.push('/dashboard/admin/personas')}
-                    />
-                    <h1 className="text-3xl text-gray-800 text-center w-full my-4 ">
-                        Registrar persona.
-                    </h1>
-                    <CustomInput
-                        title="Nombres"
-                        formik={formik}
-                        keyName={'nombres_usuario'}
-                    />
-                    <CustomInput
-                        title="Apellidos"
-                        formik={formik}
-                        keyName={'apellidos_usuario'}
-                    />
-                    <CustomInput
-                        title="Numero documento"
-                        formik={formik}
-                        keyName={'numero_documento'}
-                    />
-                    <CustomInput
-                        title="Email"
-                        formik={formik}
-                        keyName={'emailInstitucional'}
-                    />
-                    <CustomInput
-                        title="Telefono"
-                        formik={formik}
-                        keyName={'telefono_movil'}
-                    />
-                    <CustomInput
-                        title="Direccion"
-                        formik={formik}
-                        keyName={'direccion_residencial'}
-                    />
-                    <CustomSelect
-                        title="Tipo de documento"
-                        formik={formik}
-                        keyName={'id_tipo_documento'}
-                        options={[
-                            {
-                                value: '1',
-                                name: 'CC Cedula de ciudadanía.',
-                            },
-                            { value: '2', name: 'TI Tarjeta de identidad.' },
-                            { value: '3', name: 'CE Cedula de extranjería.' },
-                            { value: '4', name: 'PA Pasaporte.' },
-                        ]}
-                    />
-                    <CustomSelect
-                        title="Ciudad"
-                        formik={formik}
-                        keyName={'id_ciudad'}
-                        options={ciudades.map((x) => ({
-                            value: x.id_ciudad.toString(),
-                            name: x.nombre_ciudad,
-                        }))}
-                    />
-                    <CustomSelect
-                        title="Rol"
-                        formik={formik}
-                        keyName={'id_tipo_rol'}
-                        options={[
-                            {
-                                value: '1',
-                                name: 'Administrador',
-                            },
-                            {
-                                value: '2',
-                                name: 'Instructor',
-                            },
-                            {
-                                value: '3',
-                                name: 'Aprendiz',
-                            },
-                        ]}
-                    />
-                    <SubmitButton
-                        isLoading={createIsLoading}
-                        title="Crear"
-                        formik={formik}
-                    />
-                </form>
-            </div>
+            <CustomForm
+                pathToBack="/dashboard/admin/personas"
+                formik={formik}
+                title="Crear usuario"
+            >
+                <CustomInput
+                    title="Nombres"
+                    formik={formik}
+                    keyName={'nombres_usuario'}
+                />
+                <CustomInput
+                    title="Apellidos"
+                    formik={formik}
+                    keyName={'apellidos_usuario'}
+                />
+                <CustomInput
+                    title="Numero documento"
+                    formik={formik}
+                    keyName={'numero_documento'}
+                />
+                <CustomInput
+                    title="Email"
+                    formik={formik}
+                    keyName={'emailInstitucional'}
+                />
+                <CustomInput
+                    title="Telefono"
+                    formik={formik}
+                    keyName={'telefono_movil'}
+                />
+                <CustomInput
+                    title="Direccion"
+                    formik={formik}
+                    keyName={'direccion_residencial'}
+                />
+                <CustomSelect
+                    title="Tipo de documento"
+                    formik={formik}
+                    keyName={'id_tipo_documento'}
+                    options={[
+                        {
+                            value: '1',
+                            name: 'CC Cedula de ciudadanía.',
+                        },
+                        { value: '2', name: 'TI Tarjeta de identidad.' },
+                        { value: '3', name: 'CE Cedula de extranjería.' },
+                        { value: '4', name: 'PA Pasaporte.' },
+                    ]}
+                />
+                <CustomSelect
+                    title="Ciudad"
+                    formik={formik}
+                    keyName={'id_ciudad'}
+                    options={ciudades.map((x) => ({
+                        value: x.id_ciudad.toString(),
+                        name: x.nombre_ciudad,
+                    }))}
+                />
+                <CustomSelect
+                    title="Rol"
+                    formik={formik}
+                    keyName={'id_tipo_rol'}
+                    options={[
+                        {
+                            value: '1',
+                            name: 'Administrador',
+                        },
+                        {
+                            value: '2',
+                            name: 'Instructor',
+                        },
+                        {
+                            value: '3',
+                            name: 'Aprendiz',
+                        },
+                    ]}
+                />
+                <SubmitButton
+                    isLoading={createIsLoading}
+                    title="Crear"
+                    formik={formik}
+                />
+            </CustomForm>
         </Dashboard>
     );
 };
