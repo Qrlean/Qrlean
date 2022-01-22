@@ -4,10 +4,5 @@ module.exports = {
     singleQuote: true,
     printWidth: 80,
     tabWidth: 4,
-    'prettier/prettier': [
-        'error',
-        {
-            endOfLine: 'auto',
-        },
-    ],
+    endOfLine:"auto",
 };
