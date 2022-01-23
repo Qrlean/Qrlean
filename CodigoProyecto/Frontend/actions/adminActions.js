@@ -41,6 +41,9 @@ import {
     CREAR_ASOCIACION_INIT,
     CREAR_ASOCIACION_EXITO,
     CREAR_ASOCIACION_ERROR,
+    DELETE_ASOCIACION_INIT,
+    DELETE_ASOCIACION_EXITO,
+    DELETE_ASOCIACION_ERROR,
 } from '../types';
 import { toast } from 'react-toastify';
 import Router from 'next/router';
@@ -470,5 +473,37 @@ const crearAsociacionFnExito = () => ({
 });
 const crearAsociacionFnError = (payload) => ({
     type: CREAR_ASOCIACION_ERROR,
+    payload,
+});
+
+export const desasociarUsuario = (payload) => {
+    return async (dispatch) => {
+        try {
+            dispatch(desasociarUsuarioFn());
+            await client.delete(
+                `/fichas/desasociarUsuario/usuario/${payload.id_usuario}/ficha/${payload.id_ficha}`,
+            );
+            dispatch(desasociarUsuarioFnExito());
+            toast.success('Usuario desasociado con exito.');
+            dispatch(getFichaById(Router.query.id));
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(desasociarUsuarioFnError(e.response.data.message));
+        }
+    };
+};
+
+const desasociarUsuarioFn = () => ({
+    type: DELETE_ASOCIACION_INIT,
+});
+const desasociarUsuarioFnExito = () => ({
+    type: DELETE_ASOCIACION_EXITO,
+});
+const desasociarUsuarioFnError = (payload) => ({
+    type: DELETE_ASOCIACION_ERROR,
     payload,
 });

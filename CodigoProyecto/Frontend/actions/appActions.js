@@ -21,7 +21,6 @@ export const firstCall = () => {
             )}`;
             const res = await client.get('/usuarios/getSelfInformation');
             dispatch(firstCallExito(res.data));
-            toast.success(`Bienvenido ${res.data.nombres_usuario}`);
         } catch (e) {
             dispatch(firstCallError());
         }

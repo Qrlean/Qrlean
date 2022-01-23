@@ -51,7 +51,17 @@ export class FichasService {
             switch (id_rol) {
                 case 1:
                     ficha = await this.fichasRepository.findOne(id, {
-                        relations: ['programa'],
+                        relations: [
+                            'programa',
+                            'usuarios',
+                            'usuarios.usuario',
+                            'asignaturas',
+                            'asignaturas.asignatura',
+                            'asignaturas.clases',
+                            'asignaturas.clases.asistencias',
+                            'asignaturas.clases.asistencias.aprendiz',
+                            'asignaturas.clases.asistencias.aprendiz.usuario',
+                        ],
                     });
                     break;
                 case 2:

@@ -8,6 +8,9 @@ import {
     CREAR_USUARIO_ERROR,
     CREAR_USUARIO_EXITO,
     CREAR_USUARIO_INIT,
+    DELETE_ASOCIACION_ERROR,
+    DELETE_ASOCIACION_EXITO,
+    DELETE_ASOCIACION_INIT,
     EDITAR_FICHA_ERROR,
     EDITAR_FICHA_EXITO,
     EDITAR_FICHA_INIT,
@@ -81,6 +84,10 @@ const initialState = {
             loading: null,
         },
         asociarUsuario: {
+            state: null,
+            loading: null,
+        },
+        desasociarUsuario: {
             state: null,
             loading: null,
         },
@@ -299,6 +306,18 @@ export default function adminReducer(state = initialState, action) {
         case CREAR_ASOCIACION_ERROR:
             state.fichas.asociarUsuario.state = 'error';
             state.fichas.asociarUsuario.loading = false;
+            return state;
+        case DELETE_ASOCIACION_INIT:
+            state.fichas.desasociarUsuario.state = 'loading';
+            state.fichas.desasociarUsuario.loading = true;
+            return state;
+        case DELETE_ASOCIACION_EXITO:
+            state.fichas.desasociarUsuario.state = 'success';
+            state.fichas.desasociarUsuario.loading = false;
+            return state;
+        case DELETE_ASOCIACION_ERROR:
+            state.fichas.desasociarUsuario.state = 'error';
+            state.fichas.desasociarUsuario.loading = false;
             return state;
         default:
             return state;

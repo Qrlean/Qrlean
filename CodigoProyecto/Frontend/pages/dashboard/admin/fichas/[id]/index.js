@@ -13,9 +13,11 @@ import { ResponsiveBar } from '@nivo/bar';
 import WithAuth from '../../../../../components/utils/WithAuth';
 import WithEdit from '../../../../../components/utils/WithEdit';
 import { getFichaById } from '../../../../../actions/adminActions';
+import { useSelector } from 'react-redux';
 
 const Ficha = () => {
     const router = useRouter();
+    const dataFicha = useSelector((store) => store.admin.fichaById.data);
     const data = [
         {
             id: 'Asistió',
@@ -156,8 +158,11 @@ const Ficha = () => {
                     <h1 className="text-gray-800 text-2xl my-4 text-center font-semibold">
                         Personas
                     </h1>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-                        <ItemListaAdmin key={value}></ItemListaAdmin>
+                    {dataFicha.usuarios.map((data) => (
+                        <ItemListaAdmin
+                            key={data.usuario.id_usuario}
+                            data={data}
+                        />
                     ))}
                 </div>
             </div>
