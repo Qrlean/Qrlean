@@ -57,24 +57,7 @@ export class UsuariosService {
         return user;
     }
 
-    async findAll(byTipoRol?: number): Promise<Usuario[]> {
-        console.log(byTipoRol);
-        if (byTipoRol) {
-            return this.usersRepository.find({
-                relations: [
-                    'tipo_documento',
-                    'rol',
-                    'ciudad',
-                    'fichas',
-                    'fichas.ficha',
-                    'fichas.ficha.programa',
-                    'fichas.asignaturas',
-                ],
-                where: {
-                    id_tipo_rol: byTipoRol,
-                },
-            });
-        }
+    async findAll(): Promise<Usuario[]> {
         return this.usersRepository.find({
             relations: [
                 'tipo_documento',
@@ -87,7 +70,31 @@ export class UsuariosService {
             ],
         });
     }
-
+    async getUsersThatNotAreInFicha(
+        id_ficha: number,
+        id_tipo_rol: number,
+    ): Promise<Usuario[]> {
+        return this.usersRepository.find({
+            relations: [
+                'tipo_documento',
+                'rol',
+                'ciudad',
+                'fichas',
+                'fichas.ficha',
+                'fichas.ficha.programa',
+                'fichas.asignaturas',
+            ],
+            where: (qb) => {
+                qb.where(
+                    '("Usuario".id_usuario NOT IN (SELECT id_usuario FROM asociacion_usuarios_fichas WHERE id_ficha = :id_ficha)) AND "Usuario".id_tipo_rol = :id_tipo_rol',
+                    {
+                        id_ficha,
+                        id_tipo_rol,
+                    },
+                );
+            },
+        });
+    }
     async findOne(id: number): Promise<Usuario> {
         const user = await this.usersRepository.findOne(id, {
             relations: ['tipo_documento', 'rol', 'ciudad'],

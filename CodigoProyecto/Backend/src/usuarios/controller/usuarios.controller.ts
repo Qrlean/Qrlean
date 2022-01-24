@@ -21,7 +21,7 @@ import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '../../auth/roles/roles.enum';
 import { RolesGuard } from '../../auth/guards/roles-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import QueryUsers from '../dto/query-users.dto';
+import QueryUsersFichaAdmin from '../dto/query-users-admin.dto';
 
 @ApiBearerAuth()
 @UseInterceptors(ClassSerializerInterceptor)
@@ -37,9 +37,16 @@ export class UsuariosController {
     }
 
     @Get()
-    async findAll(@Query() queryParams: QueryUsers) {
-        console.log(queryParams);
-        return this.usuariosService.findAll(queryParams.byTipoRol);
+    async findAll() {
+        return this.usuariosService.findAll();
+    }
+
+    @Get('/getUsuariosIfNotAreInFicha')
+    async findThatNotAreInFicha(@Query() queryParams: QueryUsersFichaAdmin) {
+        return this.usuariosService.getUsersThatNotAreInFicha(
+            queryParams.id_ficha,
+            queryParams.byTipoRol,
+        );
     }
 
     @Roles(Role.Administrador, Role.Aprendiz, Role.Instructor)

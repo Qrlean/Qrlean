@@ -1,4 +1,5 @@
 import {
+    BeforeInsert,
     Column,
     Entity,
     JoinColumn,
@@ -7,6 +8,7 @@ import {
     PrimaryColumn,
     PrimaryGeneratedColumn,
 } from 'typeorm';
+import * as _ from 'lodash';
 import { Exclude } from 'class-transformer';
 import { Tipo_documento } from './tipo-documento.entity';
 import { TipoRoles } from './tipo-roles.entity';
@@ -66,4 +68,10 @@ export class Usuario {
 
     @OneToMany(() => FichaUsuario, (ficha) => ficha.usuario)
     fichas: FichaUsuario[];
+
+    @BeforeInsert()
+    nameToUpperCase() {
+        this.nombres_usuario = _.capitalize(this.nombres_usuario);
+        this.apellidos_usuario = _.capitalize(this.apellidos_usuario);
+    }
 }

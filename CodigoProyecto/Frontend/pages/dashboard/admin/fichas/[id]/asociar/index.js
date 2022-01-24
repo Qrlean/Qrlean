@@ -3,9 +3,10 @@ import Dashboard from '../../../../../../components/layout/shared/Dashboard';
 import WithAuth from '../../../../../../components/utils/WithAuth';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsuarios } from '../../../../../../actions/adminActions';
+import { getUsuariosThatNotAreInFicha } from '../../../../../../actions/adminActions';
 import AsociarAprendiz from '../../../../../../components/layout/fichas/AsociarAprendiz';
 import AsociarInstructor from '../../../../../../components/layout/fichas/AsociarInstructor';
+import { useRouter } from 'next/router';
 
 const Asociar = () => {
     const formik = useFormik({
@@ -14,10 +15,17 @@ const Asociar = () => {
         },
     });
     const dispatch = useDispatch();
-    const usuarios = useSelector((store) => store.admin.users.data);
-
+    const usuarios = useSelector(
+        (store) => store.admin.users.usersAsociar.data,
+    );
+    const router = useRouter();
     useEffect(() => {
-        dispatch(getUsuarios(formik.values.id_tipo_rol));
+        dispatch(
+            getUsuariosThatNotAreInFicha({
+                id_tipo_rol: formik.values.id_tipo_rol,
+                id_ficha: router.query.id,
+            }),
+        );
     }, [formik.values.id_tipo_rol]);
     return (
         <Dashboard>

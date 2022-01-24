@@ -9,9 +9,11 @@ import { Usuario } from '../usuarios/entities/usuario.entity';
 import { UsuariosModule } from 'src/usuarios/usuarios.module';
 import { AsignaturasModule } from '../asignaturas/asignaturas.module';
 import { AsignaturaFicha } from './entities/asignaturaFichas.entity';
+import { LodashModule } from 'src/lodash/lodash.module';
 
 @Module({
     imports: [
+        LodashModule,
         TypeOrmModule.forFeature([
             Ficha,
             Programa,

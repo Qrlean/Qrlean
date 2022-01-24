@@ -25,6 +25,7 @@
     "migrations:drop": "npm run typeorm schema:drop",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "seed:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed",
+    "seed:one:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed --seed",
     "seed:test:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed -r test",
     "seed:test:config": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js config -r test"
   },
@@ -50,6 +51,7 @@
     "fastify-swagger": "^4.12.0",
     "handlebars": "^4.7.7",
     "jest-mock-extended": "^2.0.2-beta2",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",

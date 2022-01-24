@@ -44,20 +44,19 @@ import {
     DELETE_ASOCIACION_INIT,
     DELETE_ASOCIACION_EXITO,
     DELETE_ASOCIACION_ERROR,
+    GET_USUARIOSASOCIAR_INIT,
+    GET_USUARIOSASOCIAR_EXITO,
+    GET_USUARIOSASOCIAR_ERROR,
 } from '../types';
 import { toast } from 'react-toastify';
 import Router from 'next/router';
 import { client } from '../config/axios';
 
-export const getUsuarios = (idTipoRol) => {
+export const getUsuarios = () => {
     return async (dispatch) => {
         try {
             dispatch(getUsuariosFn());
-            const res = await client.get(
-                `/usuarios${
-                    idTipoRol !== undefined ? '?byTipoRol=' + idTipoRol : ''
-                }`,
-            );
+            const res = await client.get('/usuarios');
             dispatch(getUsuariosFnExito(res.data));
         } catch (e) {
             toast.error(
@@ -310,7 +309,7 @@ export const crearFicha = (payload) => {
                     ? e.response.data.message[0]
                     : e.response.data.message,
             );
-            dispatch(crearFichaFnError(e.response.data.message));
+            dispatch(crearFichaFnError());
         }
     };
 };
@@ -370,7 +369,7 @@ export const editarFicha = (payload) => {
                     ? e.response.data.message[0]
                     : e.response.data.message,
             );
-            dispatch(editarFichaFnError(payload));
+            dispatch(editarFichaFnError());
         }
     };
 };
@@ -505,5 +504,38 @@ const desasociarUsuarioFnExito = () => ({
 });
 const desasociarUsuarioFnError = (payload) => ({
     type: DELETE_ASOCIACION_ERROR,
+    payload,
+});
+
+export const getUsuariosThatNotAreInFicha = (payload) => {
+    return async (dispatch) => {
+        try {
+            dispatch(getUsuariosThatNotAreInFichaFn());
+            const res = await client.get(
+                `/usuarios/getUsuariosIfNotAreInFicha?byTipoRol=${payload.id_tipo_rol}&id_ficha=${payload.id_ficha}`,
+            );
+            dispatch(getUsuariosThatNotAreInFichaFnExito(res.data));
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(
+                getUsuariosThatNotAreInFichaFnError(e.response.data.message),
+            );
+        }
+    };
+};
+
+const getUsuariosThatNotAreInFichaFn = () => ({
+    type: GET_USUARIOSASOCIAR_INIT,
+});
+const getUsuariosThatNotAreInFichaFnExito = (payload) => ({
+    type: GET_USUARIOSASOCIAR_EXITO,
+    payload,
+});
+const getUsuariosThatNotAreInFichaFnError = (payload) => ({
+    type: GET_USUARIOSASOCIAR_ERROR,
     payload,
 });

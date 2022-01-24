@@ -44,6 +44,9 @@ import {
     GET_USUARIOS_ERROR,
     GET_USUARIOS_EXITO,
     GET_USUARIOS_INIT,
+    GET_USUARIOSASOCIAR_ERROR,
+    GET_USUARIOSASOCIAR_EXITO,
+    GET_USUARIOSASOCIAR_INIT,
 } from '../types';
 
 const initialState = {
@@ -65,6 +68,12 @@ const initialState = {
         deleteUser: {
             state: null,
             loading: null,
+        },
+        usersAsociar: {
+            state: null,
+            loading: null,
+            data: [],
+            error: null,
         },
     },
     fichas: {
@@ -318,6 +327,22 @@ export default function adminReducer(state = initialState, action) {
         case DELETE_ASOCIACION_ERROR:
             state.fichas.desasociarUsuario.state = 'error';
             state.fichas.desasociarUsuario.loading = false;
+            return state;
+        case GET_USUARIOSASOCIAR_INIT:
+            state.users.usersAsociar.state = 'loading';
+            state.users.usersAsociar.loading = true;
+            return state;
+        case GET_USUARIOSASOCIAR_EXITO:
+            state.users.usersAsociar.data = action.payload;
+            state.users.usersAsociar.loading = false;
+            state.users.usersAsociar.state = 'success';
+            state.users.usersAsociar.error = null;
+            return state;
+        case GET_USUARIOSASOCIAR_ERROR:
+            state.users.usersAsociar.loading = false;
+            state.users.usersAsociar.state = 'error';
+            state.users.usersAsociar.error = action.payload;
+            state.users.usersAsociar.data = [];
             return state;
         default:
             return state;
