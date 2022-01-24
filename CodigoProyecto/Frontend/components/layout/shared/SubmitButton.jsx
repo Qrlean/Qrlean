@@ -6,8 +6,8 @@ const SubmitButton = ({ formik, isLoading, title, validationSchema }) => {
         <button
             className={
                 formik.isValid && validationSchema.isValidSync(formik.values)
-                    ? 'bg-red-500 rounded w-11/12 outline-none p-3 text-white text-base font-extrabold mx-auto my-6 '
-                    : 'bg-red-300 rounded w-11/12 mx-auto outline-none p-3 text-white text-base font-extrabold my-6 cursor-not-allowed'
+                    ? 'bg-red-500 rounded w-full outline-none p-3 text-white text-base font-extrabold mx-auto my-6 '
+                    : 'bg-red-300 rounded w-full mx-auto outline-none p-3 text-white text-base font-extrabold my-6 cursor-not-allowed'
             }
             type={
                 formik.isValid &&

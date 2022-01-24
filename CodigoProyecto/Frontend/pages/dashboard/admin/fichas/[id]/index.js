@@ -2,12 +2,9 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-// import { motion } from 'framer-motion';
-import ItemPersonaAsistencia from '../../../../../components/layout/fichas/ItemPersonaAsistencia';
 import Dashboard from '../../../../../components/layout/shared/Dashboard';
 import ItemListaAdmin from '../../../../../components/layout/fichas/ItemListaAdmin';
 import ItemMaterias from '../../../../../components/layout/fichas/ItemMaterias';
-// import { ResponsiveAreaBump } from '@nivo/bump'
 import { ResponsiveBar } from '@nivo/bar';
 import WithAuth from '../../../../../components/utils/WithAuth';
 import WithEdit from '../../../../../components/utils/WithEdit';
@@ -105,57 +102,19 @@ const Ficha = () => {
                                 motionDamping={15}
                             />
                         </div>
-                        {/* <div className="flex flex-col items-center justify-between h-96  md:mx-2 w-full md:w-5/12 my-2 md:my-none"> */}
-                        {/*    <div */}
-                        {/*        className="w-full mb-1 rounded-lg shadow-lg" */}
-                        {/*        style={{ */}
-                        {/*            border: '1px solid rgba(31, 41, 55,1)', */}
-                        {/*            height: '49%', */}
-                        {/*        }} */}
-                        {/*    > */}
-                        {/*        <ResponsivePie */}
-                        {/*            margin={{ top: 40, bottom: 40 }} */}
-                        {/*            data={data} */}
-                        {/*            innerRadius={0.5} */}
-                        {/*        /> */}
-                        {/*    </div> */}
-                        {/*    <div */}
-                        {/*        className="w-full mt-1 rounded-lg shadow-lg" */}
-                        {/*        style={{ */}
-                        {/*            border: '1px solid rgba(31, 41, 55,1)', */}
-                        {/*            height: '49%', */}
-                        {/*        }} */}
-                        {/*    > */}
-                        {/*        <ResponsivePie */}
-                        {/*            margin={{ top: 40, bottom: 40 }} */}
-                        {/*            data={data} */}
-                        {/*            innerRadius={0.5} */}
-                        {/*        /> */}
-                        {/*    </div> */}
-                        {/* </div> */}
                     </div>
                     <div className="my-12 w-full h-auto">
                         <h1 className="text-center text-3xl text-gray-800 mx-auto my-4">
                             Materias
                         </h1>
-                        {['Ingles', 'Matematicas', 'Español'].map((value) => (
+                        {dataFicha.asignaturas.map((x) => (
                             <ItemMaterias
-                                key={value}
-                                titulo={`${value}`}
+                                key={x.id_asociacion_asignatura_ficha}
+                                titulo={x.asignatura.nombre_asignatura}
                                 width="w-11/12"
-                                clases={['1.Programacion', '2.Diagramas']}
+                                clases={x.clases}
                             />
                         ))}
-                    </div>
-                    <div className="flex flex-col justify-center items-center w-11/12 ">
-                        <h1 className="text-center text-3xl mx-auto my-4 w-auto border-red-500 text-gray-800 p-3 rounded shadow border-t-2">
-                            Aprendices en estado critico.
-                        </h1>
-                        <div className="flex flex-row items-center justify-center flex-wrap w-full">
-                            {[1, 2, 3, 4, 5].map((e) => (
-                                <ItemPersonaAsistencia key={e} />
-                            ))}
-                        </div>
                     </div>
                 </div>
 

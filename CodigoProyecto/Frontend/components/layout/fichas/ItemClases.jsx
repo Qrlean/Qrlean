@@ -34,15 +34,27 @@ const imageAnimate = {
 const ItemClases = ({ clase, width }) => {
     const data = [
         {
+            id: 'Asistió con retardo',
+            label: 'Asistió con retardo',
+            value: clase.asistenciaConRetardo,
+            color: 'hsl(151, 70%, 50%)',
+        },
+        {
             id: 'Asistió',
             label: 'Asistió',
-            value: 90,
+            value: clase.asistencia,
             color: 'hsl(151, 70%, 50%)',
         },
         {
             id: 'No asistió',
             label: 'No asistió',
-            value: 387,
+            value: clase.inasistencia,
+            color: 'hsl(312, 70%, 50%)',
+        },
+        {
+            id: 'Por firmar',
+            label: 'Por firmar',
+            value: clase.porFirmar,
             color: 'hsl(312, 70%, 50%)',
         },
     ];
@@ -53,7 +65,7 @@ const ItemClases = ({ clase, width }) => {
                 className="cursor-pointer h-16 flex flex-row relative justify-center items-center w-full bg-orange-200 shadow border-orange-600 border-t-2 rounded text-gray-800 p-2 text-xl"
                 onClick={() => setActive(!active)}
             >
-                {clase}
+                {clase.nombre_clase}
                 <motion.svg
                     style={{ originX: '50%', originY: '50%' }}
                     animate={`${active ? 'activate' : 'noactivate'}`}

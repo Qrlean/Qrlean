@@ -67,9 +67,10 @@ const ItemMaterias = ({ titulo, width, clases }) => {
                         <div className="flex flex-col justify-center items-center m-4 w-full">
                             {clases.map((value) => (
                                 <ItemClases
+                                    key={value.id_clase}
                                     clase={value}
-                                    width="w-11/12"
-                                ></ItemClases>
+                                    width="w-full md-w-11/12"
+                                />
                             ))}
                         </div>
                     </motion.div>
