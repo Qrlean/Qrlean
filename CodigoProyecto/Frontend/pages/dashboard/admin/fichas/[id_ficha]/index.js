@@ -57,8 +57,8 @@ const Ficha = () => {
                     <svg
                         onClick={() =>
                             router.push(
-                                '/dashboard/admin/fichas/[id]/asociar',
-                                `/dashboard/admin/fichas/${router.query.id}/asociar`,
+                                '/dashboard/admin/fichas/[id_ficha]/asociar',
+                                `/dashboard/admin/fichas/${router.query.id_ficha}/asociar`,
                             )
                         }
                         xmlns="http://www.w3.org/2000/svg"
@@ -141,5 +141,6 @@ export default WithAuth({ rol: [1] })(
         '/dashboard/admin/fichas',
         (store) => store.admin.fichaById.state,
         (store) => store.admin.fichaById.data,
+        'id_ficha',
     ),
 );

@@ -484,7 +484,7 @@ export const desasociarUsuario = (payload) => {
             );
             dispatch(desasociarUsuarioFnExito());
             toast.success('Usuario desasociado con exito.');
-            dispatch(getFichaById(Router.query.id));
+            dispatch(getFichaById(Router.query.id_ficha));
         } catch (e) {
             toast.error(
                 Array.isArray(e.response.data.message)

@@ -188,5 +188,6 @@ export default WithAuth({ rol: [1] })(
         '/dashboard/admin/personas',
         (store) => store.admin.users.editUser.state,
         (store) => store.admin.users.editUser.data,
+        'id_persona_edit',
     ),
 );

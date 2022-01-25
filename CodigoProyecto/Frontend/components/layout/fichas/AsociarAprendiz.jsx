@@ -30,7 +30,7 @@ const AsociarAprendiz = ({ usuarios }) => {
             dispatch(
                 crearAsociacion({
                     ...values,
-                    id_ficha: parseInt(router.query.id),
+                    id_ficha: parseInt(router.query.id_ficha),
                 }),
             );
         },

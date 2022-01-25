@@ -79,5 +79,6 @@ export default WithAuth({ rol: [1] })(
         '/dashboard/admin/fichas',
         (store) => store.admin.fichaById.state,
         (store) => store.admin.fichaById.data,
+        'id_ficha_edit',
     ),
 );

@@ -9,6 +9,7 @@ const WithEdit = (
     path,
     fnSelectorState,
     fnSelectorData,
+    routerProperty,
 ) => () => {
     const dispatch = useDispatch();
     const router = useRouter();
@@ -16,7 +17,7 @@ const WithEdit = (
     const data = useSelector(fnSelectorData);
     const [hasBeenStarted, setHasBeenStarted] = useState(false);
     useEffect(() => {
-        dispatch(fnDispatch(router.query.id));
+        dispatch(fnDispatch(router.query[routerProperty]));
         setHasBeenStarted(true);
     }, []);
     useEffect(() => {

@@ -39,7 +39,7 @@ const AsociarInstructor = ({ usuarios }) => {
             dispatch(
                 crearAsociacion({
                     ...values,
-                    id_ficha: parseInt(router.query.id),
+                    id_ficha: parseInt(router.query.id_ficha),
                 }),
             );
         },
@@ -51,7 +51,7 @@ const AsociarInstructor = ({ usuarios }) => {
         <CustomForm
             formik={formik}
             title="Asociar Instructor"
-            pathToBack={`/dashboard/admin/fichas/${router.query.id}`}
+            pathToBack={`/dashboard/admin/fichas/${router.query.id_ficha}`}
         >
             <CustomSelect
                 formik={formik}

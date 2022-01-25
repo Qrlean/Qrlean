@@ -23,7 +23,7 @@ const Asociar = () => {
         dispatch(
             getUsuariosThatNotAreInFicha({
                 id_tipo_rol: formik.values.id_tipo_rol,
-                id_ficha: router.query.id,
+                id_ficha: router.query.id_ficha,
             }),
         );
     }, [formik.values.id_tipo_rol]);

@@ -10,7 +10,7 @@ const ItemListaAdmin = ({ data }) => {
     const handleDesasociar = () => {
         dispatch(
             desasociarUsuario({
-                id_ficha: router.query.id,
+                id_ficha: router.query.id_ficha,
                 id_usuario: data.usuario.id_usuario,
             }),
         );
