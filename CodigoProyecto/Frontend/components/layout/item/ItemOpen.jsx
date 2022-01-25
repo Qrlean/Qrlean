@@ -27,14 +27,17 @@ const ItemOpen = ({
 }) => {
     const router = useRouter();
     const [modal, setModal] = useState(false);
-    const deleteIsLoading = useSelector(fnSelectorLoading);
+    let deleteIsLoading;
+    if (fnSelectorLoading) {
+        deleteIsLoading = useSelector(fnSelectorLoading);
+    }
     const handleDelete = () => {
         onDelete(data[idProperty]);
         setModal(false);
     };
     return (
         <>
-            {trashIcon && (
+            {trashIcon && fnSelectorLoading && (
                 <Modal titulo={modalTitle} state={modal} setState={setModal}>
                     <div className="flex flex-col text-justify w-full h-full overflow-x-hidden overflow-y-auto">
                         <h2 className="text-center text-3xl text-gray-800 font-semibold my-4">

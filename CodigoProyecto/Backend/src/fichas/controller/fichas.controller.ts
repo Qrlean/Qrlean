@@ -35,10 +35,13 @@ export class FichasController {
         return this.fichasService.create(createFichaDto);
     }
 
-    @Roles(Role.Administrador)
+    @Roles(Role.Administrador, Role.Instructor, Role.Aprendiz)
     @Get()
-    findAll() {
-        return this.fichasService.findAll();
+    findAll(@Req() req) {
+        return this.fichasService.findAll(
+            req.user.id_tipo_rol,
+            req.user.id_usuario,
+        );
     }
 
     @Roles(Role.Administrador, Role.Instructor, Role.Aprendiz)

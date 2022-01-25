@@ -38,10 +38,36 @@ export class FichasService {
         });
     }
 
-    async findAll(): Promise<Ficha[]> {
-        return this.fichasRepository.find({
+    async findAll(id_rol?: number, id_usuario?: number): Promise<Ficha[]> {
+        let fichas: Ficha[];
+
+        fichas = await this.fichasRepository.find({
             relations: ['programa'],
         });
+        if (id_rol) {
+            switch (id_rol) {
+                case 1:
+                    fichas = await this.fichasRepository.find({
+                        relations: ['programa', 'usuarios'],
+                    });
+                    break;
+                case 2:
+                case 3:
+                    fichas = await this.fichasRepository.find({
+                        relations: ['programa', 'usuarios'],
+                        where: (qb) => {
+                            qb.where(
+                                '"Ficha__usuarios".id_usuario = :id_usuario',
+                                { id_usuario },
+                            );
+                        },
+                    });
+                    break;
+                default:
+                    throw new BadRequestException('El rol enviado no existe');
+            }
+            return fichas;
+        }
     }
 
     async findOne(id: number, id_rol?: number, id_usuario?: number) {
