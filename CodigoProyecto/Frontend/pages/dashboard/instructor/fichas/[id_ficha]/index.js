@@ -6,7 +6,6 @@ import Dashboard from '../../../../../components/layout/shared/Dashboard';
 import ItemLista from '../../../../../components/layout/fichas/ItemLista';
 import ItemMaterias from '../../../../../components/layout/fichas/ItemMaterias';
 import { ResponsivePie } from '@nivo/pie';
-// import { ResponsiveAreaBump } from '@nivo/bump'
 import { ResponsiveBar } from '@nivo/bar';
 import WithAuth from '../../../../../components/utils/WithAuth';
 
@@ -49,7 +48,7 @@ const Ficha = () => {
                             onClick={() =>
                                 router.push(
                                     '/dashboard/instructor/fichas/[ficha]/solicitudes',
-                                    `/dashboard/instructor/fichas/${router.query.ficha}/solicitudes`,
+                                    `/dashboard/instructor/fichas/${router.query.id_ficha}/solicitudes`,
                                 )
                             }
                         >
@@ -72,7 +71,7 @@ const Ficha = () => {
                                     router.push(
                                         '/dashboard/instructor/fichas/[ficha]/[materia]',
                                         `/dashboard/instructor/fichas/${
-                                            router.query.ficha
+                                            router.query.id_ficha
                                         }/${'Ingles'}`,
                                     )
                                 }
@@ -99,12 +98,6 @@ const Ficha = () => {
                             className="h-96  overflow-none rounded-lg shadow-lg md:mx-2 w-full md:w-5/12 "
                             style={{ border: '1px solid rgba(31, 41, 55,1)' }}
                         >
-                            {/* <ResponsiveAreaBump
-                        data={data2}
-                        margin={{ top: 40, right: 80, bottom: 40, left: 40 }}
-                        spacing={8}
-                        colors={{ scheme: 'nivo' }}
-                    /> */}
                             <ResponsiveBar
                                 data={data}
                                 margin={{
