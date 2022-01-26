@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
 import { AsignaturasService } from '../services/asignaturas.service';
 
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -9,18 +9,22 @@ import { Role } from '../../auth/roles/roles.enum';
 
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(Role.Administrador)
 @Controller('asignaturas')
 export class AsignaturasController {
     constructor(private readonly asignaturasService: AsignaturasService) {}
 
+    @Roles(Role.Administrador)
     @Get()
     findAll() {
         return this.asignaturasService.findAll();
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.asignaturasService.findOne(+id);
+    @Roles(Role.Instructor)
+    @Get('/asignaturaFicha/:id')
+    findOneAsignaturaFicha(@Req() req, @Param('id') id: string) {
+        return this.asignaturasService.findOneAsignaturaFicha(
+            +id,
+            req.user.id_usuario,
+        );
     }
 }

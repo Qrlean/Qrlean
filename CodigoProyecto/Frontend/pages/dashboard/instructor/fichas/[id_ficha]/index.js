@@ -1,27 +1,45 @@
 import React from 'react';
 
 import { useRouter } from 'next/router';
-import ItemPersonaAsistencia from '../../../../../components/layout/fichas/ItemPersonaAsistencia';
 import Dashboard from '../../../../../components/layout/shared/Dashboard';
 import ItemLista from '../../../../../components/layout/fichas/ItemLista';
 import ItemMaterias from '../../../../../components/layout/fichas/ItemMaterias';
-import { ResponsivePie } from '@nivo/pie';
 import { ResponsiveBar } from '@nivo/bar';
 import WithAuth from '../../../../../components/utils/WithAuth';
+import WithEdit from '../../../../../components/utils/WithEdit';
+import { getFichaById } from '../../../../../actions/teacherActions';
+import { useSelector } from 'react-redux';
 
 const Ficha = () => {
     const router = useRouter();
+    const dataFicha = useSelector((store) => store.teacher.fichaById.data);
+    const idInstructor = useSelector((store) => store.app.auth.user.id_usuario);
+    const asignaturaInstructor = dataFicha.asignaturas.find(
+        (x) => x.instructor.id_usuario === idInstructor,
+    );
     const data = [
+        {
+            id: 'Asistió con retardo',
+            label: 'Asistió con retardo',
+            value: dataFicha.asistenciaConRetardo,
+            color: 'hsl(151, 70%, 50%)',
+        },
         {
             id: 'Asistió',
             label: 'Asistió',
-            value: 90,
+            value: dataFicha.asistencia,
             color: 'hsl(151, 70%, 50%)',
         },
         {
             id: 'No asistió',
             label: 'No asistió',
-            value: 387,
+            value: dataFicha.inasistencia,
+            color: 'hsl(312, 70%, 50%)',
+        },
+        {
+            id: 'Por firmar',
+            label: 'Por firmar',
+            value: dataFicha.porFirmar,
             color: 'hsl(312, 70%, 50%)',
         },
     ];
@@ -35,7 +53,7 @@ const Ficha = () => {
                     onClick={() => router.push('/dashboard/instructor/fichas')}
                     style={{ zIndex: 999 }}
                 >
-                    <path d="M11.739,13.962c-0.087,0.086-0.199,0.131-0.312,0.131c-0.112,0-0.226-0.045-0.312-0.131l-3.738-3.736c-0.173-0.173-0.173-0.454,0-0.626l3.559-3.562c0.173-0.175,0.454-0.173,0.626,0c0.173,0.172,0.173,0.451,0,0.624l-3.248,3.25l3.425,3.426C11.911,13.511,11.911,13.789,11.739,13.962 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.148,3.374,7.521,7.521,7.521C14.147,17.521,17.521,14.148,17.521,10"></path>
+                    <path d="M11.739,13.962c-0.087,0.086-0.199,0.131-0.312,0.131c-0.112,0-0.226-0.045-0.312-0.131l-3.738-3.736c-0.173-0.173-0.173-0.454,0-0.626l3.559-3.562c0.173-0.175,0.454-0.173,0.626,0c0.173,0.172,0.173,0.451,0,0.624l-3.248,3.25l3.425,3.426C11.911,13.511,11.911,13.789,11.739,13.962 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.148,3.374,7.521,7.521,7.521C14.147,17.521,17.521,14.148,17.521,10" />
                 </svg>
                 <div className="col-span-4 xl:col-span-3 w-full lg:w-auto h-auto flex flex-col flex-start items-center overflow-y-visible xl:overflow-y-auto relative">
                     <div className="w-full lg:w-11/12 flex flex-row justify-center items-center ">
@@ -70,9 +88,7 @@ const Ficha = () => {
                                 onClick={() =>
                                     router.push(
                                         '/dashboard/instructor/fichas/[ficha]/[materia]',
-                                        `/dashboard/instructor/fichas/${
-                                            router.query.id_ficha
-                                        }/${'Ingles'}`,
+                                        `/dashboard/instructor/fichas/${router.query.id_ficha}/${asignaturaInstructor.id_asociacion_asignatura_ficha}`,
                                     )
                                 }
                                 xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +111,7 @@ const Ficha = () => {
                     </h1>
                     <div className="flex flex-row justify-center items-center w-11/12 md:w-full h-full flex-wrap">
                         <div
-                            className="h-96  overflow-none rounded-lg shadow-lg md:mx-2 w-full md:w-5/12 "
+                            className="h-96  overflow-none rounded-lg shadow-lg md:mx-2 w-full md:w-11/12 "
                             style={{ border: '1px solid rgba(31, 41, 55,1)' }}
                         >
                             <ResponsiveBar
@@ -115,56 +131,19 @@ const Ficha = () => {
                                 motionDamping={15}
                             />
                         </div>
-                        <div className="flex flex-col items-center justify-between h-96  md:mx-2 w-full md:w-5/12 my-2 md:my-none">
-                            <div
-                                className="w-full mb-1 rounded-lg shadow-lg"
-                                style={{
-                                    border: '1px solid rgba(31, 41, 55,1)',
-                                    height: '49%',
-                                }}
-                            >
-                                <ResponsivePie
-                                    margin={{ top: 40, bottom: 40 }}
-                                    data={data}
-                                    innerRadius={0.5}
-                                />
-                            </div>
-                            <div
-                                className="w-full mt-1 rounded-lg shadow-lg"
-                                style={{
-                                    border: '1px solid rgba(31, 41, 55,1)',
-                                    height: '49%',
-                                }}
-                            >
-                                <ResponsivePie
-                                    margin={{ top: 40, bottom: 40 }}
-                                    data={data}
-                                    innerRadius={0.5}
-                                />
-                            </div>
-                        </div>
                     </div>
                     <div className="my-12 w-full h-auto">
                         <h1 className="text-center text-3xl text-gray-800 mx-auto my-4">
                             Materias
                         </h1>
-                        {['Ingles', 'Matematicas', 'Español'].map((value) => (
+                        {dataFicha.asignaturas.map((x) => (
                             <ItemMaterias
-                                titulo={`${value}`}
+                                key={x.id_asociacion_asignatura_ficha}
+                                titulo={x.asignatura.nombre_asignatura}
                                 width="w-11/12"
-                                clases={['1.Programacion', '2.Diagramas']}
-                            ></ItemMaterias>
+                                clases={x.clases}
+                            />
                         ))}
-                    </div>
-                    <div className="flex flex-col justify-center items-center w-11/12 ">
-                        <h1 className="text-center text-3xl mx-auto my-4 w-auto border-red-500 text-gray-800 p-3 rounded shadow border-t-2">
-                            Aprendices en estado critico.
-                        </h1>
-                        <div className="flex flex-row items-center justify-center flex-wrap w-full">
-                            {[1, 2, 3, 4, 5].map(() => (
-                                <ItemPersonaAsistencia></ItemPersonaAsistencia>
-                            ))}
-                        </div>
                     </div>
                 </div>
 
@@ -172,8 +151,8 @@ const Ficha = () => {
                     <h1 className="text-gray-800 text-2xl my-4 text-center font-semibold">
                         Personas
                     </h1>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-                        <ItemLista></ItemLista>
+                    {dataFicha.usuarios.map((data) => (
+                        <ItemLista key={data.usuario.id_usuario} data={data} />
                     ))}
                 </div>
             </div>
@@ -181,4 +160,13 @@ const Ficha = () => {
     );
 };
 
-export default WithAuth({ rol: [2] })(Ficha);
+export default WithAuth({ rol: [2] })(
+    WithEdit(
+        Ficha,
+        getFichaById,
+        '/dashboard/instructor/fichas',
+        (store) => store.teacher.fichaById.state,
+        (store) => store.teacher.fichaById.data,
+        'id_ficha',
+    ),
+);

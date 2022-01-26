@@ -8,15 +8,17 @@ const ItemLista = ({ data }) => {
                 color="#FF914D"
                 size="50"
                 round={10}
-                name="camilo garcia"
+                name={`${data.usuario.nombres_usuario} 
+                    ${data.usuario.apellidos_usuario}`}
                 className="mx-2"
             />
             <div className="flex flex-col justify-center items-center flex-1">
                 <h1 className="text-center text-gray-800 mx-auto flex-1 text-base">
-                    Camilo García López
+                    {data.usuario.nombres_usuario}{' '}
+                    {data.usuario.apellidos_usuario}
                 </h1>
                 <p className="text-center text-gray-600 text-sm mx-auto">
-                    Instructor
+                    {data.usuario.id_tipo_rol === 2 ? 'Instructor' : 'Aprendiz'}
                 </p>
             </div>
         </div>

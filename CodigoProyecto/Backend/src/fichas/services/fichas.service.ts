@@ -78,12 +78,14 @@ export class FichasService {
         if (id_rol) {
             switch (id_rol) {
                 case 1:
+                case 2:
                     ficha = await this.fichasRepository.findOne(id, {
                         relations: [
                             'programa',
                             'usuarios',
                             'usuarios.usuario',
                             'asignaturas',
+                            'asignaturas.instructor',
                             'asignaturas.asignatura',
                             'asignaturas.clases',
                             'asignaturas.clases.asistencias',
@@ -97,11 +99,7 @@ export class FichasService {
                         ['asc', 'asc'],
                     );
                     break;
-                case 2:
-                    ficha = await this.fichasRepository.findOne(id, {
-                        relations: ['programa', 'usuarios'],
-                    });
-                    break;
+
                 case 3:
                     ficha = await this.fichasRepository.findOne(id, {
                         relations: ['programa', 'usuarios'],
