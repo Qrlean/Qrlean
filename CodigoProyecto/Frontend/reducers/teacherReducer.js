@@ -1,4 +1,7 @@
 import {
+    CREAR_CLASE_ERROR,
+    CREAR_CLASE_EXITO,
+    CREAR_CLASE_INIT,
     GET_ASIGNATURA_ERROR,
     GET_ASIGNATURA_EXITO,
     GET_ASIGNATURA_INIT,
@@ -26,6 +29,10 @@ const initialState = {
         state: null,
         loading: null,
         data: {},
+    },
+    crearClase: {
+        state: null,
+        loading: null,
     },
 };
 
@@ -74,6 +81,18 @@ export default function teacherReducer(state = initialState, action) {
         case GET_ASIGNATURA_ERROR:
             state.asignaturaById.state = 'error';
             state.asignaturaById.loading = false;
+            return state;
+        case CREAR_CLASE_INIT:
+            state.crearClase.state = 'loading';
+            state.crearClase.loading = true;
+            return state;
+        case CREAR_CLASE_EXITO:
+            state.crearClase.state = 'success';
+            state.crearClase.loading = false;
+            return state;
+        case CREAR_CLASE_ERROR:
+            state.crearClase.state = 'error';
+            state.crearClase.loading = false;
             return state;
         default:
             return state;

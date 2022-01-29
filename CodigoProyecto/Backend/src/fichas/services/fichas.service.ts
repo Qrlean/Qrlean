@@ -14,7 +14,6 @@ import { AsignaturasService } from '../../asignaturas/services/asignaturas.servi
 import { FichaUsuario } from '../entities/fichaUsuario.entity';
 import { AsociarUsuario } from '../dto/asociar-usuario.dto';
 import { AsignaturaFicha } from '../entities/asignaturaFichas.entity';
-import { LodashService } from '../../lodash/services/lodash.service';
 
 @Injectable()
 export class FichasService {
@@ -27,7 +26,6 @@ export class FichasService {
         private fichasUsuariosRepository: Repository<FichaUsuario>,
         @InjectRepository(AsignaturaFicha)
         private asignaturaFichaRepository: Repository<AsignaturaFicha>,
-        private lodashService: LodashService,
     ) {}
 
     async create(createFichaDto: CreateFichaDto): Promise<Ficha> {
@@ -92,12 +90,15 @@ export class FichasService {
                             'asignaturas.clases.asistencias.aprendiz',
                             'asignaturas.clases.asistencias.aprendiz.usuario',
                         ],
+                        where: (qb) => {
+                            qb.orderBy(
+                                '"Ficha__usuarios__usuario".id_tipo_rol',
+                            );
+                            qb.orderBy(
+                                '"Ficha__usuarios__usuario".nombres_usuario',
+                            );
+                        },
                     });
-                    ficha.usuarios = this.lodashService.orderBy(
-                        ficha.usuarios,
-                        ['usuario.id_tipo_rol', 'usuario.nombres_usuario'],
-                        ['asc', 'asc'],
-                    );
                     break;
 
                 case 3:

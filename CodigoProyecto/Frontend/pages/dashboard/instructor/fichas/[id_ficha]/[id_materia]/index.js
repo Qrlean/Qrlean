@@ -31,8 +31,8 @@ const Materia = () => {
                     }
                 />
                 <CreateButton
-                    title="Registrar nueva persona"
-                    path={`/dashboard/instructor/fichas/${router.query.id_ficha}/crear`}
+                    title="Crear clase"
+                    path={`/dashboard/instructor/fichas/${router.query.id_ficha}/${router.query.id_materia}/crear-clase`}
                 />
             </div>
             <div className="dashboard-index-body w-full overflow-x-hidden bg-gray-300 flex justify-center items-center flex-row flex-wrap relative">
@@ -96,7 +96,7 @@ const Materia = () => {
                             iconExpand={true}
                             trashIcon={true}
                             editIcon={true}
-                            routerDir="/dashboard/instructor/fichas/12/Ingles"
+                            routerDir={`/dashboard/instructor/fichas/${router.query.id_ficha}/${router.query.id_materia}`}
                             routerQuery="asignatura"
                             idProperty="id_clase"
                         />
@@ -111,7 +111,7 @@ export default WithAuth({ rol: [2] })(
     WithEdit(
         Materia,
         getAsignaturaById,
-        '/dashboard/instructor/fichas',
+        `/dashboard/instructor/fichas/`,
         (store) => store.teacher.asignaturaById.state,
         (store) => store.teacher.asignaturaById.data,
         'id_materia',

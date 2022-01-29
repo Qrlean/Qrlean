@@ -36,6 +36,7 @@ export class AsignaturasService {
                     '"AsignaturaFicha__instructor".id_usuario = :id_usuario',
                     { id_usuario },
                 );
+                qb.orderBy('"AsignaturaFicha__clases".dia', 'DESC');
             },
         });
         if (!asignatura) {

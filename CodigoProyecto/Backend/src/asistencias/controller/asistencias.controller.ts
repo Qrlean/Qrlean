@@ -1,45 +1,22 @@
-import {
-    Controller,
-    Get,
-    Post,
-    Body,
-    Patch,
-    Param,
-    Delete,
-} from '@nestjs/common';
+import { Body, Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { AsistenciasService } from '../services/asistencias.service';
-import { CreateAsistenciaDto } from '../dto/create-asistencia.dto';
-import { UpdateAsistenciaDto } from '../dto/update-asistencia.dto';
+import { CreateBulkAsistenciaDto } from '../dto/create-bulk-asistencia.dto';
 
 @Controller('asistencias')
 export class AsistenciasController {
     constructor(private readonly asistenciasService: AsistenciasService) {}
 
-    @Post()
-    create(@Body() createAsistenciaDto: CreateAsistenciaDto) {
-        return this.asistenciasService.create(createAsistenciaDto);
-    }
-
-    @Get()
-    findAll() {
-        return this.asistenciasService.findAll();
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.asistenciasService.findOne(+id);
-    }
-
-    @Patch(':id')
-    update(
-        @Param('id') id: string,
-        @Body() updateAsistenciaDto: UpdateAsistenciaDto,
+    @Post('bulk/clase/:id_clase')
+    createBulk(
+        @Body() createAsistenciaBulkDto: CreateBulkAsistenciaDto,
+        @Param('id_clase', ParseIntPipe) id_clase: number,
     ) {
-        return this.asistenciasService.update(+id, updateAsistenciaDto);
+        return this.asistenciasService.signAsistencias(
+            id_clase,
+            createAsistenciaBulkDto,
+        );
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.asistenciasService.remove(+id);
-    }
+    // @Post
+    // createAprendiz() {}
 }

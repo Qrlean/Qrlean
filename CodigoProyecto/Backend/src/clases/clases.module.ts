@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ClasesService } from './services/clases.service';
 import { ClasesController } from './controller/clases.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -7,6 +7,7 @@ import { AsignaturaFicha } from '../fichas/entities/asignaturaFichas.entity';
 import { TimeModule } from 'src/time/time.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CorreoModule } from 'src/correo/correo.module';
+import { AsistenciasModule } from 'src/asistencias/asistencias.module';
 
 @Module({
     imports: [
@@ -14,9 +15,11 @@ import { CorreoModule } from 'src/correo/correo.module';
         TimeModule,
         ScheduleModule.forRoot(),
         CorreoModule,
+        // AsistenciasModule,
+        forwardRef(() => AsistenciasModule),
     ],
     controllers: [ClasesController],
     providers: [ClasesService],
-    exports: [ClasesService],
+    exports: [ClasesService, TypeOrmModule],
 })
 export class ClasesModule {}

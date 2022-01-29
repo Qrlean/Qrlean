@@ -1,5 +1,7 @@
 import {
     BadRequestException,
+    forwardRef,
+    Inject,
     Injectable,
     NotFoundException,
     UnauthorizedException,
@@ -14,6 +16,7 @@ import { SchedulerRegistry } from '@nestjs/schedule';
 import { CorreoService } from '../../correo/services/correo.service';
 import { CronJob } from 'cron';
 import { Templates } from '../../correo/enum/templates.enum';
+import { AsistenciasService } from '../../asistencias/services/asistencias.service';
 
 @Injectable()
 export class ClasesService {
@@ -24,6 +27,8 @@ export class ClasesService {
         private timeService: TimeService,
         private schedulerRegistry: SchedulerRegistry,
         private correoService: CorreoService,
+        @Inject(forwardRef(() => AsistenciasService))
+        private asistenciasService: AsistenciasService,
     ) {}
 
     async create(
@@ -136,6 +141,11 @@ export class ClasesService {
                     },
                     'Tu tiempo se acaba',
                     Templates.newClass,
+                );
+                await this.asistenciasService.createAsistencia(
+                    user.id_asociacion_usuario_ficha,
+                    claseSaved.id_clase,
+                    1,
                 );
             }
         }

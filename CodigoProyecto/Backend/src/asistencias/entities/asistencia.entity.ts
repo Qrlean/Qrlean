@@ -14,8 +14,12 @@ export class Asistencia {
     @PrimaryGeneratedColumn()
     id_asistencia: number;
 
-    @Column({ type: 'timestamptz' })
-    hora_firmada: string;
+    @Column({
+        type: 'timestamptz',
+        nullable: true,
+        default: () => 'CURRENT_TIMESTAMP',
+    })
+    hora_firmada: Date;
 
     @Column()
     id_clase: number;

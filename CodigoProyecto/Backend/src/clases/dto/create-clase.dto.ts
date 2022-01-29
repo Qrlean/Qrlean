@@ -1,5 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsISO8601, IsMilitaryTime, IsString } from 'class-validator';
+import {
+    IsBoolean,
+    IsISO8601,
+    IsMilitaryTime,
+    IsString,
+} from 'class-validator';
 
 export class CreateClaseDto {
     @ApiProperty()
@@ -17,4 +22,8 @@ export class CreateClaseDto {
     @ApiProperty()
     @IsMilitaryTime()
     hora_final: string;
+
+    @ApiProperty()
+    @IsBoolean()
+    qr_available: boolean;
 }

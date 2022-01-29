@@ -6,9 +6,6 @@ import Dashboard from '../../../../components/layout/shared/Dashboard';
 import Item from '../../../../components/layout/item/Item';
 
 import Loader from 'react-loader-spinner';
-
-import SearchButton from '../../../../components/layout/shared/SearchButton';
-
 import { NextSeo } from 'next-seo';
 import WithAuth from '../../../../components/utils/WithAuth';
 import ArrowBack from '../../../../components/layout/shared/ArrowBack';
