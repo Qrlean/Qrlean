@@ -4,9 +4,15 @@ import {
     CREAR_CLASE_ERROR,
     CREAR_CLASE_EXITO,
     CREAR_CLASE_INIT,
+    CREATE_ASISTENCIA_CLASE_ERROR,
+    CREATE_ASISTENCIA_CLASE_EXITO,
+    CREATE_ASISTENCIA_CLASE_INIT,
     GET_ASIGNATURA_ERROR,
     GET_ASIGNATURA_EXITO,
     GET_ASIGNATURA_INIT,
+    GET_ASISTENCIAS_CLASE_ERROR,
+    GET_ASISTENCIAS_CLASE_EXITO,
+    GET_ASISTENCIAS_CLASE_INIT,
     GET_FICHAINSTRUCTOR_EDITAR_ERROR,
     GET_FICHAINSTRUCTOR_EDITAR_EXITO,
     GET_FICHAINSTRUCTOR_EDITAR_INIT,
@@ -108,7 +114,6 @@ const getAsignaturaFnError = (payload) => ({
     payload,
 });
 export const createClase = (payload) => {
-    console.log(payload);
     return async (dispatch) => {
         try {
             dispatch(createClaseFn());
@@ -142,5 +147,73 @@ const createClaseFnExito = (payload) => ({
 });
 const createClaseFnError = (payload) => ({
     type: CREAR_CLASE_ERROR,
+    payload,
+});
+export const getAsistenciasClase = (payload) => {
+    return async (dispatch) => {
+        try {
+            dispatch(getAsistenciasClaseFn());
+            const res = await client.get(
+                `/asistencias/getAsistenciasByClase/${payload}`,
+            );
+            dispatch(getAsistenciasClaseFnExito(res.data));
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(getAsistenciasClaseFnError(e.response.data.message));
+        }
+    };
+};
+
+const getAsistenciasClaseFn = () => ({
+    type: GET_ASISTENCIAS_CLASE_INIT,
+});
+
+const getAsistenciasClaseFnExito = (payload) => ({
+    type: GET_ASISTENCIAS_CLASE_EXITO,
+    payload,
+});
+const getAsistenciasClaseFnError = (payload) => ({
+    type: GET_ASISTENCIAS_CLASE_ERROR,
+    payload,
+});
+export const createAsistencias = (payload) => {
+    console.log(payload);
+    return async (dispatch) => {
+        try {
+            dispatch(createAsistenciasFn());
+            const res = await client.post(
+                `/asistencias/bulk/clase/${payload.id_clase}`,
+                payload,
+            );
+            await Router.push(
+                `/dashboard/instructor/fichas/${Router.query.id_ficha}/${Router.query.id_materia}`,
+            );
+            toast.success('Asistencia guardada con exito');
+            dispatch(createAsistenciasFnExito(res.data));
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(createAsistenciasFnError(e.response.data.message));
+        }
+    };
+};
+
+const createAsistenciasFn = () => ({
+    type: CREATE_ASISTENCIA_CLASE_INIT,
+});
+
+const createAsistenciasFnExito = (payload) => ({
+    type: CREATE_ASISTENCIA_CLASE_EXITO,
+    payload,
+});
+const createAsistenciasFnError = (payload) => ({
+    type: CREATE_ASISTENCIA_CLASE_ERROR,
     payload,
 });

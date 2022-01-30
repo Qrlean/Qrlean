@@ -6,6 +6,7 @@ import {
     JoinColumn,
     ManyToOne,
     PrimaryGeneratedColumn,
+    UpdateDateColumn,
 } from 'typeorm';
 import { Clase } from '../../clases/entities/clase.entity';
 
@@ -14,11 +15,7 @@ export class Asistencia {
     @PrimaryGeneratedColumn()
     id_asistencia: number;
 
-    @Column({
-        type: 'timestamptz',
-        nullable: true,
-        default: () => 'CURRENT_TIMESTAMP',
-    })
+    @UpdateDateColumn()
     hora_firmada: Date;
 
     @Column()

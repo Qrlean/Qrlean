@@ -3,10 +3,14 @@ import Dashboard from '../../../../../../components/layout/shared/Dashboard';
 import WithAuth from '../../../../../../components/utils/WithAuth';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsuariosThatNotAreInFicha } from '../../../../../../actions/adminActions';
+import {
+    getFichaById,
+    getUsuariosThatNotAreInFicha,
+} from '../../../../../../actions/adminActions';
 import AsociarAprendiz from '../../../../../../components/layout/fichas/AsociarAprendiz';
 import AsociarInstructor from '../../../../../../components/layout/fichas/AsociarInstructor';
 import { useRouter } from 'next/router';
+import WithGetOrRedirect from '../../../../../../components/utils/WithGetOrRedirect';
 
 const Asociar = () => {
     const formik = useFormik({
@@ -54,4 +58,13 @@ const Asociar = () => {
     );
 };
 
-export default WithAuth({ rol: [1] })(Asociar);
+export default WithAuth({ rol: [1] })(
+    WithGetOrRedirect(
+        Asociar,
+        getFichaById,
+        (router) => router.push('/dashboard/admin/fichas'),
+        (store) => store.admin.fichaById.state,
+        (store) => store.admin.fichaById.data,
+        'id_ficha',
+    ),
+);

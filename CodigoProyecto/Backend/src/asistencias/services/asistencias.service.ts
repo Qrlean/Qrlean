@@ -4,6 +4,7 @@ import {
     Inject,
     Injectable,
     NotFoundException,
+    UnauthorizedException,
 } from '@nestjs/common';
 import { CreateBulkAsistenciaDto } from '../dto/create-bulk-asistencia.dto';
 import { ClasesService } from '../../clases/services/clases.service';
@@ -24,15 +25,20 @@ export class AsistenciasService {
 
     async signAsistencias(
         id_clase: number,
+        id_instructor: number,
         createAsistenciaBulkDto: CreateBulkAsistenciaDto,
     ): Promise<void> {
-        const clase = await this.clasesService.findOne(id_clase, null, [
-            'asignatura.ficha',
-            'asignatura.ficha.usuarios',
-            'asignatura.ficha.usuarios.usuario',
-            'asistencias.aprendiz',
-            'asistencias.aprendiz.usuario',
-        ]);
+        const clase = await this.clasesService.findOne(
+            id_clase,
+            id_instructor,
+            [
+                'asignatura.ficha',
+                'asignatura.ficha.usuarios',
+                'asignatura.ficha.usuarios.usuario',
+                'asistencias.aprendiz',
+                'asistencias.aprendiz.usuario',
+            ],
+        );
         for (const usuario of createAsistenciaBulkDto.asistencias) {
             const exitsUser = clase.asignatura.ficha.usuarios.find(
                 (x) =>
@@ -46,11 +52,13 @@ export class AsistenciasService {
                 );
             }
             let assistance: Asistencia;
+            console.log({ clase, usuario });
             assistance = await clase.asistencias.find(
                 (x) =>
                     x.id_aprendiz === usuario.id_asociacion_usuario_ficha &&
                     x.aprendiz.usuario.id_tipo_rol === 3,
             );
+            console.log(assistance);
             if (assistance) {
                 assistance.id_tipo_asistencia = usuario.id_tipo_asistencia;
             } else {
@@ -132,5 +140,46 @@ export class AsistenciasService {
             id_tipo_asistencia,
         });
         return this.asistenciaRepository.save(newAsistencia);
+    }
+    async getAsistenciasByClase(
+        id_clase: number,
+        id_instructor,
+    ): Promise<Asistencia[]> {
+        const asistenciasWUser = await this.asistenciaRepository.find({
+            relations: [
+                'aprendiz',
+                'aprendiz.usuario',
+                'clase',
+                'clase.asignatura',
+                'clase.asignatura.instructor',
+                'tipoAsistencia',
+            ],
+            where: {
+                id_clase,
+            },
+        });
+        const asistencias = await this.asistenciaRepository.find({
+            relations: [
+                'aprendiz',
+                'aprendiz.usuario',
+                'clase',
+                'tipoAsistencia',
+            ],
+            where: {
+                id_clase,
+            },
+        });
+        if (asistenciasWUser.length === 0) {
+            throw new BadRequestException('No existe la clase requerida');
+        }
+        if (
+            asistenciasWUser[0].clase.asignatura.instructor.id_usuario !==
+            id_instructor
+        ) {
+            throw new UnauthorizedException(
+                'El usuario no tiene acceso a esta clase',
+            );
+        }
+        return asistencias;
     }
 }

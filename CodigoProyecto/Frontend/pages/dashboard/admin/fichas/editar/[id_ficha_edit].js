@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import WithAuth from '../../../../../components/utils/WithAuth';
 import CustomSelect from '../../../../../components/layout/shared/CustomSelect';
 import SubmitButton from '../../../../../components/layout/shared/SubmitButton';
-import WithEdit from '../../../../../components/utils/WithEdit';
+import WithGetOrRedirect from '../../../../../components/utils/WithGetOrRedirect';
 import {
     editarFicha,
     getFichaById,
@@ -73,10 +73,10 @@ const EditarFicha = ({ data }) => {
     );
 };
 export default WithAuth({ rol: [1] })(
-    WithEdit(
+    WithGetOrRedirect(
         EditarFicha,
         getFichaById,
-        '/dashboard/admin/fichas',
+        (router) => router.push('/dashboard/admin/fichas'),
         (store) => store.admin.fichaById.state,
         (store) => store.admin.fichaById.data,
         'id_ficha_edit',

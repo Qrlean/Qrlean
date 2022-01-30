@@ -40,7 +40,7 @@ const AsociarAprendiz = ({ usuarios }) => {
         <CustomForm
             formik={formik}
             title="Asociar aprendiz"
-            pathToBack={`/dashboard/admin/fichas/${router.query.id}`}
+            pathToBack={`/dashboard/admin/fichas/${router.query.id_ficha}`}
         >
             <CustomSelect
                 formik={formik}

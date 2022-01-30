@@ -17,11 +17,11 @@ const Features = ({ children, ...rest }) => {
             <motion.div
                 initial={{ rotate: -8 }}
                 className="shadow-lg absolute h-80 bg-orange-500 w-full rounded-lg"
-            ></motion.div>
+            />
             <motion.div
                 initial={{ rotate: 5 }}
                 className="shadow-lg h-80 bg-darkorange-300 w-full rounded-lg"
-            ></motion.div>
+            />
         </Plx>
     );
 };

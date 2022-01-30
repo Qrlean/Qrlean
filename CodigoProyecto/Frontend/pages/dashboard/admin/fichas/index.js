@@ -19,8 +19,8 @@ const Fichas = () => {
         dispatch(getFichas());
     }, []);
     const data = useSelector((store) => store.admin.fichas.data);
-    const error = false;
-    const loader = false;
+    const error = useSelector((store) => store.admin.fichas.error);
+    const loader = useSelector((store) => store.admin.fichas.loading);
     const router = useRouter();
     return (
         <>

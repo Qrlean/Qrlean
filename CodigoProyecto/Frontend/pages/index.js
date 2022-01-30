@@ -18,6 +18,7 @@ import Plan from '../svg/undraw_quiz_nlyh.svg';
 import Analytics from '../svg/undraw_meet_the_team_e5b7.svg';
 import Review from '../svg/undraw_Online_page_re_lhgx.svg';
 import Newsletter from '../svg/undraw_Newsletter_re_wrob.svg';
+import DoubleChuloIcon from '../svg/doublechulo.svg';
 
 const parallaxVideo = [
     {
@@ -190,17 +191,7 @@ const IndexContent = () => {
                     <div>
                         <div className="flex flex-row items-center justify-center">
                             <div className="mx-4">
-                                <svg
-                                    viewBox="0 0 16 16"
-                                    className="fill-current text-red-700 w-10 h-10"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
-                                    />
-                                    <path d="M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z" />
-                                </svg>
+                                <DoubleChuloIcon className="fill-current text-red-700 w-10 h-10" />
                             </div>
                             <h1 className="text-gray-800 text-4xl text-center w-full font-semibold">
                                 Características
@@ -210,7 +201,7 @@ const IndexContent = () => {
                         <div
                             className="bg-red-500 w-24 my-4 mx-auto"
                             style={{ minHeight: '2px', height: '2px' }}
-                        ></div>
+                        />
                     </div>
                 </Plx>
 
@@ -317,7 +308,7 @@ const IndexContent = () => {
                 <Plx
                     parallaxData={parallaxLayout}
                     className="bg-orange-500 w-1/3 self-end h-full"
-                ></Plx>
+                />
                 <Plx
                     parallaxData={parallaxDivVideo}
                     className="h-11/12 w-11/12 mx-auto flex flex-col justify-center items-center absolute"
@@ -329,12 +320,12 @@ const IndexContent = () => {
                         className="bg-red-500 w-24 mt-4 mb-8"
                         ref={divRef}
                         style={{ minHeight: '2px', height: '2px' }}
-                    ></div>
+                    />
                     <ReactPlayer
                         url="https://www.youtube.com/watch?v=YO8DCG95Fp4&ab_channel=FernandoHerrera"
                         controls={false}
                         className="w-full h-9/12"
-                    ></ReactPlayer>
+                    />
                 </Plx>
             </Plx>
 

@@ -9,7 +9,7 @@ import WithAuth from '../../../../../components/utils/WithAuth';
 import CustomInput from '../../../../../components/layout/shared/CustomInput';
 import CustomSelect from '../../../../../components/layout/shared/CustomSelect';
 import SubmitButton from '../../../../../components/layout/shared/SubmitButton';
-import WithEdit from '../../../../../components/utils/WithEdit';
+import WithGetOrRedirect from '../../../../../components/utils/WithGetOrRedirect';
 import {
     editarUsuario,
     getCiudades,
@@ -182,10 +182,10 @@ const EditarPersona = ({ data }) => {
 };
 
 export default WithAuth({ rol: [1] })(
-    WithEdit(
+    WithGetOrRedirect(
         EditarPersona,
         getUsuarioById,
-        '/dashboard/admin/personas',
+        (router) => router.push('/dashboard/admin/personas'),
         (store) => store.admin.users.editUser.state,
         (store) => store.admin.users.editUser.data,
         'id_persona_edit',

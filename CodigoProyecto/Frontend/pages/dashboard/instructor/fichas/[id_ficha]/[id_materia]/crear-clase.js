@@ -16,7 +16,12 @@ import CustomInput from '../../../../../../components/layout/shared/CustomInput'
 import CustomDateInput from '../../../../../../components/layout/shared/CustomDateInput';
 import CustomSelect from '../../../../../../components/layout/shared/CustomSelect';
 import { useDispatch, useSelector } from 'react-redux';
-import { createClase } from '../../../../../../actions/teacherActions';
+import {
+    createClase,
+    getAsignaturaById,
+    getFichaById,
+} from '../../../../../../actions/teacherActions';
+import WithGetOrRedirect from '../../../../../../components/utils/WithGetOrRedirect';
 
 const validationSchema = Yup.object().shape({
     nombre_clase: Yup.string()
@@ -158,4 +163,23 @@ const CrearClase = () => {
     );
 };
 
-export default WithAuth({ rol: [2] })(CrearClase);
+export default WithAuth({ rol: [2] })(
+    WithGetOrRedirect(
+        WithGetOrRedirect(
+            CrearClase,
+            getAsignaturaById,
+            (router) =>
+                router.push(
+                    `/dashboard/instructor/fichas/${router.query.id_ficha}`,
+                ),
+            (store) => store.teacher.asignaturaById.state,
+            (store) => store.teacher.asignaturaById.data,
+            'id_materia',
+        ),
+        getFichaById,
+        (router) => router.push(`/dashboard/instructor/fichas/`),
+        (store) => store.teacher.fichaById.state,
+        (store) => store.teacher.fichaById.data,
+        'id_ficha',
+    ),
+);
