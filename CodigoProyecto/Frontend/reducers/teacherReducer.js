@@ -5,6 +5,9 @@ import {
     CREATE_ASISTENCIA_CLASE_ERROR,
     CREATE_ASISTENCIA_CLASE_EXITO,
     CREATE_ASISTENCIA_CLASE_INIT,
+    ELIMINAR_CLASE_ERROR,
+    ELIMINAR_CLASE_EXITO,
+    ELIMINAR_CLASE_INIT,
     GET_ASIGNATURA_ERROR,
     GET_ASIGNATURA_EXITO,
     GET_ASIGNATURA_INIT,
@@ -46,6 +49,10 @@ const initialState = {
         data: [],
     },
     crearAsitencia: {
+        state: null,
+        loading: null,
+    },
+    deleteClase: {
         state: null,
         loading: null,
     },
@@ -136,6 +143,21 @@ export default function teacherReducer(state = initialState, action) {
         case CREATE_ASISTENCIA_CLASE_ERROR:
             state.crearAsitencia.state = 'error';
             state.crearAsitencia.loading = false;
+            return state;
+        case ELIMINAR_CLASE_INIT:
+            state.deleteClase.state = 'loading';
+            state.deleteClase.loading = true;
+            return state;
+        case ELIMINAR_CLASE_ERROR:
+            state.deleteClase.state = 'success';
+            state.deleteClase.loading = false;
+            return state;
+        case ELIMINAR_CLASE_EXITO:
+            state.asignaturaById.data.clases = state.asignaturaById.data.clases.filter(
+                (x) => x.id_clase !== action.payload,
+            );
+            state.deleteClase.state = 'error';
+            state.deleteClase.loading = false;
             return state;
         default:
             return state;

@@ -7,13 +7,16 @@ import Dashboard from '../../../../../../components/layout/shared/Dashboard';
 import WithAuth from '../../../../../../components/utils/WithAuth';
 import WithGetOrRedirect from '../../../../../../components/utils/WithGetOrRedirect';
 import {
+    eliminarClase,
     getAsignaturaById,
     getFichaById,
 } from '../../../../../../actions/teacherActions';
 import ArrowBack from '../../../../../../components/layout/shared/ArrowBack';
 import CreateButton from '../../../../../../components/layout/shared/CreateButton';
+import { useDispatch } from 'react-redux';
 
 const Clases = ({ data }) => {
+    const dispatch = useDispatch();
     const router = useRouter();
     return (
         <Dashboard>
@@ -78,7 +81,7 @@ const Clases = ({ data }) => {
                     editIcon={false}
                     modalText="Eliminar clase"
                     modalTitle="Eliminar clase"
-                    onDelete={console.log}
+                    onDelete={(e) => dispatch(eliminarClase(e))}
                     fnSelectorLoading={(store) =>
                         store.admin.users.deleteUser.loading
                     }

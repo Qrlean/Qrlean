@@ -7,6 +7,9 @@ import {
     CREATE_ASISTENCIA_CLASE_ERROR,
     CREATE_ASISTENCIA_CLASE_EXITO,
     CREATE_ASISTENCIA_CLASE_INIT,
+    ELIMINAR_CLASE_ERROR,
+    ELIMINAR_CLASE_EXITO,
+    ELIMINAR_CLASE_INIT,
     GET_ASIGNATURA_ERROR,
     GET_ASIGNATURA_EXITO,
     GET_ASIGNATURA_INIT,
@@ -215,5 +218,35 @@ const createAsistenciasFnExito = (payload) => ({
 });
 const createAsistenciasFnError = (payload) => ({
     type: CREATE_ASISTENCIA_CLASE_ERROR,
+    payload,
+});
+
+export const eliminarClase = (payload) => {
+    return async (dispatch) => {
+        try {
+            dispatch(eliminarClaseFn());
+            await client.delete(`/clases/${payload}`);
+            dispatch(eliminarClaseFnExito(payload));
+            toast.success('Clase eliminada con exito.');
+        } catch (e) {
+            toast.error(
+                Array.isArray(e.response.data.message)
+                    ? e.response.data.message[0]
+                    : e.response.data.message,
+            );
+            dispatch(eliminarClaseFnError(e.response.data.message));
+        }
+    };
+};
+
+const eliminarClaseFn = () => ({
+    type: ELIMINAR_CLASE_INIT,
+});
+const eliminarClaseFnExito = (payload) => ({
+    type: ELIMINAR_CLASE_EXITO,
+    payload,
+});
+const eliminarClaseFnError = (payload) => ({
+    type: ELIMINAR_CLASE_ERROR,
     payload,
 });

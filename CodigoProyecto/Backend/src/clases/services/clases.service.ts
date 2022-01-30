@@ -246,7 +246,7 @@ export class ClasesService {
             )
         )
             this.schedulerRegistry.deleteCronJob(`${clase.id_clase}-sysAdvice`);
-        await this.clasesRepository.delete(clase);
+        await this.clasesRepository.remove(clase);
         return;
     }
 }
