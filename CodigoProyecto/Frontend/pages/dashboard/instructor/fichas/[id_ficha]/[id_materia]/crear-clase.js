@@ -41,14 +41,13 @@ const CrearClase = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const isLoading = useSelector((store) => store.teacher.crearClase.loading);
-    console.log(isLoading);
     const formik = useFormik({
         initialValues: {
             nombre_clase: '',
             dia: '',
             hora_inicio: '',
             hora_final: '',
-            qr_available: true,
+            qr_available: 1,
         },
         onSubmit: (values) => {
             dispatch(
@@ -60,6 +59,8 @@ const CrearClase = () => {
         },
         validationSchema,
     });
+    console.log(formik.values.dia === Moment().format('yyyy-MM-DD'));
+
     return (
         <Dashboard>
             <CustomForm
@@ -105,8 +106,16 @@ const CrearClase = () => {
                         value={formik.values.hora_inicio}
                         name="hora_inicio"
                         id="hora_inicio"
-                        minTime={Date.now()}
-                        maxTime={setHours(setMinutes(new Date(), 59), 23)}
+                        minTime={
+                            formik.values.dia === Moment().format('yyyy-MM-DD')
+                                ? Date.now()
+                                : null
+                        }
+                        maxTime={
+                            formik.values.dia === Moment().format('yyyy-MM-DD')
+                                ? setHours(setMinutes(new Date(), 59), 23)
+                                : null
+                        }
                         showTimeSelect
                         showTimeSelectOnly
                         timeCaption="Time"
@@ -131,8 +140,16 @@ const CrearClase = () => {
                         value={formik.values.hora_final}
                         name="hora_final"
                         id="hora_final"
-                        minTime={Date.now()}
-                        maxTime={setHours(setMinutes(new Date(), 59), 23)}
+                        minTime={
+                            formik.values.dia === Moment().format('yyyy-MM-DD')
+                                ? Date.now()
+                                : null
+                        }
+                        maxTime={
+                            formik.values.dia === Moment().format('yyyy-MM-DD')
+                                ? setHours(setMinutes(new Date(), 59), 23)
+                                : null
+                        }
                         showTimeSelect
                         showTimeSelectOnly
                         timeCaption="Time"
@@ -148,8 +165,8 @@ const CrearClase = () => {
                     title={'Permite asistencia por qr'}
                     wEmptyOption={false}
                     options={[
-                        { name: 'Si permite', value: true },
-                        { name: 'No permite', value: false },
+                        { name: 'Si permite', value: 1 },
+                        { name: 'No permite', value: 0 },
                     ]}
                 />
                 <SubmitButton

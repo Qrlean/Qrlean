@@ -42,7 +42,7 @@ export class Ficha {
         if (this.asignaturas) {
             this.asignaturas.forEach((x) =>
                 x.clases.map((x) => {
-                    x.asistencias.map((x) => {
+                    x.asistencias?.map((x) => {
                         switch (x.id_tipo_asistencia) {
                             case 1:
                                 this.porFirmar += 1;

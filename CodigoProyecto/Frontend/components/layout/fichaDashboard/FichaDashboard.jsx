@@ -42,6 +42,12 @@ const FichaDashboard = ({ data, isAdmin = false, pathToBack }) => {
             value: data.porFirmar,
             color: 'hsl(312, 70%, 50%)',
         },
+        {
+            id: 'Inasistencia con excusa',
+            label: 'Inasistencia con excusa',
+            value: data.inasistenciaConExcusa,
+            color: 'hsl(312, 70%, 50%)',
+        },
     ];
     return (
         <>

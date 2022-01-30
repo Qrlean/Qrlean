@@ -14,6 +14,7 @@ import { AsignaturasService } from '../../asignaturas/services/asignaturas.servi
 import { FichaUsuario } from '../entities/fichaUsuario.entity';
 import { AsociarUsuario } from '../dto/asociar-usuario.dto';
 import { AsignaturaFicha } from '../entities/asignaturaFichas.entity';
+import { Asistencia } from '../../asistencias/entities/asistencia.entity';
 
 @Injectable()
 export class FichasService {
@@ -103,13 +104,35 @@ export class FichasService {
 
                 case 3:
                     ficha = await this.fichasRepository.findOne(id, {
-                        relations: ['programa', 'usuarios'],
+                        relations: [
+                            'programa',
+                            // 'usuarios',
+                            'asignaturas',
+                            'asignaturas.asignatura',
+                            'asignaturas.clases',
+                            // 'asignaturas.clases.asistencias',
+                        ],
+                        where: (qb) => {
+                            qb.leftJoinAndMapMany(
+                                'Ficha.usuarios',
+                                FichaUsuario,
+                                'fu',
+                                '"Ficha".id_ficha = fu.id_ficha AND fu.id_usuario = :id_usuario',
+                                { id_usuario },
+                            );
+                            qb.leftJoinAndMapMany(
+                                'Ficha__asignaturas__clases.asistencias',
+                                Asistencia,
+                                'a',
+                                '"Ficha__asignaturas__clases".id_clase = a.id_clase AND fu.id_usuario = a.id_aprendiz',
+                            );
+                        },
                     });
                     break;
                 default:
                     throw new BadRequestException('El rol enviado no existe');
             }
-            if ((ficha && id_rol === 2) || id_rol === 3) {
+            if (ficha && (id_rol === 2 || id_rol === 3)) {
                 if (!ficha.usuarios.find((x) => x.id_usuario === id_usuario)) {
                     throw new UnauthorizedException(
                         'El usuario no posee el permiso ver para esta ficha',

@@ -118,6 +118,7 @@ const getAsignaturaFnError = (payload) => ({
 });
 export const createClase = (payload) => {
     return async (dispatch) => {
+        payload.qr_available = payload.qr_available === 1;
         try {
             dispatch(createClaseFn());
             const res = await client.post(
