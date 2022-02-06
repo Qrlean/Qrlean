@@ -25,6 +25,6 @@ export class TimeService {
         return dateY.diff(dateX) >= 1800000;
     }
     diffBetweenMoments(dateX: moment.Moment, dateY: moment.Moment): number {
-        return dateX.diff(dateY);
+        return dateX.diff(dateY, null, true);
     }
 }
