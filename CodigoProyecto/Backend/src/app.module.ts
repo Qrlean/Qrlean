@@ -11,7 +11,6 @@ import { TimeModule } from './time/time.module';
 import { AsistenciasModule } from './asistencias/asistencias.module';
 import { ProgramasModule } from './programas/programas.module';
 import { CiudadesModule } from './ciudades/ciudades.module';
-import { LodashModule } from './lodash/lodash.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -44,7 +43,6 @@ import { LodashModule } from './lodash/lodash.module';
         AsistenciasModule,
         ProgramasModule,
         CiudadesModule,
-        LodashModule,
     ],
     controllers: [],
     providers: [],
