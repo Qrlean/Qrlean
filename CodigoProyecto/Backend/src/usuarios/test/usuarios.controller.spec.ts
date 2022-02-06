@@ -65,4 +65,13 @@ describe('UsuariosController', () => {
             expect(spyUsuariosService.findOne).toHaveBeenCalled();
         });
     });
+    describe('UsuariosController.findThatNotAreInFicha', () => {
+        it('Debe llamar al metodo "findOne" del servicio "UsuariosService', async () => {
+            const params = { id_ficha: 1, byTipoRol: 1 };
+            await controller.findThatNotAreInFicha(params);
+            expect(
+                spyUsuariosService.getUsersThatNotAreInFicha,
+            ).toHaveBeenCalled();
+        });
+    });
 });

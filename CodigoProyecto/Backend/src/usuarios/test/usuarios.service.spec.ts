@@ -53,6 +53,19 @@ describe('UsuariosService', () => {
     it('El Servicio "Usuarios" es definido', () => {
         expect(service).toBeDefined();
     });
+    const userModelExpect = {
+        id_usuario: expect.any(Number),
+        nombres_usuario: expect.any(String),
+        apellidos_usuario: expect.any(String),
+        numero_documento: expect.any(Number),
+        emailInstitucional: expect.any(String),
+        direccion_residencial: expect.any(String),
+        telefono_movil: expect.any(Number),
+        password: expect.any(String),
+        id_tipo_documento: expect.any(Number),
+        id_tipo_rol: expect.any(Number),
+        id_ciudad: expect.any(Number),
+    };
     describe('UsuariosService.create', () => {
         beforeEach(() => {
             jest.spyOn(spyServiceRepository, 'findOne');
@@ -65,19 +78,7 @@ describe('UsuariosService', () => {
             const output = await service.create(usuario);
             expect(output).toBeInstanceOf(Usuario);
             console.log(output);
-            expect(output).toMatchObject({
-                id_usuario: expect.any(Number),
-                nombres_usuario: expect.any(String),
-                apellidos_usuario: expect.any(String),
-                numero_documento: expect.any(Number),
-                emailInstitucional: expect.any(String),
-                direccion_residencial: expect.any(String),
-                telefono_movil: expect.any(Number),
-                password: expect.any(String),
-                id_tipo_documento: expect.any(Number),
-                id_tipo_rol: expect.any(Number),
-                id_ciudad: expect.any(Number),
-            });
+            expect(output).toMatchObject(userModelExpect);
         });
         it('Deberia desencadenar Throw BadRequestException si ya existe un usuario con el correo enviado o documento enviado', async () => {
             let usuario: CreateUsuarioDto;
@@ -85,31 +86,6 @@ describe('UsuariosService', () => {
             await expect(service.create(usuario)).rejects.toThrowError(
                 BadRequestException,
             );
-        });
-
-        it('Deberia desencadenar Throw Error si el servicio de Bcrypt falla hasheando la contraseña', async () => {
-            let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
-            spyServiceBcrypt.hash.mockImplementationOnce(() => {
-                throw new Error();
-            });
-            await expect(service.create(usuario)).rejects.toThrowError(Error);
-        });
-        it('Deberia desencadenar Throw Error si el repositorio falla guardando el usuario', async () => {
-            let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
-            spyServiceRepository.save.mockImplementationOnce(() => {
-                throw new Error();
-            });
-            await expect(service.create(usuario)).rejects.toThrowError(Error);
-        });
-        it('Deberia desencadenar Throw Error si el repositorio falla buscando el usuario', async () => {
-            let usuario: CreateUsuarioDto;
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
-            spyServiceRepository.findOne.mockImplementationOnce(() => {
-                throw new Error();
-            });
-            await expect(service.create(usuario)).rejects.toThrowError(Error);
         });
         it('Deberia llamar a los servicios Repository.create , BcryptService.hash ,Repository.save , Repository.findOne y CorreoService.sendEmail', async () => {
             let usuario: CreateUsuarioDto;
@@ -135,30 +111,31 @@ describe('UsuariosService', () => {
 
             output.forEach((usuario) => {
                 expect(usuario).toBeInstanceOf(Usuario);
-                expect(usuario).toMatchObject({
-                    id_usuario: expect.any(Number),
-                    nombres_usuario: expect.any(String),
-                    apellidos_usuario: expect.any(String),
-                    numero_documento: expect.any(Number),
-                    emailInstitucional: expect.any(String),
-                    direccion_residencial: expect.any(String),
-                    telefono_movil: expect.any(Number),
-                    password: expect.any(String),
-                    id_tipo_documento: expect.any(Number),
-                    id_tipo_rol: expect.any(Number),
-                    id_ciudad: expect.any(Number),
-                });
+                expect(usuario).toMatchObject(userModelExpect);
             });
         });
-        it('Deberia desencadenar Throw Error si el repositorio falla buscando los usuarios', async () => {
-            spyServiceRepository.find.mockImplementationOnce(() => {
-                throw new Error();
-            });
-            await expect(service.findAll()).rejects.toThrowError(Error);
-        });
-
         it('Deberia llamar a los servicios Repository.find', async () => {
             await service.findAll();
+            expect(spyServiceRepository.find).toHaveBeenCalled();
+        });
+        afterEach(() => {
+            jest.clearAllMocks();
+        });
+    });
+    describe('Usuarios.getUsersThatNotAreInFicha', () => {
+        beforeEach(() => {
+            jest.spyOn(spyServiceRepository, 'find');
+        });
+        it('Deberia retornar una lista de usuarios', async () => {
+            const output = await service.getUsersThatNotAreInFicha(1, 1);
+            console.log(output);
+            output.forEach((x) => {
+                expect(x).toBeInstanceOf(Usuario);
+                expect(x).toMatchObject(userModelExpect);
+            });
+        });
+        it('Deberia llamar a los servicios Repository.find', async () => {
+            await service.getUsersThatNotAreInFicha(1, 1);
             expect(spyServiceRepository.find).toHaveBeenCalled();
         });
         afterEach(() => {
@@ -172,19 +149,7 @@ describe('UsuariosService', () => {
         it('Deberia retornar un usuario', async () => {
             const output = await service.findOne(1);
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toMatchObject({
-                id_usuario: expect.any(Number),
-                nombres_usuario: expect.any(String),
-                apellidos_usuario: expect.any(String),
-                numero_documento: expect.any(Number),
-                emailInstitucional: expect.any(String),
-                direccion_residencial: expect.any(String),
-                telefono_movil: expect.any(Number),
-                password: expect.any(String),
-                id_tipo_documento: expect.any(Number),
-                id_tipo_rol: expect.any(Number),
-                id_ciudad: expect.any(Number),
-            });
+            expect(output).toMatchObject(userModelExpect);
         });
         it('Deberia desencadenar Throw NotFoundException si no hay un usuario con el id enviado', async () => {
             spyServiceRepository.findOne.mockImplementationOnce(() => {
@@ -194,13 +159,6 @@ describe('UsuariosService', () => {
                 NotFoundException,
             );
         });
-        it('Deberia desencadenar Throw Error si el repositorio falla buscando el usuario', async () => {
-            spyServiceRepository.findOne.mockImplementationOnce(() => {
-                throw new Error('');
-            });
-            await expect(service.findOne(1)).rejects.toThrowError(Error);
-        });
-
         it('Deberia llamar a los servicios Repository.findOne', async () => {
             await service.findOne(1);
             expect(spyServiceRepository.findOne).toHaveBeenCalled();
@@ -222,19 +180,7 @@ describe('UsuariosService', () => {
             const usuario: UpdateUsuarioDto = { nombres_usuario: '' };
             const output = await service.update(1, usuario);
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toMatchObject({
-                id_usuario: expect.any(Number),
-                nombres_usuario: expect.any(String),
-                apellidos_usuario: expect.any(String),
-                numero_documento: expect.any(Number),
-                emailInstitucional: expect.any(String),
-                direccion_residencial: expect.any(String),
-                telefono_movil: expect.any(Number),
-                password: expect.any(String),
-                id_tipo_documento: expect.any(Number),
-                id_tipo_rol: expect.any(Number),
-                id_ciudad: expect.any(Number),
-            });
+            expect(output).toMatchObject(userModelExpect);
         });
 
         it('Deberia desencadenar Throw NotFoundException si el usuario no existe', async () => {
@@ -271,30 +217,6 @@ describe('UsuariosService', () => {
                 BadRequestException,
             );
         });
-        it('Deberia desencadenar Throw Error si el repositorio falla buscando el usuario', async () => {
-            const usuario: UpdateUsuarioDto = { nombres_usuario: '' };
-            spyServiceRepository.findOne.mockImplementationOnce(() => {
-                throw new Error('');
-            });
-
-            await expect(service.update(1, usuario)).rejects.toThrowError(
-                Error,
-            );
-        });
-        it('Deberia desencadenar Throw Error si el repositorio falla actualizando el usuario', async () => {
-            spyServiceRepository.findOne.mockReturnValueOnce({});
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
-            spyServiceRepository.findOne.mockReturnValueOnce(undefined);
-            const usuario: UpdateUsuarioDto = { nombres_usuario: '' };
-            spyServiceRepository.update.mockImplementationOnce(() => {
-                throw new Error('');
-            });
-
-            await expect(service.update(1, usuario)).rejects.toThrowError(
-                Error,
-            );
-        });
-
         it('Deberia llamar a los servicios Repository.update , Repository.findOne , BcryptService.Hash , CorreoService.SendEmail', async () => {
             spyServiceRepository.findOne.mockReturnValueOnce(userStub);
             spyServiceRepository.findOne.mockReturnValueOnce(undefined);
@@ -318,19 +240,7 @@ describe('UsuariosService', () => {
         it('Deberia retornar un usuario', async () => {
             const output = await service.remove(1);
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toMatchObject({
-                id_usuario: expect.any(Number),
-                nombres_usuario: expect.any(String),
-                apellidos_usuario: expect.any(String),
-                numero_documento: expect.any(Number),
-                emailInstitucional: expect.any(String),
-                direccion_residencial: expect.any(String),
-                telefono_movil: expect.any(Number),
-                password: expect.any(String),
-                id_tipo_documento: expect.any(Number),
-                id_tipo_rol: expect.any(Number),
-                id_ciudad: expect.any(Number),
-            });
+            expect(output).toMatchObject(userModelExpect);
         });
         it('Deberia desencadenar Throw NotFoundException si el usuario no existe', async () => {
             spyServiceRepository.findOne.mockImplementationOnce(() => {
@@ -341,21 +251,6 @@ describe('UsuariosService', () => {
                 NotFoundException,
             );
         });
-        it('Deberia desencadenar Throw Error si el repositorio falla buscando el usuario', async () => {
-            spyServiceRepository.findOne.mockImplementationOnce(() => {
-                throw new Error('');
-            });
-
-            await expect(service.remove(1)).rejects.toThrowError(Error);
-        });
-        it('Deberia desencadenar Throw Error si el repositorio falla removiendo el usuario', async () => {
-            spyServiceRepository.remove.mockImplementationOnce(() => {
-                throw new Error('');
-            });
-
-            await expect(service.remove(1)).rejects.toThrowError(Error);
-        });
-
         it('Deberia llamar a los servicios Repository.findOne y Repository.remove', async () => {
             await service.remove(1);
             expect(spyServiceRepository.findOne).toHaveBeenCalled();
@@ -372,19 +267,7 @@ describe('UsuariosService', () => {
         it('Deberia retornar un usuario que haga "match" con el objecto', async () => {
             const output = await service.findOneByProperty({ id: 1 });
             expect(output).toBeInstanceOf(Usuario);
-            expect(output).toMatchObject({
-                id_usuario: expect.any(Number),
-                nombres_usuario: expect.any(String),
-                apellidos_usuario: expect.any(String),
-                numero_documento: expect.any(Number),
-                emailInstitucional: expect.any(String),
-                direccion_residencial: expect.any(String),
-                telefono_movil: expect.any(Number),
-                password: expect.any(String),
-                id_tipo_documento: expect.any(Number),
-                id_tipo_rol: expect.any(Number),
-                id_ciudad: expect.any(Number),
-            });
+            expect(output).toMatchObject(userModelExpect);
         });
         it('Deberia retornar undefined si no hay un usuario que haga "match"', async () => {
             spyServiceRepository.findOne.mockImplementationOnce(() => {
