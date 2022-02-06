@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { LoginUsuario } from '../dto/login-usuario.dto';
 describe('AuthController', () => {
     let controller: AuthController;
-    let spyAuthService;
+    let authService: AuthService;
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [AuthController],
@@ -18,7 +18,7 @@ describe('AuthController', () => {
         }).compile();
 
         controller = module.get<AuthController>(AuthController);
-        spyAuthService = module.get<AuthService>(AuthService);
+        authService = module.get<AuthService>(AuthService);
     });
 
     it('El Controllador "AuthController" es definido', () => {
@@ -28,7 +28,7 @@ describe('AuthController', () => {
         it('Llama el metodo "login" del servicio "authService"', async () => {
             let usuario: LoginUsuario;
             await controller.login({}, usuario);
-            expect(spyAuthService.login).toHaveBeenCalled();
+            expect(authService.login).toHaveBeenCalled();
         });
     });
     describe('AuthController.passwordChangeRequest', () => {
@@ -37,13 +37,13 @@ describe('AuthController', () => {
                 id_tipo_documento: 0,
                 numero_documento: 0,
             });
-            expect(spyAuthService.changePasswordRequest).toHaveBeenCalled();
+            expect(authService.changePasswordRequest).toHaveBeenCalled();
         });
     });
     describe('AuthController.passwordChange', () => {
         it('LLama el metodo "changePassword" del servicio "authService"', async () => {
             await controller.passwordChange('test', { password: '123' });
-            expect(spyAuthService.changePassword).toHaveBeenCalled();
+            expect(authService.changePassword).toHaveBeenCalled();
         });
     });
 });

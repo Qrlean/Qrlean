@@ -6,4 +6,6 @@ export const usuariosServiceMock = {
     findOne: jest.fn().mockResolvedValue(userStub),
     remove: jest.fn().mockResolvedValue(userStub),
     findOneByProperty: jest.fn().mockResolvedValue(userStub),
+    getUsersThatNotAreInFicha: jest.fn().mockResolvedValue([userStub]),
+    userPasswordUpdate: jest.fn().mockResolvedValue(userStub),
 };
