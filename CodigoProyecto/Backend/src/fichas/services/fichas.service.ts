@@ -10,7 +10,6 @@ import { Repository } from 'typeorm';
 import { Ficha } from '../entities/ficha.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsuariosService } from '../../usuarios/services/usuarios.service';
-import { AsignaturasService } from '../../asignaturas/services/asignaturas.service';
 import { FichaUsuario } from '../entities/fichaUsuario.entity';
 import { AsociarUsuario } from '../dto/asociar-usuario.dto';
 import { AsignaturaFicha } from '../entities/asignaturaFichas.entity';
@@ -22,7 +21,6 @@ export class FichasService {
         @InjectRepository(Ficha)
         private fichasRepository: Repository<Ficha>,
         private usuariosService: UsuariosService,
-        private asignaturasService: AsignaturasService,
         @InjectRepository(FichaUsuario)
         private fichasUsuariosRepository: Repository<FichaUsuario>,
         @InjectRepository(AsignaturaFicha)
@@ -65,8 +63,8 @@ export class FichasService {
                 default:
                     throw new BadRequestException('El rol enviado no existe');
             }
-            return fichas;
         }
+        return fichas;
     }
 
     async findOne(id: number, id_rol?: number, id_usuario?: number) {
@@ -74,7 +72,7 @@ export class FichasService {
         ficha = await this.fichasRepository.findOne(id, {
             relations: ['programa'],
         });
-        if (id_rol) {
+        if (id_rol && id_usuario) {
             switch (id_rol) {
                 case 1:
                 case 2:
