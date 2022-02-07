@@ -77,7 +77,6 @@ describe('UsuariosService', () => {
             let usuario: CreateUsuarioDto;
             const output = await service.create(usuario);
             expect(output).toBeInstanceOf(Usuario);
-            console.log(output);
             expect(output).toMatchObject(userModelExpect);
         });
         it('Deberia desencadenar Throw BadRequestException si ya existe un usuario con el correo enviado o documento enviado', async () => {

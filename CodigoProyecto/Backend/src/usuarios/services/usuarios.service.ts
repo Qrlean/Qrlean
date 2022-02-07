@@ -38,7 +38,6 @@ export class UsuariosService {
         }
         const uuidG = uuid();
 
-        console.log(uuidG);
         user.password = await this.bcryptService.hash(uuidG);
         user = await this.usersRepository.save(user);
         user = await this.usersRepository.findOne(user.id_usuario, {

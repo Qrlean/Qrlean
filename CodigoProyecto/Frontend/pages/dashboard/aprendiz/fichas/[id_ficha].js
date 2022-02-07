@@ -90,7 +90,6 @@ const Aprendiz = ({ data }) => {
                             data={dataChart}
                             borderColor="black"
                             colors={(datum) => {
-                                console.log(datum);
                                 return datum.data.color;
                             }}
                             borderWidth={1}

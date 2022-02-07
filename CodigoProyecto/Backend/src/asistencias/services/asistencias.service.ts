@@ -52,13 +52,11 @@ export class AsistenciasService {
                 );
             }
             let assistance: Asistencia;
-            console.log({ clase, usuario });
             assistance = await clase.asistencias.find(
                 (x) =>
                     x.id_aprendiz === usuario.id_asociacion_usuario_ficha &&
                     x.aprendiz.usuario.id_tipo_rol === 3,
             );
-            console.log(assistance);
             if (assistance) {
                 assistance.id_tipo_asistencia = usuario.id_tipo_asistencia;
             } else {

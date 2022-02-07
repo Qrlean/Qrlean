@@ -59,7 +59,6 @@ const CrearClase = () => {
         },
         validationSchema,
     });
-    console.log(formik.values.dia === Moment().format('yyyy-MM-DD'));
 
     return (
         <Dashboard>

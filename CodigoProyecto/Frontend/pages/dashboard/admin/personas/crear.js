@@ -83,7 +83,6 @@ const CrearUsuario = () => {
         },
         validationSchema,
     });
-    console.log(formik);
     return (
         <Dashboard>
             <CustomForm
