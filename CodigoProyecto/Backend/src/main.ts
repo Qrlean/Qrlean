@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    app.enableCors();
+
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
     const config = new DocumentBuilder()
         .setTitle('Qrlean')
@@ -17,6 +17,10 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, document);
     useContainer(app.select(AppModule), { fallbackOnErrors: true });
+    app.enableCors({
+        allowedHeaders: '*',
+        origin: '*',
+    });
     await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
