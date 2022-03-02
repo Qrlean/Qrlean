@@ -17,7 +17,7 @@ export const WithAuth = (props) => (WrappedComponent) => () => {
                     await router.push('/dashboard/instructor/fichas');
                     break;
                 case 3:
-                    await router.push('/dashboard/aprendiz');
+                    await router.push('/dashboard/aprendiz/fichas');
                     break;
             }
             setLoading(false);
@@ -40,6 +40,6 @@ export const WithAuth = (props) => (WrappedComponent) => () => {
     if (loading) {
         return null;
     }
-    return <WrappedComponent></WrappedComponent>;
+    return <WrappedComponent />;
 };
 export default WithAuth;

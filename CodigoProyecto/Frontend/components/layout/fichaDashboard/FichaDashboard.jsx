@@ -80,7 +80,7 @@ const FichaDashboard = ({ data, isAdmin = false, pathToBack }) => {
                         />
                     )}
                     <h1 className="flex-1 text-center mx-auto text-4xl text-gray-800 my-8  border-b-2 border-orange-500">
-                        Ficha 2141041
+                        Ficha {data.id_ficha}
                     </h1>
                     <h1
                         className="text-left mb-3 text-base text-gray-600"

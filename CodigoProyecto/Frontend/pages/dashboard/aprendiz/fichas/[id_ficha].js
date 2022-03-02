@@ -13,27 +13,32 @@ import ArrowBack from '../../../../svg/arrowback.svg';
 const Aprendiz = ({ data }) => {
     const router = useRouter();
     let dataCalendar;
-    data.asignaturas.map(
-        (i) =>
-            (dataCalendar = i.clases.map((c) => {
-                return {
-                    day: c.dia,
-                    color:
-                        c.asistencias[0].id_tipo_asistencia === 1
-                            ? '#ffdd3e'
-                            : c.asistencias[0].id_tipo_asistencia === 2
-                            ? '#1FFF00'
-                            : c.asistencias[0].id_tipo_asistencia === 3
-                            ? '#FF0000'
-                            : c.asistencias[0].id_tipo_asistencia === 4
-                            ? '#FF8D33'
-                            : c.asistencias[0].id_tipo_asistencia === 5 &&
-                              '#ffc3c3',
-                    label: 'Por firmar',
-                    value: 1,
-                };
-            })),
-    );
+    if (Object.prototype.hasOwnProperty.call(data, 'asignaturas')) {
+        data.asignaturas.map((i) => {
+            if (Object.prototype.hasOwnProperty.call(i, 'clases')) {
+                dataCalendar = i.clases.map((c) => {
+                    return {
+                        day: c.dia,
+                        color:
+                            c.asistencias[0].id_tipo_asistencia === 1
+                                ? '#ffdd3e'
+                                : c.asistencias[0].id_tipo_asistencia === 2
+                                ? '#1FFF00'
+                                : c.asistencias[0].id_tipo_asistencia === 3
+                                ? '#FF0000'
+                                : c.asistencias[0].id_tipo_asistencia === 4
+                                ? '#FF8D33'
+                                : c.asistencias[0].id_tipo_asistencia === 5 &&
+                                  '#ffc3c3',
+                        label: 'Por firmar',
+                        value: 1,
+                    };
+                });
+            }
+            return 1;
+        });
+    }
+
     const dataChart = [
         {
             id: 'Asistió con retardo',
@@ -66,6 +71,7 @@ const Aprendiz = ({ data }) => {
             value: data.inasistenciaConExcusa,
         },
     ].filter((i) => i.value > 0);
+    console.log(dataCalendar);
     return (
         <Dashboard>
             <div className="grid gap-4 grid-cols-2 h-full w-full overflow-y-auto relative">
@@ -106,7 +112,11 @@ const Aprendiz = ({ data }) => {
                     >
                         <div className="flex-1 w-full">
                             <ResponsiveCalendar
-                                data={dataCalendar}
+                                data={
+                                    dataCalendar !== undefined
+                                        ? dataCalendar
+                                        : []
+                                }
                                 from={Moment()
                                     .subtract(6, 'months')
                                     .format('yyyy-MM-DD')}

@@ -54,7 +54,7 @@ export const login = (payload) => {
                         await Router.push('/dashboard/instructor/fichas');
                         break;
                     case 3:
-                        await Router.push('/dashboard/aprendiz');
+                        await Router.push('/dashboard/aprendiz/fichas');
                         break;
                 }
             }, 1000);

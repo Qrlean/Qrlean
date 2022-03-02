@@ -122,7 +122,7 @@ export class FichasService {
                                 'Ficha__asignaturas__clases.asistencias',
                                 Asistencia,
                                 'a',
-                                '"Ficha__asignaturas__clases".id_clase = a.id_clase AND fu.id_usuario = a.id_aprendiz',
+                                '"Ficha__asignaturas__clases".id_clase = a.id_clase AND fu.id_asociacion_usuario_ficha = a.id_aprendiz',
                             );
                         },
                     });

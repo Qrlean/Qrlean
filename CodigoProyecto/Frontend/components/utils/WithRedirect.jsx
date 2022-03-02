@@ -21,7 +21,7 @@ const WithRedirect = (WrappedComponent) => () => {
                         await router.push('/dashboard/instructor/fichas');
                         break;
                     case 3:
-                        await router.push('/dashboard/aprendiz');
+                        await router.push('/dashboard/aprendiz/fichas');
                         break;
                 }
                 setLoading(false);
