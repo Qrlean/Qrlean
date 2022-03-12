@@ -143,41 +143,25 @@ export class AsistenciasService {
         id_clase: number,
         id_instructor,
     ): Promise<Asistencia[]> {
-        const asistenciasWUser = await this.asistenciaRepository.find({
-            relations: [
-                'aprendiz',
-                'aprendiz.usuario',
-                'clase',
-                'clase.asignatura',
-                'clase.asignatura.instructor',
-                'tipoAsistencia',
-            ],
-            where: {
-                id_clase,
-            },
-        });
-        const asistencias = await this.asistenciaRepository.find({
-            relations: [
-                'aprendiz',
-                'aprendiz.usuario',
-                'clase',
-                'tipoAsistencia',
-            ],
-            where: {
-                id_clase,
-            },
-        });
-        if (asistenciasWUser.length === 0) {
+        const exitsClase = await this.clasesService.findOne(id_clase);
+        if (!exitsClase) {
             throw new BadRequestException('No existe la clase requerida');
         }
-        if (
-            asistenciasWUser[0].clase.asignatura.instructor.id_usuario !==
-            id_instructor
-        ) {
+        if (exitsClase.asignatura.id_instructor !== id_instructor) {
             throw new UnauthorizedException(
-                'El usuario no tiene acceso a esta clase',
+                'El Instructor no posee acceso a esta clase',
             );
         }
-        return asistencias;
+        return this.asistenciaRepository.find({
+            relations: [
+                'aprendiz',
+                'aprendiz.usuario',
+                'clase',
+                'tipoAsistencia',
+            ],
+            where: {
+                id_clase,
+            },
+        });
     }
 }

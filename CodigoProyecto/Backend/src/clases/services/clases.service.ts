@@ -17,6 +17,7 @@ import { CorreoService } from '../../correo/services/correo.service';
 import { CronJob } from 'cron';
 import { Templates } from '../../correo/enum/templates.enum';
 import { AsistenciasService } from '../../asistencias/services/asistencias.service';
+import { QrService } from '../../qr/services/qr.service';
 
 @Injectable()
 export class ClasesService {
@@ -29,6 +30,7 @@ export class ClasesService {
         private correoService: CorreoService,
         @Inject(forwardRef(() => AsistenciasService))
         private asistenciasService: AsistenciasService,
+        private qrCodeService: QrService,
     ) {}
 
     async create(
@@ -158,7 +160,7 @@ export class ClasesService {
     }
 
     async findAllByAsignaturaId(
-        id_asignatura,
+        id_asignatura: number,
         id_instructor?: number,
     ): Promise<Clase[]> {
         const clases = await this.clasesRepository.find({
@@ -212,8 +214,7 @@ export class ClasesService {
                 'asignatura',
                 'asignatura.asignatura',
                 'asistencias',
-                ...(relations && [...relations]),
-            ],
+            ].concat(relations ? relations : []),
         });
         if (!clase) {
             throw new NotFoundException(`La clase con el id ${id} no existe`);
@@ -249,4 +250,8 @@ export class ClasesService {
         await this.clasesRepository.remove(clase);
         return;
     }
+    // async generateQrCode(id_clase: number): Promise<string> {
+    //     const clase =
+    //     return this.qrCodeService.generateQr('www.google.com');
+    // }
 }
