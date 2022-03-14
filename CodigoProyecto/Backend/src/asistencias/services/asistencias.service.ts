@@ -4,7 +4,6 @@ import {
     Inject,
     Injectable,
     NotFoundException,
-    UnauthorizedException,
 } from '@nestjs/common';
 import { CreateBulkAsistenciaDto } from '../dto/create-bulk-asistencia.dto';
 import { ClasesService } from '../../clases/services/clases.service';
@@ -143,15 +142,7 @@ export class AsistenciasService {
         id_clase: number,
         id_instructor,
     ): Promise<Asistencia[]> {
-        const exitsClase = await this.clasesService.findOne(id_clase);
-        if (!exitsClase) {
-            throw new BadRequestException('No existe la clase requerida');
-        }
-        if (exitsClase.asignatura.id_instructor !== id_instructor) {
-            throw new UnauthorizedException(
-                'El Instructor no posee acceso a esta clase',
-            );
-        }
+        await this.clasesService.findOne(id_clase, id_instructor);
         return this.asistenciaRepository.find({
             relations: [
                 'aprendiz',

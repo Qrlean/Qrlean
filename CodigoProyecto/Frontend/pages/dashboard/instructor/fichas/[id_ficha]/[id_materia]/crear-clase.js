@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
             /^[\u00F1A-Za-z _]*[\u00F1A-Za-z][\u00F1A-Za-z _]*$/,
             'El nombre debería solo contener caracteres alfanumericos.',
         )
-        .min(4, 'El nombre debería tener mínimo 4 caracteres.')
+        .min(2, 'El nombre debería tener mínimo 2 caracteres.')
         .max(100, 'El nombre debería tener máximo 100 caracteres.')
         .required('El campo nombre es requerido.'),
     dia: Yup.string().required('El campo día es requerido.'),

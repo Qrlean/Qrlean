@@ -250,8 +250,13 @@ export class ClasesService {
         await this.clasesRepository.remove(clase);
         return;
     }
-    // async generateQrCode(id_clase: number): Promise<string> {
-    //     const clase =
-    //     return this.qrCodeService.generateQr('www.google.com');
-    // }
+    async generateQrCode(
+        id_clase: number,
+        id_instructor?: number,
+    ): Promise<string> {
+        await this.findOne(id_clase, id_instructor);
+        return this.qrCodeService.generateQr(
+            `www.qrlean.software/firmar/${id_clase}`,
+        );
+    }
 }

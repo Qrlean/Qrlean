@@ -8,6 +8,7 @@ import { TimeModule } from 'src/time/time.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CorreoModule } from 'src/correo/correo.module';
 import { AsistenciasModule } from 'src/asistencias/asistencias.module';
+import { QrModule } from '../qr/qr.module';
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import { AsistenciasModule } from 'src/asistencias/asistencias.module';
         CorreoModule,
         // AsistenciasModule,
         forwardRef(() => AsistenciasModule),
+        QrModule,
     ],
     controllers: [ClasesController],
     providers: [ClasesService],

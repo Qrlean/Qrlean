@@ -7,6 +7,9 @@ import {
     LOGIN_INIT,
     LOGOUT,
     LOGOUT_INIT,
+    SIGN_ASISTENCIA_ERROR,
+    SIGN_ASISTENCIA_EXITO,
+    SIGN_ASISTENCIA_INIT,
 } from '../types';
 
 const initialState = {
@@ -15,6 +18,9 @@ const initialState = {
         user: null,
         firstCallLoading: true,
         loginLoading: false,
+    },
+    signAsistencia: {
+        state: null,
     },
 };
 
@@ -54,6 +60,15 @@ export default function appReducer(state = initialState, action) {
         case LOGOUT_INIT:
             state.auth.state = 'loading';
             state.auth.logoutLoading = true;
+            return state;
+        case SIGN_ASISTENCIA_INIT:
+            state.signAsistencia.state = 'loading';
+            return state;
+        case SIGN_ASISTENCIA_EXITO:
+            state.signAsistencia.state = 'success';
+            return state;
+        case SIGN_ASISTENCIA_ERROR:
+            state.signAsistencia.state = 'error';
             return state;
         default:
             return state;

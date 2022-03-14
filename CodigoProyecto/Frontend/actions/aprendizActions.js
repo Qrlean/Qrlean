@@ -7,6 +7,9 @@ import {
     GET_INFO_FICHA_APRENDIZ_ERROR,
     GET_INFO_FICHA_APRENDIZ_EXITO,
     GET_INFO_FICHA_APRENDIZ_INIT,
+    SIGN_ASISTENCIA_INIT,
+    SIGN_ASISTENCIA_EXITO,
+    SIGN_ASISTENCIA_ERROR,
 } from '../types';
 export const getInfoFicha = (payload) => {
     return async (dispatch) => {
@@ -65,4 +68,27 @@ const getFichasFnExito = (payload) => ({
 const getFichasFnError = (payload) => ({
     type: GET_FICHASAPRENDIZ_ERROR,
     payload,
+});
+
+export const signAsistencia = (payload) => {
+    return async (dispatch) => {
+        try {
+            dispatch(signAsistenciaFn());
+            await client.post(`asistencias/sign/${payload}`);
+            toast.success('Se firmo correctamente');
+            dispatch(signAsistenciaFnExito());
+        } catch (e) {
+            toast.error(e.response.data.message);
+            dispatch(signAsistenciaFnError());
+        }
+    };
+};
+const signAsistenciaFn = () => ({
+    type: SIGN_ASISTENCIA_INIT,
+});
+const signAsistenciaFnExito = () => ({
+    type: SIGN_ASISTENCIA_EXITO,
+});
+const signAsistenciaFnError = () => ({
+    type: SIGN_ASISTENCIA_ERROR,
 });

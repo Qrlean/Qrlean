@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
             /^[\u00F1A-Za-z _]*[\u00F1A-Za-z][\u00F1A-Za-z _]*$/,
             'Los nombres debería solo contener caracteres alfabéticos.',
         )
-        .min(4, 'Los nombres debería tener mínimo 4 caracteres.')
+        .min(5, 'Los nombres debería tener mínimo 5 caracteres.')
         .max(100, 'Los nombres debería tener máximo 100 caracteres.')
         .required('El campo nombres es requerido.'),
     apellidos_usuario: Yup.string()
@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
             /^[\u00F1A-Za-z _]*[\u00F1A-Za-z][\u00F1A-Za-z _]*$/,
             'Los apellidos debería solo contener caracteres alfabéticos.',
         )
-        .min(4, 'Los apellidos debería tener mínimo 4 caracteres.')
+        .min(5, 'Los apellidos debería tener mínimo 5 caracteres.')
         .max(100, 'Los apellidos debería tener máximo 100 caracteres.')
         .required('El campo apellidos es requerido.'),
     numero_documento: Yup.string()
@@ -37,6 +37,7 @@ const validationSchema = Yup.object().shape({
         .max(20, 'El documento debería tener máximo 20 caracteres.')
         .required('El campo numero de documento es requerido.'),
     emailInstitucional: Yup.string()
+        .min(5, 'El documento debería tener mínimo 5 caracteres.')
         .email('El email debería tener el formato de un email.')
         .required('El campo email es requerido.'),
     direccion_residencial: Yup.string()

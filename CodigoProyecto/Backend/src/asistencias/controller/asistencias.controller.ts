@@ -45,6 +45,14 @@ export class AsistenciasController {
             req.user.id_usuario,
         );
     }
-    // @Post
-    // createAprendiz() {}
+    @Post('sign/:id_clase')
+    createAprendiz(
+        @Req() req,
+        @Param('id_clase', ParseIntPipe) id_clase: number,
+    ) {
+        return this.asistenciasService.signAsistenciaAprendiz(
+            req.user.id_usuario,
+            id_clase,
+        );
+    }
 }

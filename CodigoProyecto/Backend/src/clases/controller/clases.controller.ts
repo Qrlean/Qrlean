@@ -4,6 +4,7 @@ import {
     Delete,
     Get,
     Param,
+    ParseIntPipe,
     Post,
     Req,
     UseGuards,
@@ -38,17 +39,22 @@ export class ClasesController {
     }
 
     @Get('/allByAsignaturaId/:id')
-    findAll(@Param('id') id: string) {
+    findAll(@Param('id', ParseIntPipe) id: number) {
         return this.clasesService.findAllByAsignaturaId(id);
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.clasesService.findOne(+id);
+    findOne(@Param('id', ParseIntPipe) id: number) {
+        return this.clasesService.findOne(id);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.clasesService.remove(+id);
+    remove(@Param('id', ParseIntPipe) id: number) {
+        return this.clasesService.remove(id);
+    }
+
+    @Get('/qrCode/:id')
+    getCrCode(@Param('id', ParseIntPipe) id: number) {
+        return this.clasesService.generateQrCode(id);
     }
 }
