@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
-
+import 'moment-timezone';
 @Injectable()
 export class TimeService {
     stringToMoment(date: string): moment.Moment {
@@ -10,7 +10,7 @@ export class TimeService {
         return moment(day).add(hour);
     }
     momentIsBeforeNow(date: moment.Moment): boolean {
-        return date.diff(moment(Date.now())) <= 0;
+        return date.diff(this.getBogotaHour()) <= 0;
     }
     endMomentIsBeforeStartMoment(
         dateStart: moment.Moment,
@@ -26,5 +26,8 @@ export class TimeService {
     }
     diffBetweenMoments(dateX: moment.Moment, dateY: moment.Moment): number {
         return dateX.diff(dateY, null, true);
+    }
+    getBogotaHour(): moment.Moment {
+        return moment().tz('America/Bogota');
     }
 }
