@@ -149,9 +149,7 @@ const Login = () => {
                                 value={formik.values.id_tipo_documento}
                                 className="text-center outline-none bg-gray-300 p-2  text-gray-800 my-2 "
                             >
-                                <option value="" selected>
-                                    Tipo de documento.
-                                </option>
+                                <option value="">Tipo de documento.</option>
                                 <option value="1">
                                     CC Cedula de ciudadanía.
                                 </option>

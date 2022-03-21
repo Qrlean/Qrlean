@@ -3,7 +3,6 @@ import {
     forwardRef,
     Inject,
     Injectable,
-    NotFoundException,
 } from '@nestjs/common';
 import { CreateBulkAsistenciaDto } from '../dto/create-bulk-asistencia.dto';
 import { ClasesService } from '../../clases/services/clases.service';
@@ -84,11 +83,6 @@ export class AsistenciasService {
         if (!aprendizClase) {
             throw new BadRequestException(
                 `El aprendiz no se encuentra asociado a la clase con id ${id_clase}`,
-            );
-        }
-        if (!clase) {
-            throw new NotFoundException(
-                `La clase con el id ${id_clase} no existe`,
             );
         }
         if (!clase.qr_available) {

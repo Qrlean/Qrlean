@@ -112,9 +112,7 @@ const RecuperarContrasena = () => {
                     value={formik.values.id_tipo_documento}
                     className="text-center outline-none bg-gray-300 p-2  text-gray-800 my-2 w-full"
                 >
-                    <option value="" selected>
-                        Tipo de documento.
-                    </option>
+                    <option value="">Tipo de documento.</option>
                     <option value="1">CC Cedula de ciudadanía.</option>
                     <option value="2">TI Tarjeta de identidad.</option>
                     <option value="3">CE Cedula de extranjería.</option>

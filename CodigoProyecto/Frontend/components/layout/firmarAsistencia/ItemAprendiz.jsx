@@ -27,7 +27,7 @@ const ItemAprendiz = ({ data, formik }) => {
                     onChange={handleChange}
                     id={data.id_asistencia}
                     className="mx-8 rounded outline-none text-center"
-                    style={{ webkitAppearance: 'none' }}
+                    style={{ WebkitAppearance: 'none' }}
                     value={
                         formik.values.asistencias.find(
                             (i) => i.id_asistencia === data.id_asistencia,

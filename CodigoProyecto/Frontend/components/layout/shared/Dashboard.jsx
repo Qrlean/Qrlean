@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 
-import { useRouter } from 'next/router';
-
 import { AnimatePresence, motion } from 'framer-motion';
 import Hamburger from 'hamburger-react';
 import LogoWhite from '../../../svg/2S.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import DashboardOptions from './DashboardOptions';
 import { DashboardProfileOptions } from './DashboardProfileOptions';
 
@@ -29,10 +27,6 @@ const mainVariants = {
 };
 
 const Dashboard = (props) => {
-    const dispatch = useDispatch();
-
-    const router = useRouter();
-
     const [menu, setMenu] = useState(false);
     const [active, setActive] = useState(false);
 
