@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signAsistencia } from '../../actions/aprendizActions';
 import { toast } from 'react-toastify';
+import Header from '../../components/layout/shared/Header';
 
 const FirmarClase = () => {
     const router = useRouter();
@@ -21,6 +22,23 @@ const FirmarClase = () => {
     useEffect(() => {
         if (stateSign !== 'loading') router.push('/login');
     }, []);
-    return <></>;
+    return (
+        <>
+            <div className="bg-gray-100 h-full overflow-x-hidden min-h-screen relative">
+                <Header forceBackground={true} />
+                <h1
+                    className="text-3xl text-gray-800 font-bold absolute"
+                    style={{
+                        position: 'absolute',
+                        left: '50%',
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }}
+                >
+                    Cargando ....
+                </h1>
+            </div>
+        </>
+    );
 };
 export default FirmarClase;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Dashboard from '../../../../../../components/layout/shared/Dashboard';
 import ItemAprendiz from '../../../../../../components/layout/firmarAsistencia/ItemAprendiz';
 import { useFormik } from 'formik';
@@ -12,8 +12,9 @@ import {
 } from '../../../../../../actions/teacherActions';
 import WithGetOrRedirect from '../../../../../../components/utils/WithGetOrRedirect';
 import { useDispatch } from 'react-redux';
-
+const QrCode = require('qrcode');
 const FirmarClase = ({ data }) => {
+    const [qr, setQr] = useState('');
     const router = useRouter();
     const dispatch = useDispatch();
     const formik = useFormik({
@@ -50,10 +51,22 @@ const FirmarClase = ({ data }) => {
             })),
         });
     };
+    useEffect(() => {
+        const getQr = async () => {
+            setQr(
+                await QrCode.toDataURL(
+                    `https://www.qrlean.software/firmar/${router.query.id_clase}`,
+                    { margin: 0 },
+                ),
+            );
+        };
+        getQr();
+    }, []);
+
     return (
         <Dashboard>
             <form
-                className="w-2/3 h-full overflow-y-auto mx-auto my-4"
+                className="w-full md:w-2/3 h-full overflow-y-auto mx-auto my-4"
                 onSubmit={formik.handleSubmit}
             >
                 <div
@@ -74,14 +87,14 @@ const FirmarClase = ({ data }) => {
                     </svg>
                     <button
                         type="button"
-                        className="text-gray-800 text-xl text-center underline outline-none mx-3"
+                        className="text-gray-800 text-base md:text-xl text-center underline outline-none mx-1 lg:mx-3"
                         onClick={handleAllCheckAsistio}
                     >
                         Seleccionar todos como asistió
                     </button>
                     <button
                         type="button"
-                        className="text-gray-800 text-xl text-center underline outline-none mx-3"
+                        className="text-gray-800 text-base md:text-xl text-center underline outline-none mx-1 md:mx-3"
                         onClick={handleAllCheckNoAsistio}
                     >
                         Seleccionar todos como no asistió
@@ -95,11 +108,14 @@ const FirmarClase = ({ data }) => {
                     />
                 ))}
                 <button
-                    className="outline-none w-full border-gray-800 p-4 text-center text-gray-800 text-xl bg-orange-400"
+                    className="outline-none w-full border-gray-800 p-4 text-center text-gray-800 text-xl bg-orange-400 my-2 "
                     style={{ border: '1px solid' }}
                 >
                     Guardar
                 </button>
+                <div className="absolute top-0 right-0 m-4 lg:m-8 hidden lg:block">
+                    <img src={qr} className="w-32 h-32" alt="qr" />
+                </div>
             </form>
         </Dashboard>
     );
