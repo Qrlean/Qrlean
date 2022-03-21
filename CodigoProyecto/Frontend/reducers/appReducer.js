@@ -1,4 +1,7 @@
 import {
+    CHANGE_PASSWORD_ERROR,
+    CHANGE_PASSWORD_EXITO,
+    CHANGE_PASSWORD_INIT,
     FIRST_CALL_ERROR,
     FIRST_CALL_EXITO,
     FIRST_CALL_INIT,
@@ -21,6 +24,10 @@ const initialState = {
     },
     signAsistencia: {
         state: null,
+    },
+    changePassword: {
+        state: null,
+        loading: null,
     },
 };
 
@@ -69,6 +76,18 @@ export default function appReducer(state = initialState, action) {
             return state;
         case SIGN_ASISTENCIA_ERROR:
             state.signAsistencia.state = 'error';
+            return state;
+        case CHANGE_PASSWORD_INIT:
+            state.changePassword.state = 'loading';
+            state.changePassword.loading = true;
+            return state;
+        case CHANGE_PASSWORD_EXITO:
+            state.changePassword.state = 'success';
+            state.changePassword.loading = false;
+            return state;
+        case CHANGE_PASSWORD_ERROR:
+            state.changePassword.state = 'error';
+            state.changePassword.loading = false;
             return state;
         default:
             return state;

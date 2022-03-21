@@ -4,6 +4,8 @@ import WithRedirect from '../components/utils/WithRedirect';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { AnimatePresence, motion } from 'framer-motion';
+import { passwordRecoveryRequest } from '../actions/appActions';
+import { useDispatch } from 'react-redux';
 
 const errorVariants = {
     initial: {
@@ -46,12 +48,15 @@ const validationSchema = Yup.object().shape({
         .required('El campo tipo de documento es requerido.'),
 });
 const RecuperarContrasena = () => {
+    const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: {
             numero_documento: '',
             id_tipo_documento: '',
         },
-        onSubmit: (values) => {},
+        onSubmit: (values) => {
+            dispatch(passwordRecoveryRequest(values));
+        },
         validationSchema,
     });
     return (
@@ -61,9 +66,9 @@ const RecuperarContrasena = () => {
                 className="mt-40 flex flex-col justify-center items-center w-80 mx-auto"
                 onSubmit={formik.handleSubmit}
             >
-                <label htmlFor="" className="text-xl text-gray-800 text-center">
-                    Correo electrónico de la cuenta.
-                </label>
+                <h1 className="text-xl text-gray-800 text-center">
+                    Recuperar contraseña.
+                </h1>
                 <AnimatePresence>
                     {formik.errors.numero_documento &&
                     formik.touched.numero_documento ? (

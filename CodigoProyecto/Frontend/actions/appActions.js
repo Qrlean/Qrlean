@@ -1,4 +1,7 @@
 import {
+    CHANGE_PASSWORD_ERROR,
+    CHANGE_PASSWORD_EXITO,
+    CHANGE_PASSWORD_INIT,
     FIRST_CALL_ERROR,
     FIRST_CALL_EXITO,
     FIRST_CALL_INIT,
@@ -92,4 +95,46 @@ const logout = () => ({
 });
 const logoutInit = () => ({
     type: LOGOUT_INIT,
+});
+export const passwordRecoveryRequest = (payload) => {
+    payload.id_tipo_documento = parseInt(payload.id_tipo_documento);
+    payload.numero_documento = parseInt(payload.numero_documento);
+    return async () => {
+        try {
+            await client.post('auth/passwordChangeRequest', payload);
+        } catch (e) {
+        } finally {
+            toast.info(
+                'Si encontramos una cuenta con los datos ingresados se le enviara un email al correo asociado de la cuenta.',
+            );
+            await Router.push('/login');
+        }
+    };
+};
+export const changePassword = (payload) => {
+    return async (dispatch) => {
+        try {
+            dispatch(changePasswordFn());
+            await client.post(`auth/passwordChange?token=${payload.token}`, {
+                password: payload.password,
+            });
+            toast.success('Contraseña cambiada con exito');
+            await Router.push('/login');
+            dispatch(changePasswordFnExito());
+        } catch (e) {
+            toast.error(e.response.data.message);
+            await Router.push('/login');
+            dispatch(changePasswordFnError());
+        }
+    };
+};
+
+const changePasswordFn = () => ({
+    type: CHANGE_PASSWORD_INIT,
+});
+const changePasswordFnError = () => ({
+    type: CHANGE_PASSWORD_ERROR,
+});
+const changePasswordFnExito = () => ({
+    type: CHANGE_PASSWORD_EXITO,
 });
